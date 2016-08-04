@@ -69,4 +69,3 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     // This hooks all auth events to check everything as soon as the app starts
     auth.hookEvents();
     }]);
-
