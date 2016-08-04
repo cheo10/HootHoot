@@ -1,5 +1,6 @@
 var express = require('express');
 var mysql = require('mysql');
+var path = require('path')
 
 // var db = require('./db');
 
@@ -26,7 +27,7 @@ connection.connect();
 // // Logging and parsing
 app.use(morgan('dev'));
 app.use(parser.json());
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(path.join(__dirname, '/../client')));
 
 
 var port = process.env.PORT || 9000;
