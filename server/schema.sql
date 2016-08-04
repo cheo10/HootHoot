@@ -2,8 +2,8 @@ CREATE DATABASE chat;
 
 USE hoot;
 
-CREATE TABLE 'messages' (
-    `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE 'chats' (
+    `message_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     'message' VARCHAR(500),
 );
 
@@ -19,7 +19,3 @@ CREATE TABLE 'channels' (
     'originChannel' VARCHAR(30),
     'channels' VARCHAR(160),
 );
-
-
-
-
