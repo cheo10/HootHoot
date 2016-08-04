@@ -1,5 +1,6 @@
 var express = require('express');
 var mysql = require('mysql');
+var path = require('path')
 
 // var db = require('./db');
 
@@ -12,19 +13,21 @@ var parser = require('body-parser');
 
 var app = express();
 
-var connection = mysql.createConnection({
-  host: 'us-cdbr-iron-east-04.cleardb.net',
-  user: 'b5cb560c0292c4',
-  password: 'd9b6a43b',
-  database: 'heroku_7d6d03d0a895c93'
-});
+var localDbConnection = {
+  host: 'localhost',
+  user: 'hoot',
+  password: 'hoot',
+  database: 'hootDev'
+}
+
+var connection = mysql.createConnection(process.env.CLEARDB_DATABASE_URL || localDbConnection);
 
 connection.connect();
 
 // // Logging and parsing
 app.use(morgan('dev'));
 app.use(parser.json());
-app.use(express.static(__dirname + '/'));
+app.use(express.static(path.join(__dirname, '/../client')));
 
 
 var port = process.env.PORT || 9000;
