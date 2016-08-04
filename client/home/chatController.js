@@ -9,4 +9,10 @@ angular.module('chatController',['theApp'])
     'channels': [],
   };
 
+  $scope.logout = function() {
+  store.remove('profile');
+  store.remove('token');
+  $location.path('/login');
+  };
+
 }]);
