@@ -13,17 +13,17 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
 
     $routeProvider
     .when('/', {
-      templateUrl: 'client/login/login.html',
+      templateUrl: 'login/login.html',
       controller: 'loginController'
       // requiresLogin: true
     })
     .when('/signup', {
-      templateUrl: 'client/signup/signup.html',
+      templateUrl: 'signup/signup.html',
       controller: 'signupController'
 
     })
     .when('/chat', {
-      templateUrl: 'client/home/chat.html',
+      templateUrl: 'home/chat.html',
       controller: 'chatController',
       requiresLogin: true
     })
