@@ -1,4 +1,8 @@
-var controller = require('./controllers');
-var router = require('express').Router();
+// var controller = require('./controllers');
+// var router = require('express').Router();
 
-module.exports = router;
+// router.get('/signup', controller.users.get);
+
+// router.post('/signup', controller.users.post);
+
+// module.exports = router;
