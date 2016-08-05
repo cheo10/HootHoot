@@ -61,10 +61,6 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     $httpProvider.interceptors.push('jwtInterceptor');
   }]);
 
-  app.controller('mainCtrl', function($scope){
-      $scope.message = "hi";
-    })
-
   app.run(['auth', function(auth) {
     // This hooks all auth events to check everything as soon as the app starts
     auth.hookEvents();

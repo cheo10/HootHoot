@@ -1,0 +1,5 @@
+<ul class="chat-list">
+  <li class="" ng-repeat="chat in chats track by chat.uuid" repeat-complete="listDidRender()">
+    <chatSingle id="{{chat.uuid}}" content="{{chat.content}}" sender-uuid="{{chat.senderUuid}}" date={{chat.date}}></chatSingle>
+  </li>
+</ul>
