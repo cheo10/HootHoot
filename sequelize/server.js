@@ -4,8 +4,8 @@ var mysql = require('mysql');
 var path = require('path');
 
 // // Middleware
-var morgan = require('morgan');
-var parser = require('body-parser');
+// var morgan = require('morgan');
+var bodyParser = require('body-parser');
 
 // Router
 var router = require('./route.js');
@@ -25,9 +25,12 @@ var connection = mysql.createConnection(process.env.CLEARDB_DATABASE_URL || loca
 connection.connect();
 
 // // Logging and parsing
-app.use(morgan('dev'));
-app.use(parser.json());
-app.use('/classes', router);
+// app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
+app.use('/', router);
 app.use(express.static(path.join(__dirname, '/../client')));
 
 

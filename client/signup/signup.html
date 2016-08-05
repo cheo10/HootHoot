@@ -1,14 +1,17 @@
 <h1> Sign Up </h1>
   <br>
-<form ng-submit="signUp(email, password, username)">
+<form ng-submit="signUp(firstName, lastName, username, email, password)">
+  <input ng-model="firstName" placeholder="First Name">
+  <br>
+  <input ng-model="lastName" placeholder="Last Name">
+  <br>
   <input ng-model="username" placeholder="Username">
   <br>
   <input ng-model="email" placeholder="Email">
   <br>
   <input type="password" ng-model="password" placeholder="Password">
   <br>
-  <input type="password" ng-model="confirmPassword" placeholder="Confirm Password">
-  <br>
   <button type="submit">Sign Up</button>
-</form>
+  <br>
   <p> Already have an account? <a href="#/">Log in now</a></p>
+</form>
