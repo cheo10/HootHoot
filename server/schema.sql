@@ -29,11 +29,12 @@ CREATE TABLE Channel (
 CREATE TABLE GroupRoom (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30),
-    isActive VARCHAR(20),
+    isActive INT,
     group_created timestamp DEFAULT NOW()
 );
 
 CREATE TABLE Contacts (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(30),
+    userOne VARCHAR(30),
+    userTwo VARCHAR(30),
 );

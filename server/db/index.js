@@ -29,14 +29,14 @@ Table.sync();
 
 var GroupRoom = db.define('GroupRoom', {
   name: Sequelize.STRING,
-  isActive: Sequelize.STRING
+  isActive: Sequelize.INTEGER
 });
 
 GroupRoom.sync();
 
 var Contacts = db.define('Contacts', {
-  name: Sequelize.STRING,
-  isActive: Sequelize.STRING
+  userOne: Sequelize.STRING,
+  userTwo: Sequelize.STRING,
 });
 
 Contacts.sync();
