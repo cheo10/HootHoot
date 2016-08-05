@@ -1,0 +1,15 @@
+<h1> Welcome to Hoot </h1>
+  Please sign in
+  <br>
+<form>
+  <input ng-model="username" placeholder="username">
+  <br>
+  <input type="password" ng-model="password" placeholder="password">
+  <button ng-click="signIn(username, password)">Sign In</button>
+  <br>
+  Sign in with Google or Facebook
+  <a href="#" ng-click="auth.signin()" class="btn btn-primary btn-lg btn-block">Sign In</a>
+  <br>
+  <br>
+  No username? <a href="#signup">Sign up </a>
+</form>
