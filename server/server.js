@@ -8,7 +8,7 @@ var path = require('path');
 var bodyParser = require('body-parser');
 
 // Router
-var router = require('./route.js');
+var router = require('../server/route.js');
 
 var app = express();
 module.exports.app = app;

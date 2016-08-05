@@ -14,6 +14,6 @@ angular.module('signupController', ['theApp'])
         password: password
       }
     })
-    console.log('signed up');
+    console.log('sent post req from signup controller');
   };
 });
