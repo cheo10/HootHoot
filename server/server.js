@@ -1,6 +1,5 @@
 var express = require('express');
 var db = require('./db');
-var mysql = require('mysql');
 var path = require('path');
 
 // // Middleware
@@ -12,17 +11,6 @@ var router = require('../server/route.js');
 
 var app = express();
 module.exports.app = app;
-
-var localDbConnection = {
-  host: 'localhost',
-  user: 'hoot',
-  password: 'hoot',
-  database: 'hoot'
-}
-
-var connection = mysql.createConnection(process.env.CLEARDB_DATABASE_URL || localDbConnection);
-
-connection.connect();
 
 // // Logging and parsing
 // app.use(morgan('dev'));
