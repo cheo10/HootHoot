@@ -5,7 +5,7 @@
   "author": "Forrest, Chris, Nahee, Jeff",
   "license": "",
   "scripts": {
-    "start": "node server/server.js"
+    "start": "node sequelize/server.js"
   },
   "devDependencies": {
     "chai": "^3.5.0",

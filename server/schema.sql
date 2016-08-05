@@ -11,8 +11,8 @@ CREATE TABLE message (
 
 CREATE TABLE User (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(15),
-    last_name VARCHAR(15),
+    firstname VARCHAR(15),
+    lastname VARCHAR(15),
     username VARCHAR(20),
     password VARCHAR(20),
     email VARCHAR(30),
