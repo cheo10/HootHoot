@@ -1,12 +1,12 @@
 USE hoot;
 
-CREATE TABLE message (
+CREATE TABLE Message (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     body VARCHAR(500),
-    sender_id INT,
-    parent_message_id INT,
-    origin_channel_id INT,
-    message_created timestamp DEFAULT NOW()
+    senderId INT,
+    parentMessageId INT,
+    originChannelId INT,
+    messageCreated timestamp DEFAULT NOW()
 );
 
 CREATE TABLE User (
@@ -21,14 +21,20 @@ CREATE TABLE User (
     users_created timestamp DEFAULT NOW()
 );
 
-CREATE TABLE channel (
+CREATE TABLE Channel (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30)
 );
 
-CREATE TABLE groupRoom (
+CREATE TABLE GroupRoom (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30),
-    is_active VARCHAR(20),
+    isActive INT,
     group_created timestamp DEFAULT NOW()
+);
+
+CREATE TABLE Contacts (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    userOne VARCHAR(30),
+    userTwo VARCHAR(30),
 );
