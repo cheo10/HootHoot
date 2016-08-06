@@ -1,6 +1,7 @@
-angular.module('theApp').directive('chatList', function($timeout, $anchorScroll, MessageService, ngNotify) {
+angular.module('chatlistdirective', ['theApp']).directive('chatlist', function() {
   return {
     restrict: "E",
+    replace: true,
     templateUrl: 'app/components/chat-list/chat-list.html',
 
     link: function(scope, element, attrs, ctrl) {
@@ -9,7 +10,7 @@ angular.module('theApp').directive('chatList', function($timeout, $anchorScroll,
       init();
     },
 
-    controller: function($scope) {
+    controller: function($scope, MessageService) {
       $scope.chats = MessageService;
 
       $scope.scrollToBottom = function() {
@@ -20,6 +21,14 @@ angular.module('theApp').directive('chatList', function($timeout, $anchorScroll,
       $scope.listDidRender = function() {
         $scope.scrollToBottom();
       };
+
+      $scope.chats = [{
+        uuid: 123899,
+        content: 'hello first chat!',
+        date: Date(),
+        senderUuid: 1893987
+
+      }];
     }
   };
 });

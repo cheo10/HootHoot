@@ -1,6 +1,8 @@
-<userPic uuid="{{senderUuid}}" />
-<span>Anonymous Chatter #{{senderUuid}}</span>
-<p>
-  {{date | date: "h:mma 'on' MM/dd/yyyy"}} <br>
-  {{content}}
-</p>
+<div class="chat-single">
+  <userPic uuid="{{senderUuid}}" />
+  <span>Person You're Talking To #{{senderUuid}}</span>
+  <p>
+    {{date | date: "h:mma 'on' MM/dd/yyyy"}} <br>
+    {{content}}
+  </p>
+</div>

@@ -1,4 +1,4 @@
-angular.module('theApp').directive('chatSingle', function(MessageService) {
+angular.module('chatsingledirective', ['theApp']).directive('chatsingle', function(MessageService) {
   return {
     restrict: "E",
     templateUrl: 'app/components/chat-single/chat-single.html',
@@ -7,5 +7,5 @@ angular.module('theApp').directive('chatSingle', function(MessageService) {
       content: '@',
       date: '@'
     }
-  };
-};
+  }
+});

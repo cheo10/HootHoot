@@ -1,6 +1,7 @@
-angular.module('theApp').directive.('chatForm', function () {
+angular.module('chatformdirective', ['theApp']).directive('chatform', function () {
   return {
     restrict: "E",
+    replace: true,
     templateUrl: 'app/components/chat-form/chat-form.html',
     scope: {},
 
@@ -15,4 +16,3 @@ angular.module('theApp').directive.('chatForm', function () {
     }
   };
 });
-
