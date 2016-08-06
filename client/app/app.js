@@ -19,7 +19,6 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     .when('/', {
       templateUrl: 'login/login.html',
       controller: 'loginController'
-      // requiresLogin: true
     })
     .when('/signup', {
       templateUrl: 'signup/signup.html',
