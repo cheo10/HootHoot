@@ -5,7 +5,10 @@ var app = angular.module('theApp', [
   'ngRoute',
   'loginController',
   'signupController',
-  'chatController'
+  'chatController',
+  'chatformdirective',
+  'chatsingledirective',
+  'chatlistdirective'
   ])
 
 app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvider', 'jwtInterceptorProvider',
@@ -23,9 +26,9 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
 
     })
     .when('/chat', {
-      templateUrl: 'home/chat.html',
+      templateUrl: 'app/views/chat.html',
       controller: 'chatController',
-      requiresLogin: true
+      // requiresLogin: true
     })
 
     authProvider.init({
@@ -61,11 +64,15 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     $httpProvider.interceptors.push('jwtInterceptor');
   }]);
 
-  app.controller('mainCtrl', function($scope){
-      $scope.message = "hi";
-    })
+app.value('currentUser', Math.floor(Math.random() * 1000000));
 
-  app.run(['auth', function(auth) {
+app.factory('MessageService', ['$rootScope', 'currentUser',
+  function MessageServiceFactory($rootScope, currentUser){
+    return {};
+}]);
+
+app.run(['auth', function(auth) {
     // This hooks all auth events to check everything as soon as the app starts
     auth.hookEvents();
-    }]);
+}]);
+
