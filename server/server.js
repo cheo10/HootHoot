@@ -1,6 +1,8 @@
 var express = require('express');
 var db = require('./db');
 var path = require('path');
+var http = require('http');
+var socketHandler = require('./socketHandler');
 
 // // Middleware
 // var morgan = require('morgan');
@@ -10,7 +12,8 @@ var bodyParser = require('body-parser');
 var router = require('../server/route.js');
 
 var app = express();
-module.exports.app = app;
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 // // Logging and parsing
 // app.use(morgan('dev'));
@@ -21,9 +24,15 @@ app.use(bodyParser.urlencoded({
 app.use('/', router);
 app.use(express.static(path.join(__dirname, '/../client')));
 
+io.on('connection', socketHandler.newConnection);
 
 var port = process.env.PORT || 9000;
 
-app.listen(port, function() {
+server.listen(port, function() {
   console.log('server up and running on port ' + port);
 });
+
+module.exports = {
+  app: app,
+  io: io
+}

@@ -16,17 +16,26 @@ User.sync();
 var Message = db.define('Message', {
   body: Sequelize.STRING,
   senderId: Sequelize.STRING,
-  parentMessageId: Sequelize.STRING,
-  originChannelId: Sequelize.STRING,
+  parentMessageId: Sequelize.INTEGER,
+  originChannelId: Sequelize.INTEGER,
 });
+
+var MessageRecipient = db.define('MessageRecipient', {
+  recipientId: Sequelize.STRING,
+  recipientGroupId: Sequelize.INTEGER,
+  messageId: Sequelize.INTEGER,
+  isRead: Sequelize.BOOLEAN
+});
+
+Message.addMessage = function(message) {
+  return Message.create({body: message.body, senderId: message.senderId})
+    .then(function (messageResult) {
+      return MessageRecipient.create({recipientId: message.recipientId, messageId: messageResult.id})
+    });
+}
 
 Message.sync();
-
-var Table = db.define('Table', {
-  name: Sequelize.STRING,
-});
-
-Table.sync();
+MessageRecipient.sync();
 
 var GroupRoom = db.define('GroupRoom', {
   name: Sequelize.STRING,
@@ -34,6 +43,13 @@ var GroupRoom = db.define('GroupRoom', {
 });
 
 GroupRoom.sync();
+
+var UserGroup = db.define('UserGroup', {
+  userId: Sequelize.INTEGER,
+  groupId: Sequelize.INTEGER
+});
+
+UserGroup.sync();
 
 var Contacts = db.define('Contacts', {
   userOne: Sequelize.STRING,
@@ -46,11 +62,12 @@ Contacts.sync();
 // Declare Relationships between Models
 User.hasMany(Message);
 Message.belongsTo(User);
-
+//UserGroup.hasMany(User);
+UserGroup.hasMany(GroupRoom);
 
 exports.Contacts = Contacts;
 exports.GroupRoom = GroupRoom;
-exports.Table = Table;
+exports.UserGroup = UserGroup;
 exports.Message = Message;
 exports.User = User;
 

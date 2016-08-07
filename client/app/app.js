@@ -5,10 +5,11 @@ var app = angular.module('theApp', [
   'ngRoute',
   'loginController',
   'signupController',
-  'chatController',
   'chatformdirective',
   'chatsingledirective',
-  'chatlistdirective'
+  'chatlistdirective',
+  'userpicdirective',
+  'services'
   ])
 
 app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvider', 'jwtInterceptorProvider',
@@ -27,7 +28,7 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     })
     .when('/chat', {
       templateUrl: 'app/views/chat.html',
-      controller: 'chatController',
+      controller: ''
       // requiresLogin: true
     })
 
@@ -37,13 +38,15 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     loginUrl: '/'
     });
 
-    authProvider.on('loginSuccess', ['$location', 'profilePromise', 'idToken', 'store',
-      function($location, profilePromise, idToken, store) {
+    authProvider.on('loginSuccess', ['$location', 'profilePromise', 'idToken', 'store', 'socket',
+      function($location, profilePromise, idToken, store, socket) {
 
         console.log("Login Success");
         profilePromise.then(function(profile) {
           store.set('profile', profile);
           store.set('token', idToken);
+
+          socket.emit('registered', profile.nickname);
         });
 
         $location.path('/chat');
@@ -66,10 +69,6 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
 
 app.value('currentUser', Math.floor(Math.random() * 1000000));
 
-app.factory('MessageService', ['$rootScope', 'currentUser',
-  function MessageServiceFactory($rootScope, currentUser){
-    return {};
-}]);
 
 app.run(['auth', function(auth) {
     // This hooks all auth events to check everything as soon as the app starts

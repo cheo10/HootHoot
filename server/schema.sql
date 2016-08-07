@@ -33,6 +33,13 @@ CREATE TABLE GroupRoom (
     group_created timestamp DEFAULT NOW()
 );
 
+CREATE TABLE UserGroup (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    userid INT,
+    GROUPID INT,
+    group_created timestamp DEFAULT NOW()
+);
+
 CREATE TABLE Contacts (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     userOne VARCHAR(30),

@@ -3,8 +3,8 @@ angular.module('chatsingledirective', ['theApp']).directive('chatsingle', functi
     restrict: "E",
     templateUrl: 'app/components/chat-single/chat-single.html',
     scope: {
-      senderUuid: '@', //???
-      content: '@',
+      sender: '@', //???
+      body: '@',
       date: '@'
     }
   }
