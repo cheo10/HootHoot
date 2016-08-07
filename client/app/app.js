@@ -9,7 +9,8 @@ var app = angular.module('theApp', [
   'chatsingledirective',
   'chatlistdirective',
   'userpicdirective',
-  'services'
+  'services',
+  'mainCtrl'
   ])
 
 app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvider', 'jwtInterceptorProvider',
@@ -18,17 +19,18 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     $routeProvider
     .when('/', {
       templateUrl: 'login/login.html',
-      controller: 'loginController'
+      controller: 'loginController',
+
     })
     .when('/signup', {
       templateUrl: 'signup/signup.html',
-      controller: 'signupController'
+      controller: 'signupController',
 
     })
     .when('/chat', {
       templateUrl: 'app/views/chat.html',
-      controller: ''
-      // requiresLogin: true
+      controller: '',
+      authenticate: true
     })
 
     authProvider.init({
@@ -69,13 +71,25 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     // $locationProvider.html5Mode(true);
 
     $httpProvider.interceptors.push('AttachTokens');
-  }]);
+  }])
+
+angular.module('mainCtrl', ['theApp'])
+.controller('mainCtrl', function($scope,$window,$location) {
+
+  $scope.logout = function() {
+    $window.localStorage.removeItem('id');
+    $window.localStorage.removeItem('profile');
+    $window.localStorage.removeItem('token');
+    $window.localStorage.removeItem('username');
+    $location.path('/');
+  };
+})
 
 app.value('currentUser', Math.floor(Math.random() * 1000000));
 
 app.factory('Authentication', function($http, $location, $window) {
     var isAuth = function() {
-    return !!$window.localStorage.getItem('com.tp');
+    return !!$window.localStorage.getItem('token');
   };
 
   return {
@@ -101,14 +115,13 @@ app.factory('AttachTokens', function($window) {
   return attach;
 })
 .run(function($rootScope, $location, Authentication) {
-  $rootScope.$on('$routeChangeStart', function(evt, next, current) {
-    if(!Authentication.isAuth()) {
-      console.log('Not authorized')
-      $location.path('/');
+  $rootScope.$on('$routeChangeStart', function (evt, next, current) {
+    if (!Authentication.isAuth()) {
+      console.log('not authenticated')
+      $location.path('/signup');
     }
   });
-})
-
+});
 
 app.run(['auth', function(auth) {
     // This hooks all auth events to check everything as soon as the app starts

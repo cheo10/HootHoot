@@ -24,8 +24,4 @@ angular.module('loginController', ['theApp'])
     });
   };
 
-  $scope.logout = function() {
-
-  };
-
 }]);
