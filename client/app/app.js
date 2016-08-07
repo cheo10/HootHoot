@@ -64,9 +64,50 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
 
     //Push interceptor function to $httpProvider's interceptors
     $httpProvider.interceptors.push('jwtInterceptor');
+
+    // use the HTML5 History API
+    // $locationProvider.html5Mode(true);
+
+    $httpProvider.interceptors.push('AttachTokens');
   }]);
 
 app.value('currentUser', Math.floor(Math.random() * 1000000));
+
+app.factory('Authentication', function($http, $location, $window) {
+    var isAuth = function() {
+    return !!$window.localStorage.getItem('com.tp');
+  };
+
+  return {
+    isAuth: isAuth
+  }
+
+})
+
+app.factory('AttachTokens', function($window) {
+  //$http interceptor to stop outgoing requests
+  //look in local storage and find user's token
+  //add to header so server can validate request
+  var attach = {
+    request: function(object) {
+      var jwt = $window.localStorage.getItem('token');
+      if(jwt) {
+        object.headers['x-access-token'] = jwt;
+      }
+      object.headers['Allow-Control-Allow-Origin'] = '*';
+      return object;
+    }
+  };
+  return attach;
+})
+.run(function($rootScope, $location, Authentication) {
+  $rootScope.$on('$routeChangeStart', function(evt, next, current) {
+    if(!Authentication.isAuth()) {
+      console.log('Not authorized')
+      $location.path('/');
+    }
+  });
+})
 
 
 app.run(['auth', function(auth) {
