@@ -28,7 +28,7 @@ var MessageRecipient = db.define('MessageRecipient', {
 });
 
 Message.addMessage = function(message) {
-  return Message.create({body: message.text, senderId: message.senderId})
+  return Message.create({body: message.body, senderId: message.senderId})
     .then(function (messageResult) {
       return MessageRecipient.create({recipientId: message.recipientId, messageId: messageResult.id})
     });

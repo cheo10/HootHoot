@@ -46,7 +46,7 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
           store.set('profile', profile);
           store.set('token', idToken);
 
-          socket.emit('registered', profile.clientID);
+          socket.emit('registered', profile.nickname);
         });
 
         $location.path('/chat');
