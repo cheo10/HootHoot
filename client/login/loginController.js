@@ -12,11 +12,11 @@ angular.module('loginController', ['theApp'])
     })
     .then(function (resp) {
       if(resp.data.token) {
-        $window.localStorage.setItem('com.hoot', resp.data.token);
-        $window.localStorage.setItem('com.username', resp.data.username);
-        $window.localStorage.setItem('com.userId', resp.data.id)
-        $scope.username = $window.localStorage.getItem('com.username');
-        $scope.id = $window.localStorage.getItem('com.userId');
+        $window.localStorage.setItem('token', resp.data.token);
+        $window.localStorage.setItem('username', resp.data.username);
+        $window.localStorage.setItem('userId', resp.data.id)
+        $scope.username = $window.localStorage.getItem('username');
+        $scope.id = $window.localStorage.getItem('userId');
         $location.path('/chat');
       } else {
         $location.path('/');

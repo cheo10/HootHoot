@@ -18,7 +18,7 @@ module.exports = {
                                   'id': user.id,
                                   'username': user.username } );
           }else{
-            console.log('inside else')
+            console.log('wrong password')
             res.json('Wrong password');
           }
         }

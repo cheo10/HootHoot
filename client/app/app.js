@@ -27,8 +27,8 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     })
     .when('/chat', {
       templateUrl: 'app/views/chat.html',
-      controller: '',
-      authenticate: true
+      controller: 'signupController',
+      // authenticate: true
     })
 
     authProvider.init({
@@ -75,10 +75,10 @@ angular.module('mainCtrl', ['theApp'])
 .controller('mainCtrl', function($scope,$window,$location) {
 
   $scope.logout = function() {
-    $window.localStorage.removeItem('com.hoot');
+    $window.localStorage.removeItem('token');
     $window.localStorage.removeItem('profile');
-    $window.localStorage.removeItem('com.username');
-    $window.localStorage.removeItem('com.userId');
+    $window.localStorage.removeItem('username');
+    $window.localStorage.removeItem('userId');
     $location.path('/');
   };
 })
@@ -87,7 +87,8 @@ app.value('currentUser', Math.floor(Math.random() * 1000000));
 
 app.factory('checker', function($http, $location, $window) {
     var isAuth = function() {
-    return !!$window.localStorage.getItem('com.hoot');
+    return !!$window.localStorage.getItem('token');
+
   };
 
   return {
@@ -102,7 +103,7 @@ app.factory('AttachTokens', function($window) {
   //add to header so server can validate request
   var attach = {
     request: function(object) {
-      var jwt = $window.localStorage.getItem('com.hoot');
+      var jwt = $window.localStorage.getItem('token');
       if(jwt) {
         console.log('adding users token to header to validate request')
         object.headers['x-access-token'] = jwt;

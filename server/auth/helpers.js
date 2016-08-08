@@ -8,14 +8,15 @@ module.exports = {
     console.log(req.headers['x-access-token'], '#############');
     var token = req.body.token || req.headers['x-access-token'];
     if(token) {
-      console.log('token');
-      jwt.verify(token, secret, function(err, decoded) {
+      jwt.verify(token, 'secret', function(err, decoded) {
         if(err) {
           console.log('JWT could not verify', err);
           return res.status(403).send(err);
         } else {
+          console.log('decoded')
           req.decoded = decoded;
           return next();
+         // return res.status(200).send('ok');
         }
       })
     }
