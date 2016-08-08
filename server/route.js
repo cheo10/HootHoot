@@ -1,7 +1,12 @@
 var controller = require('./controllers');
 var router = require('express').Router();
+var Auth = require('./auth/helpers.js');
 
-router.post('/', controller.users.signin)
+  //router.get('/', Auth.authorize);
+
+router.post('/', controller.users.signin);
+
+router.get('/chat', Auth.authorize);
 
 router.get('/signup', controller.users.get);
 

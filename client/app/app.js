@@ -19,13 +19,11 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     $routeProvider
     .when('/', {
       templateUrl: 'login/login.html',
-      controller: 'loginController',
-
+      controller: 'loginController'
     })
     .when('/signup', {
       templateUrl: 'signup/signup.html',
-      controller: 'signupController',
-
+      controller: 'signupController'
     })
     .when('/chat', {
       templateUrl: 'app/views/chat.html',
@@ -77,19 +75,19 @@ angular.module('mainCtrl', ['theApp'])
 .controller('mainCtrl', function($scope,$window,$location) {
 
   $scope.logout = function() {
-    $window.localStorage.removeItem('id');
+    $window.localStorage.removeItem('com.hoot');
     $window.localStorage.removeItem('profile');
-    $window.localStorage.removeItem('token');
-    $window.localStorage.removeItem('username');
+    $window.localStorage.removeItem('com.username');
+    $window.localStorage.removeItem('com.userId');
     $location.path('/');
   };
 })
 
 app.value('currentUser', Math.floor(Math.random() * 1000000));
 
-app.factory('Authentication', function($http, $location, $window) {
+app.factory('checker', function($http, $location, $window) {
     var isAuth = function() {
-    return !!$window.localStorage.getItem('token');
+    return !!$window.localStorage.getItem('com.hoot');
   };
 
   return {
@@ -104,8 +102,9 @@ app.factory('AttachTokens', function($window) {
   //add to header so server can validate request
   var attach = {
     request: function(object) {
-      var jwt = $window.localStorage.getItem('token');
+      var jwt = $window.localStorage.getItem('com.hoot');
       if(jwt) {
+        console.log('adding users token to header to validate request')
         object.headers['x-access-token'] = jwt;
       }
       object.headers['Allow-Control-Allow-Origin'] = '*';
@@ -114,11 +113,13 @@ app.factory('AttachTokens', function($window) {
   };
   return attach;
 })
-.run(function($rootScope, $location, Authentication) {
+.run(function($rootScope, $location, checker, $window) {
   $rootScope.$on('$routeChangeStart', function (evt, next, current) {
-    if (!Authentication.isAuth()) {
-      console.log('not authenticated')
-      $location.path('/signup');
+    if($location.path() == '/' || $location.path() == '/signup') {
+      console.log('This page does not need authentication')
+    }else if(!checker.isAuth()){
+            console.log('not authenticated')
+            $location.path('/');
     }
   });
 });
