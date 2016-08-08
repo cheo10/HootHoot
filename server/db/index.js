@@ -1,6 +1,6 @@
 var Sequelize = require('sequelize');
 var bcrypt = require('bcrypt-nodejs');
-var Promise = require('bluebird');
+// var Promise = require('bluebird');
 
 var db = new Sequelize(process.env.CLEARDB_DATABASE_URL || 'mysql://hoot:hoot@localhost/hoot');
 
