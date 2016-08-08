@@ -1,14 +1,36 @@
 var Sequelize = require('sequelize');
+var bcrypt = require('bcrypt-nodejs');
+var Promise = require('bluebird');
 
 var db = new Sequelize(process.env.CLEARDB_DATABASE_URL || 'mysql://hoot:hoot@localhost/hoot');
 
 //define models we need
 var User = db.define('User', {
-  firstname: Sequelize.STRING,
-  lastname: Sequelize.STRING,
-  username: Sequelize.STRING,
+  username: {
+    type: Sequelize.STRING,
+    unique: true
+  },
+  email: {
+    type: Sequelize.STRING,
+    unique: true
+  },
   password: Sequelize.STRING,
-  email: Sequelize.STRING
+  firstname: Sequelize.STRING,
+  lastname: Sequelize.STRING
+}, {
+  instanceMethods: {
+    hashPassword: function() {
+      var salt = bcrypt.genSaltSync(9);
+      return bcrypt.hashSync(this.password, salt)
+    },
+    validPassword: function(inputpass, pass) {
+      return bcrypt.compareSync(inputpass, pass);
+    }
+  }
+});
+
+User.beforeCreate(function(user, options) {
+  user.password = user.hashPassword();
 });
 
 User.sync();
