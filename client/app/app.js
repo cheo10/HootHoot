@@ -118,7 +118,7 @@ app.factory('AttachTokens', function($window) {
 })
 .run(function($rootScope, $location, checker, $window, socket, store) {
   var profile = store.get('profile');
-  var userid =  profile ? profile.nickname : $window.localStorage.getItem('userId'); // until auth0 is hooked to db
+  var userid =  profile ? profile.nickname : $window.localStorage.getItem('userId');
 
   if (checker.isAuth()) {
     socket.emit('registered', userid);
