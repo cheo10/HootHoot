@@ -1,22 +1,21 @@
 angular.module('loginController', ['theApp'])
 
-.controller('loginController', ['$scope', '$http', 'auth', '$location','$window', function($scope, $http, auth, $location, $window) {
+.controller('loginController', ['$scope', '$http', 'auth', '$location','$window', 'socket', function($scope, $http, auth, $location, $window, socket) {
 
   $scope.auth = auth;
 
-  $scope.login = function(username, password) {
+  $scope.login = function(email, password) {
     return $http({
       method: 'POST',
       url: '/',
-      data: {username: username, password: password}
+      data: {email: email, password: password}
     })
     .then(function (resp) {
       if(resp.data.token) {
         $window.localStorage.setItem('token', resp.data.token);
-        $window.localStorage.setItem('username', resp.data.username);
         $window.localStorage.setItem('userId', resp.data.id)
-        $scope.username = $window.localStorage.getItem('username');
         $scope.id = $window.localStorage.getItem('userId');
+        socket.emit('registered', $scope.id);
         $location.path('/chat');
       } else {
         $location.path('/');

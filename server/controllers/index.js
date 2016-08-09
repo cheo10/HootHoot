@@ -5,7 +5,7 @@ module.exports = {
   users: {
     signin: function(req, res) {
       console.log(req.body);
-      db.User.findOne({where:{ username: req.body.username }})
+      db.User.findOne({where:{ email: req.body.email }})
       .then(function(user) {
         if(!user){
           res.json('User not found');
@@ -15,8 +15,7 @@ module.exports = {
                                     'secret',
                                     {expiresIn: 24 * 60 * 60 });
             res.status(200).send({'token': myToken,
-                                  'id': user.id,
-                                  'username': user.username } );
+                                  'id': user.id } );
           }else{
             console.log('wrong password')
             res.json('Wrong password');
@@ -37,7 +36,7 @@ module.exports = {
     },
     post: function(req, res) {
       console.log(req.body);
-      db.User.findOrCreate({where: {firstname: req.body.firstname,lastname: req.body.lastname, username: req.body.username, email: req.body.email, password: req.body.password, }})
+      db.User.findOrCreate({where: {email : req.body.email}, defaults: {firstname: req.body.firstname,lastname: req.body.lastname, password: req.body.password}} )
       .spread(function(user, created) {
         res.json(user);
       });

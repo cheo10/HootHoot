@@ -1,15 +1,10 @@
 var Sequelize = require('sequelize');
 var bcrypt = require('bcrypt-nodejs');
-// var Promise = require('bluebird');
 
 var db = new Sequelize(process.env.CLEARDB_DATABASE_URL || 'mysql://hoot:hoot@localhost/hoot');
 
 //define models we need
 var User = db.define('User', {
-  username: {
-    type: Sequelize.STRING,
-    unique: true
-  },
   email: {
     type: Sequelize.STRING,
     unique: true
@@ -61,7 +56,7 @@ MessageRecipient.sync();
 
 var GroupRoom = db.define('GroupRoom', {
   name: Sequelize.STRING,
-  isActive: Sequelize.INTEGER
+  isActive: Sequelize.BOOLEAN
 });
 
 GroupRoom.sync();
@@ -72,6 +67,20 @@ var UserGroup = db.define('UserGroup', {
 });
 
 UserGroup.sync();
+
+// create function that receives array of participants in group
+GroupRoom.addGroup = function(participants) {
+  // create a new group in db
+  return GroupRoom.create({ name: participants.join(', '), isActive: true })
+    .then(function(group) {
+      // take new group id and insert one entry per participant in usergroup
+      participants.forEach(function(participant) {
+        UserGroup.create({ userId: participant, groupId: group.id });
+      })
+
+      return new Promise(function (resolve, reject) { resolve(group) });
+    })
+}
 
 var Contacts = db.define('Contacts', {
   userOne: Sequelize.STRING,
