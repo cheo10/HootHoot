@@ -35,14 +35,13 @@ exports.newConnection =  function (socket) {
     // create group in database
     db.GroupRoom.addGroup(group)
       .then(function(group) {
+        // tell each member in group to listen for messages on that group id
         group.forEach(function (participant) {
           if(isConnected(participant)){
             connectedUsers[participant].emit('join group', group);
           }
         })
       });
-    // respond via socket to group memeber
-
   });
 
   socket.on('disconnect', function() {
