@@ -1,19 +1,13 @@
 <div class="chat-form">
-  <form ng-submit="sendMessage()" class="container">
-    <div class="row">
+  <form ng-submit="sendMessage()" class="mui-container">
     <div>
-      <!-- <i></i> -->
-      <input ng-model="messageText" type="text" placeholder="Type your message" required>
-      </button>
+
       <span>
         <userpic senderId="{{senderId}}" />
         {{senderId}}
       </span>
-    </div>
-    <div class="input-field col s2">
+      <input ng-model="messageText" type="text" placeholder="Type your message" required>
       <input type="submit">
-      <!-- <i></i> -->
-    </div>
 
     </div>
   </form>

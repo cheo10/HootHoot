@@ -1,8 +1,8 @@
 <div class="chat-single">
   <!-- <userpic uuid="{{senderUuid}}" /> -->
-  <span>{{sender}}</span>
-  <p>
-    {{date | date: "h:mma 'on' MM/dd/yyyy"}} <br>
+  <div class="nonBodyText">{{sender}}</div>
+  <div class="bubble">
     {{body}}
-  </p>
+  </div>
+  <div style="float: right" class="nonBodyText">{{date | date: "h:mma 'on' MM/dd/yyyy"}}</div>
 </div>
