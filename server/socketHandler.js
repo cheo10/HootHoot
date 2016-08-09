@@ -4,6 +4,7 @@ var connectedUsers = {};
 
 var register = function(profile) {
   connectedUsers[profile] = this;
+  this.userId = profile;
 }
 
 var isConnected = function(userId) {
@@ -30,8 +31,25 @@ exports.newConnection =  function (socket) {
   });
 
   socket.on('create group', function (group) {
+    group.push(socket.userId);
+    console.log('creating group!');
+    console.log(socket);
     // create group in database
+    db.GroupRoom.addGroup(group)
+      .then(function(group) {
+        group.forEach(function (participant) {
+          if(isConnected(participant)){
+            connectedUsers[participant].emit('join group', group);
+          }
+        })
+      });
+    // respond via socket to group memeber
 
-      // respond via socket to group memeber
   });
+
+  socket.on('disconnect', function() {
+    delete connectedUsers[socket.userId];
+  })
 };
+
+
