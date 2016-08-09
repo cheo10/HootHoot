@@ -23,7 +23,7 @@ angular.module('services', [])
       ];
 
       var findOrCreateContacts = function(userOne, userTwo) {
-        var results = window.window.localStorage;
+        var results = window.localStorage.token;
         return $http({
           method: 'POST',
           url: '/contacts',
@@ -48,7 +48,7 @@ angular.module('services', [])
         .then(function (resp){
           return resp.data;
         });
-      }
+      };
 
       var deleteContact = function () {};
 
