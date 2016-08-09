@@ -1,6 +1,7 @@
 var io = require('./server').io;
 var db = require('./db');
 var connectedUsers = {};
+var socketToUser = {};
 
 var register = function(profile) {
   connectedUsers[profile] = this;
@@ -48,5 +49,3 @@ exports.newConnection =  function (socket) {
     delete connectedUsers[socket.userId];
   })
 };
-
-

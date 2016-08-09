@@ -4,6 +4,7 @@ var jwt = require('jsonwebtoken');
 module.exports = {
   users: {
     signin: function(req, res) {
+      console.log('signing in ')
       console.log(req.body);
       db.User.findOne({where:{ email: req.body.email }})
       .then(function(user) {
@@ -11,11 +12,11 @@ module.exports = {
           res.json('User not found');
         }else{
           if(user.validPassword(req.body.password, user.password)){
-            var myToken = jwt.sign({ user: user.id},
+            var myToken = jwt.sign({ user: user.email},
                                     'secret',
                                     {expiresIn: 24 * 60 * 60 });
             res.status(200).send({'token': myToken,
-                                  'id': user.id } );
+                                  'id': user.email } );
           }else{
             console.log('wrong password')
             res.json('Wrong password');
@@ -25,6 +26,24 @@ module.exports = {
       .catch(function(err) {
         console.log(err);
         res.status(400).send('Error finding user: ');
+      });
+    },
+
+    authin: function(req, res) {
+      console.log('authin in ')
+      console.log(req.body , ' req.body.email')
+      db.User.findOrCreate({where:{ email: req.body.email }, defaults: {firstname: req.body.firstname, lastname: req.body.lastname}})
+      .spread(function(user, created) {
+        var myToken = jwt.sign({ user: user.email},
+                                'secret',
+                                {expiresIn: 24 * 60 * 60 });
+        res.status(200).send({'token': myToken,
+                              'id': user.email } );
+
+      })
+      .catch(function(err) {
+        console.log(err);
+        res.status(400).send('Error', err);
       });
     },
 
