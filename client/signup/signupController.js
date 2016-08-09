@@ -9,7 +9,6 @@ angular.module('signupController', ['theApp'])
       data: {
         firstname: firstName,
         lastname: lastName,
-        username: username,
         email: email,
         password: password
       }
