@@ -116,7 +116,14 @@ app.factory('AttachTokens', function($window) {
   };
   return attach;
 })
-.run(function($rootScope, $location, checker, $window) {
+.run(function($rootScope, $location, checker, $window, socket, store) {
+  var profile = store.get('profile');
+  var userid =  profile ? profile.nickname : $window.localStorage.getItem('userId'); // until auth0 is hooked to db
+
+  if (checker.isAuth()) {
+    socket.emit('registered', userid);
+  }
+
   $rootScope.$on('$routeChangeStart', function (evt, next, current) {
     if($location.path() == '/' || $location.path() == '/signup') {
       console.log('This page does not need authentication')
