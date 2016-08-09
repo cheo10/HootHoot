@@ -12,11 +12,11 @@ module.exports = {
           res.json('User not found');
         }else{
           if(user.validPassword(req.body.password, user.password)){
-            var myToken = jwt.sign({ user: user.email},
+            var myToken = jwt.sign({ user: user.email, id: user.id},
                                     'secret',
                                     {expiresIn: 24 * 60 * 60 });
             res.status(200).send({'token': myToken,
-                                  'id': user.email } );
+                                  'id': user.id } );
           }else{
             console.log('wrong password')
             res.json('Wrong password');
@@ -34,11 +34,11 @@ module.exports = {
       console.log(req.body , ' req.body.email')
       db.User.findOrCreate({where:{ email: req.body.email }, defaults: {firstname: req.body.firstname, lastname: req.body.lastname}})
       .spread(function(user, created) {
-        var myToken = jwt.sign({ user: user.email},
+        var myToken = jwt.sign({ user: user.email, id: user.id},
                                 'secret',
                                 {expiresIn: 24 * 60 * 60 });
         res.status(200).send({'token': myToken,
-                              'id': user.email } );
+                              'id': user.id } );
 
       })
       .catch(function(err) {
@@ -108,7 +108,9 @@ module.exports = {
   },
   contacts: {
   get: function(req, res) {
-    db.Contacts.findAll()
+    var user = req.decoded;
+
+    db.Contacts.getContacts(user.id)
     .then(function(contacts) {
       res.json(contacts);
     });

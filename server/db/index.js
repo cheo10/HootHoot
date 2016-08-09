@@ -83,9 +83,20 @@ GroupRoom.addGroup = function(participants) {
 }
 
 var Contacts = db.define('Contacts', {
-  userOne: Sequelize.STRING,
-  userTwo: Sequelize.STRING,
+  userOne: Sequelize.INTEGER,
+  userTwo: Sequelize.INTEGER,
 });
+
+Contacts.addContact = function(user1, user2) {
+
+}
+
+Contacts.getContacts = function(user) {
+  return db.query(`select u.id, u.email, u.firstname, u.lastname
+                    from Users u
+                    where u.id in (select userTwo from Contacts where userOne=:user)`,
+    { replacements: { user: user }, type: db.QueryTypes.SELECT });
+}
 
 Contacts.sync();
 
