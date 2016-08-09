@@ -4,34 +4,17 @@ angular.module('services', [])
   })
   .factory('ContactService', ['$http', '$rootScope',
     function ContactServiceFactory ($http, $rootScope) {
-      var contacts = [
-        {
-          name: "Abby Diggity",
-          isActive: true,
-          channel: "Facebook"
-        },
-        {
-          name: "Forrest Labrum",
-          isActive: false,
-          channel: "Skype"
-        },
-        {
-          name: "Jeff Lam",
-          isActive: true,
-          channel: "Gchat"
-        }
-      ];
+      var contacts = [];
 
-      var findOrCreateContacts = function(userOne, userTwo) {
-        var results = window.localStorage.token;
+      var createContact = function(newContactEmail) {
         return $http({
           method: 'POST',
           url: '/contacts',
-          headers: {'Content-Type': 'application/json', 'x-access-token': results},
-          data: {userOne: userOne, userTwo:userTwo}
+          headers: {'Content-Type': 'application/json'},
+          data: {newContactEmail: newContactEmail}
         })
         .then(function (resp){
-          console.log('SUCCESSS POST' + resp.data);
+          console.log('SUCCESSS POST' + JSON.stringify(resp.data));
           contacts.push(resp.data);
         })
         .catch(function(resp){
@@ -46,7 +29,9 @@ angular.module('services', [])
           headers: {'Content-Type': 'application/json'},
         })
         .then(function (resp){
-          return resp.data;
+          for (var i = 0; i < resp.data.length; i++) {
+            contacts.push(resp.data[i]);
+          }
         });
       };
 
@@ -54,7 +39,7 @@ angular.module('services', [])
 
       return {
         contacts: contacts,
-        findOrCreateContacts: findOrCreateContacts,
+        createContact: createContact,
         getAllContacts: getAllContacts,
         deleteContact: deleteContact
       };

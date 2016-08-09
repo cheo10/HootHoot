@@ -11,9 +11,8 @@ angular.module('contactlistdirective', ['theApp']).directive('contactlist', func
 
       $scope.contacts = ContactService.contacts;
 
-      $scope.addContact = function (hardcodeUser, newContact) {
-        // the user who is signed in
-        ContactService.findOrCreateContacts(hardcodeUser,newContact);
+      $scope.addContact = function (newContactEmail) {
+        ContactService.createContact(newContactEmail);
       };
 
       $scope.getAllContacts = function() {
