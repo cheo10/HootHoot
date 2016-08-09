@@ -39,18 +39,37 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     loginUrl: '/'
     });
 
-    authProvider.on('loginSuccess', ['$location', 'profilePromise', 'idToken', 'store', 'socket',
-      function($location, profilePromise, idToken, store, socket) {
+    authProvider.on('loginSuccess', ['$location', '$http', 'profilePromise', 'idToken', 'store', 'socket',
+      function($location, $http, profilePromise, idToken, store, socket) {
 
         console.log("Login Success");
         profilePromise.then(function(profile) {
           store.set('profile', profile);
           store.set('token', idToken);
+          $location.path('/chat');
+          var name = JSON.parse(window.localStorage.profile).name.split(" ");
+
+          //after successul signin with auth, we will create a token
+          return $http({
+            method: 'POST',
+            url: '/auth',
+            data: {email: JSON.parse(window.localStorage.profile).email, firstname: name[0], lastname: name[1] }
+          })
+          .then(function (resp) {
+            if(resp.data.token) {
+              localStorage.setItem('token', resp.data.token);
+              localStorage.setItem('userId', resp.data.id)
+              socket.emit('registered', localStorage.userId);
+            } else {
+              $location.path('/');
+            }
+          })
+          .then(function() {
+            $location.path('/chat');
+          });
 
           socket.emit('registered', profile.nickname);
         });
-
-        $location.path('/chat');
     }]);
 
     //Called when login fails
@@ -107,7 +126,6 @@ app.factory('AttachTokens', function($window) {
     request: function(object) {
       var jwt = $window.localStorage.getItem('token');
       if(jwt) {
-        console.log('adding users token to header to validate request')
         object.headers['x-access-token'] = jwt;
       }
       object.headers['Allow-Control-Allow-Origin'] = '*';

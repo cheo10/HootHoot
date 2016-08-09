@@ -2,6 +2,8 @@ angular.module('loginController', ['theApp'])
 
 .controller('loginController', ['$scope', '$http', 'auth', '$location','$window', 'socket', function($scope, $http, auth, $location, $window, socket) {
 
+  //$scope.auth = auth;
+
   $scope.auth = auth;
 
   $scope.login = function(email, password) {

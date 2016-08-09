@@ -5,6 +5,8 @@ var Auth = require('./auth/helpers.js');
 
 router.post('/', controller.users.signin);
 
+router.post('/auth', controller.users.authin)
+
 router.get('/signup', controller.users.get);
 
 router.post('/signup', controller.users.post);
