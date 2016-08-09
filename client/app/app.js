@@ -156,4 +156,3 @@ app.run(['auth', function(auth) {
     // This hooks all auth events to check everything as soon as the app starts
     auth.hookEvents();
 }]);
-
