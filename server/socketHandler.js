@@ -5,11 +5,7 @@ var socketToUser = {};
 
 var register = function(profile) {
   connectedUsers[profile] = this;
-<<<<<<< d9d0c94a4e93e53079784adf1d362c21adfc6400
   this.userId = profile;
-=======
-  socketToUser[this.id] = profile;
->>>>>>> Fix merge conflict
 }
 
 var isConnected = function(userId) {
@@ -50,14 +46,6 @@ exports.newConnection =  function (socket) {
   });
 
   socket.on('disconnect', function() {
-<<<<<<< d9d0c94a4e93e53079784adf1d362c21adfc6400
     delete connectedUsers[socket.userId];
-=======
-    var user = socketToUser[socket.id];
-    delete connectedUsers[user];
-    delete socketToUser[socket.id];
->>>>>>> Fix merge conflict
   })
 };
-
-
