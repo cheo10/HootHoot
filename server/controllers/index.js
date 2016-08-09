@@ -97,7 +97,7 @@ module.exports = {
   },
   post: function(req, res) {
     console.log(req.body);
-    db.Contacts.findOrCreate({where: {name: req.body.name}})
+    db.Contacts.findOrCreate({where: {userOne: req.body.userOne, userTwo:req.body.userTwo}})
     .spread(function(contacts, created) {
       res.json(contacts);
     });

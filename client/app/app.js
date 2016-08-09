@@ -9,6 +9,8 @@ var app = angular.module('theApp', [
   'chatsingledirective',
   'chatlistdirective',
   'userpicdirective',
+  'contactsingledirective',
+  'contactlistdirective',
   'services',
   'mainCtrl'
   ])

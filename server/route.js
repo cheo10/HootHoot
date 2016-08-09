@@ -21,8 +21,8 @@ router.get('/groupRoom', Auth.authorize, controller.groupRoom.get);
 
 router.post('/groupRoom', Auth.authorize, controller.groupRoom.post);
 
-router.get('/contacts', Auth.authorize, controller.contacts.get);
+router.get('/contacts', Auth.authorize,controller.contacts.get);
 
-router.post('/contacts', Auth.authorize, controller.contacts.post);
+router.post('/contacts', Auth.authorize,controller.contacts.post);
 
 module.exports = router;
