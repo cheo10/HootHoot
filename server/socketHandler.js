@@ -32,8 +32,6 @@ exports.newConnection =  function (socket) {
 
   socket.on('create group', function (group) {
     group.push(socket.userId);
-    console.log('creating group!');
-    console.log(socket);
     // create group in database
     db.GroupRoom.addGroup(group)
       .then(function(group) {
