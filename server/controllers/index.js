@@ -116,11 +116,12 @@ module.exports = {
     });
   },
   post: function(req, res) {
-    console.log(req.body);
-    db.Contacts.findOrCreate({where: {userOne: req.body.userOne, userTwo:req.body.userTwo}})
-    .spread(function(contacts, created) {
-      res.json(contacts);
-    });
+    var user = req.decoded;
+
+    db.Contacts.addContact(user.id, req.body.newContactEmail)
+      .then(function(createdContact) {
+        res.json(createdContact);
+      })
   }
 }
 };

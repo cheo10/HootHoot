@@ -87,8 +87,17 @@ var Contacts = db.define('Contacts', {
   userTwo: Sequelize.INTEGER,
 });
 
-Contacts.addContact = function(user1, user2) {
+Contacts.addContact = function(userOneId, userTwoEmail) {
+  var contact;
 
+  return User.findOne({ where: { email: userTwoEmail } })
+    .then(function (newContact) {
+      contact = { id: newContact.id, firstname: newContact.firstname, lastname: newContact.lastname };
+      return Contacts.create({ userOne: userOneId, userTwo: contact.id })
+    .then(function (createdContact) {
+      return new Promise(function (resolve, reject) { resolve(contact) });
+    })
+  });
 }
 
 Contacts.getContacts = function(user) {
