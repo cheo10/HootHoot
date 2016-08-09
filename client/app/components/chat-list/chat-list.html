@@ -1,5 +1,6 @@
-<ul class="chat-list">
-    <li ng-repeat="chat in chats track by chat.messageCreated" repeat-complete="listDidRender()">
+<div class="chat-list">
+    <div ng-repeat="chat in chats track by chat.messageCreated" repeat-complete="listDidRender()">
       <chatsingle body="{{chat.body}}" sender="{{chat.senderId}}" date="{{chat.messageCreated}}"></chatsingle>
-    </li>
-</ul>
+      <br>
+    </div>
+</div>

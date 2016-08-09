@@ -5,9 +5,14 @@
     <meta name="keywords" content="MEAN, node, express, angular, mySQL, Hoot, chat, heroku">
     <meta name="description" content="A chatting client for all chatting clients">
     <meta name="author" content="Chris Heo, Forrest Labrum, Jeff Lam, Nahee Kwak">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Style Sheet -->
-    <link rel="stylesheet" type="text/css" href="style.css">
+     <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="//cdn.muicss.com/mui-0.6.8/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.6.8/angular/mui-angular.min.js"></script>
 
     <!-- Auth0's lock widget library -->
     <script type="text/javascript" src="https://cdn.auth0.com/js/lock-9.min.js"></script>
@@ -38,8 +43,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   </head>
   <body ng-controller="mainCtrl">
-    <a href="#/">Home</a>
-    <a href="#/chat">Chat</a>
+    <div class="mui-appbar mui--appbar-line-height">
+        <div class="mui--text-display2 logo" style="font-color: white">Hoot</div>
+        <div class="mui-container nav">
+            <a href="#/" class="mui-btn">Home</a>
+            <a href="#/chat" class="mui-btn">Chat</a>
+            <button class="mui-btn" ng-click="logout()">Log Out</button>
+        </div>
+    </div>
     <div ng-view> </div>
   </body>
 </html>
