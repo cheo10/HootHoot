@@ -1,12 +1,11 @@
-angular.module('contactsingledirective', ['theApp']).directive('contactlist', function() {
+angular.module('contactsingledirective', ['theApp']).directive('contactsingle', function(ContactService) {
   return {
     restrict: "E",
     templateUrl: 'app/components/contact-single/contact-single.html',
     scope: {
-
-    },
-    controller: function($scope, ContactService) {
-
+      name: '@',
+      channel: '@',
+      status: '@'
     }
   };
 });

@@ -2,23 +2,64 @@ angular.module('services', [])
   .factory('socket', function () {
     return io.connect();
   })
-  .factory('ContactService', ['$http', '$rootScope', function ($http, $rootScope) {
-    function findOrCreateContacts (userId, username){
-      return $http({
-        method: 'POST',
-        url: '/contacts',
-        headers: {'Content-Type': 'application/json'},
-        data: {userId: userId, username:username}
-      })
-      .then(function (resp){
-        return resp.data;
-      });
-    }
+  .factory('ContactService', ['$http', '$rootScope',
+    function ContactServiceFactory ($http, $rootScope) {
+      var contacts = [
+        {
+          name: "Abby Diggity",
+          isActive: true,
+          channel: "Facebook"
+        },
+        {
+          name: "Forrest Labrum",
+          isActive: false,
+          channel: "Skype"
+        },
+        {
+          name: "Jeff Lam",
+          isActive: true,
+          channel: "Gchat"
+        }
+      ];
 
-    return {
-      findOrCreateContacts: findOrCreateContacts
-    };
-  }])
+      var findOrCreateContacts = function(userOne, userTwo) {
+        var results = window.window.localStorage;
+        return $http({
+          method: 'POST',
+          url: '/contacts',
+          headers: {'Content-Type': 'application/json', 'x-access-token': results},
+          data: {userOne: userOne, userTwo:userTwo}
+        })
+        .then(function (resp){
+          console.log('SUCCESSS POST' + resp.data);
+          contacts.push(resp.data);
+        })
+        .catch(function(resp){
+          console.log("THIS IS AN ERROR" + JSON.stringify(resp.data));
+        });
+      };
+
+      var getAllContacts = function() {
+        return $http({
+          method: 'GET',
+          url: '/contacts',
+          headers: {'Content-Type': 'application/json'},
+        })
+        .then(function (resp){
+          return resp.data;
+        });
+      }
+
+      var deleteContact = function () {};
+
+      return {
+        contacts: contacts,
+        findOrCreateContacts: findOrCreateContacts,
+        getAllContacts: getAllContacts,
+        deleteContact: deleteContact
+      };
+    }
+  ])
   .factory('MessageService', ['$rootScope', 'currentUser', 'socket',
     function MessageServiceFactory($rootScope, currentUser, socket, store){
       var chats = [];
@@ -51,4 +92,5 @@ angular.module('services', [])
         sendMessage: sendMessage,
         chats: chats
       };
-  }]);
+    }
+  ]);
