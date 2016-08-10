@@ -16,7 +16,7 @@ var User = db.define('User', {
   instanceMethods: {
     hashPassword: function() {
       var salt = bcrypt.genSaltSync(9);
-      return bcrypt.hashSync(this.password, salt)
+      return bcrypt.hashSync(this.password, salt);
     },
     validPassword: function(inputpass, pass) {
       return bcrypt.compareSync(inputpass, pass);
@@ -47,7 +47,7 @@ var MessageRecipient = db.define('MessageRecipient', {
 Message.addMessage = function(message) {
   return Message.create({body: message.body, senderId: message.senderId})
     .then(function (messageResult) {
-      return MessageRecipient.create({recipientId: message.recipientId, messageId: messageResult.id})
+      return MessageRecipient.create({recipientId: message.recipientId, messageId: messageResult.id});
     });
 }
 

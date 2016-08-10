@@ -2,6 +2,65 @@ angular.module('services', [])
   .factory('socket', function () {
     return io.connect();
   })
+  .factory('GroupService', ['$http', '$rootScope',
+    function GroupServiceFactory ($http, $rootScope) {
+    var searchGroupFriends = [
+      {
+        name: "Abby Diggity",
+        isActive: true,
+        channel: "Facebook"
+      },
+      {
+        name: "Forrest Labrum",
+        isActive: false,
+        channel: "Skype"
+      },
+      {
+        name: "Jeff Lam",
+        isActive: true,
+        channel: "Gchat"
+      }
+    ];
+
+    var findContacts = function(userOne, userTwo) {
+      var results = window.localStorage.token;
+      return $http({
+        method: 'POST',
+        url: '/contacts',
+        headers: {'Content-Type': 'application/json', 'x-access-token': results},
+        data: {userOne: userOne, userTwo:userTwo}
+      })
+      .then(function (resp){
+        console.log('SUCCESSS POST' + resp.data);
+        contacts.push(resp.data);
+      })
+      .catch(function(resp){
+        console.log("THIS IS AN ERROR" + JSON.stringify(resp.data));
+      });
+    };
+    var sendGroup = function(groupName, groupMembers) {
+      var results = window.localStorage.token;
+      return $http({
+        method: 'POST',
+        url: '/groupRoom',
+        headers: {'Content-Type': 'application/json', 'x-access-token': results},
+        data: {groupName: groupName, groupMembers:groupMembers}
+      })
+      .then(function (resp){
+        console.log('SUCCESSS POST' + resp.data);
+        contacts.push(resp.data);
+      })
+      .catch(function(resp){
+        console.log("THIS IS AN ERROR" + JSON.stringify(resp.data));
+      });
+    };
+      return {
+        sendGroup: sendGroup,
+        findContacts:findContacts,
+        searchGroupFriends:searchGroupFriends
+      };
+    }
+  ])
   .factory('ContactService', ['$http', '$rootScope',
     function ContactServiceFactory ($http, $rootScope) {
       var contacts = [];
