@@ -105,7 +105,7 @@ angular.module('mainCtrl', ['theApp'])
     $window.localStorage.removeItem('userId');
     $window.localStorage.removeItem('recipient');
     $window.localStorage.removeItem('email');
-    $location.path('/');
+    $window.location.href = '/';
   };
 })
 
