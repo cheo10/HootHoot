@@ -10,7 +10,7 @@
   <br>
   <div class="contacts" ng-repeat="contact in contacts | filter:searchBox | orderBy: 'isActive'">
     <contactsingle name="{{contact.firstname}} {{contact.lastname}}" status="{{contact.isActive}}"></contactsingle>
-    <button ng-click="deleteContact()">Delete</button>
+    <button ng-click="deleteContact(contact.id)">Delete</button>
   </div>
 
 </div>

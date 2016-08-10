@@ -19,8 +19,8 @@ angular.module('contactlistdirective', ['theApp']).directive('contactlist', func
         ContactService.getAllContacts();
       };
 
-      $scope.deleteContact = function (){
-        ContactService.deleteContact();
+      $scope.deleteContact = function (contact){
+        ContactService.deleteContact(contact);
       };
     }
   };

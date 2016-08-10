@@ -14,7 +14,6 @@ angular.module('services', [])
           data: {newContactEmail: newContactEmail}
         })
         .then(function (resp){
-          console.log('SUCCESSS POST' + JSON.stringify(resp.data));
           contacts.push(resp.data);
         })
         .catch(function(resp){
@@ -35,7 +34,22 @@ angular.module('services', [])
         });
       };
 
-      var deleteContact = function () {};
+      var deleteContact = function(contactId) {
+        return $http({
+          method: 'DELETE',
+          url: '/contacts',
+          headers: {'Content-Type': 'application/json'},
+          data: { contact: contactId }
+        })
+        .then(function (resp){
+          for (var i = 0; i < contacts.length; i++) {
+            if (contacts[i].id === resp.data) {
+              contacts.splice(i, 1);
+              break;
+            }
+          }
+        });
+      };
 
       return {
         contacts: contacts,
