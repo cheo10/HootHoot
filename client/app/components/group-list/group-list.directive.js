@@ -1,27 +1,23 @@
-angular.module('grouplistdirective', ['theApp']).directive('contactlist', function() {
+angular.module('grouplistdirective', ['theApp']).directive('grouplist', function() {
   return {
     restrict: "E",
     templateUrl: 'app/components/group-list/group-list.html',
-    scope: {
-
-    },
-    controller: function($rootScope, $scope, ContactService) {
-
+    controller: function($rootScope, $scope, GroupService) {
       var hardcodeUser = 'nahee';
-
-      $scope.contacts = ContactService.contacts;
-
-      $scope.addContact = function (hardcodeUser, newContact) {
-        // the user who is signed in
-        ContactService.findOrCreateContacts(hardcodeUser,newContact);
+      $scope.click = false;
+      $scope.groupFriends = [];
+      $scope.searchGroupFriends = GroupService.searchGroupFriends;
+      $scope.showGroup = function () {
+        $scope.click = true;
       };
-
-      $scope.getAllContacts = function() {
-        ContactService.getAllContacts();
+      $scope.createGroup = function (name) {
+        $scope.groupFriends.push(name);
       };
-
-      $scope.deleteContact = function (){
-        ContactService.deleteContact();
+      $scope.findContacts = function() {
+        GroupService.findContacts();
+      };
+      $scope.AddContact = function (){
+        GroupService.AddContact();
       };
     }
   };

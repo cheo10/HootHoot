@@ -1,7 +1,7 @@
-angular.module('contactsingledirective', ['theApp']).directive('contactsingle', function(ContactService) {
+angular.module('groupsingledirective', ['theApp']).directive('groupsingle', function(GroupService) {
   return {
     restrict: "E",
-    templateUrl: 'app/components/contact-single/contact-single.html',
+    templateUrl: 'app/components/group-single/group-single.html',
     scope: {
       name: '@',
       channel: '@',

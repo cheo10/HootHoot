@@ -1,17 +1,18 @@
 <div class="group-list">
-
-  <form ng-submit="addGroup(newFriend)">
-    <input type="text" ng-model="newFriend" placeholder="Add A Friend" />
-    <input type="submit" value="Add" ng-click="addGroup(newFriend)"/>
-  </form>
-
-  <input type="text" ng-model="searchContacts" placeholder="Search your contacts" class="">
-
-  <div ng-init="getAllContacts()" ng-repeat="contact in contacts | filter:searchBox | orderBy: 'isActive'">
-    <contactsingle name="{{contact.name}}" status="{{contact.isActive}}" channel="{{contact.channel}}"></contactsingle>
-    <button ng-click="deleteContact()">Delete</button>
-    <button ng-click="AddContactToGroup()">Add</button>
-    <hr>
-  </div>
-
+  <button ng-click="showGroup()">Create Group</button>
+    <div ng-show="click">
+      <input type="text" ng-model="addGroupNames" placeholder="Group Name">
+      <br>
+      <div>
+        {{addGroupNames}}
+        {{groupFriends}}
+      </div>
+      <input type="text" ng-model="searchContactsBox" placeholder="Search your contacts">
+      <br>
+      <br>
+      <div class="groupFriends" ng-init="findContacts()" ng-repeat="searchGroupFriend in searchGroupFriends | filter:searchContactsBox | orderBy: 'isActive'">
+      <groupsingle name="{{searchGroupFriend.name}}" status="{{searchGroupFriend.isActive}}" channel="{{searchGroupFriend.channel}}"></groupsingle>
+        <button ng-click="createGroup(searchGroupFriend.name)">Add</button>
+      </div>
+    <div>
 </div>
