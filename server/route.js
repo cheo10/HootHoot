@@ -1,7 +1,7 @@
 var controller = require('./controllers');
 var router = require('express').Router();
 var Auth = require('./auth/helpers.js');
-var helpers = require('.controllers/helpers/index');
+var helpers = require('./controllers/yelpHelper');
 
 router.post('/', controller.users.signin);
 
