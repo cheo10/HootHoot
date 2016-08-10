@@ -3,11 +3,24 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
     restrict: "E",
     replace: true,
     templateUrl: 'app/components/chat-form/chat-form.html',
+<<<<<<< HEAD
+=======
+    scope: {},
+<<<<<<< HEAD
+>>>>>>> Add forrest's changes
 
     controller: function($scope, currentUser, store, MessageService, Globals) {//declare and link up currentuser and main factory messageService!!!
       $scope.senderId = Globals.userId;
       $scope.selections = Globals.selections;
+<<<<<<< HEAD
 
+=======
+=======
+    controller: function($scope, currentUser, store, MessageService) {//declare and link up currentuser and main factory messageService!!!
+      $scope.senderId = localStorage.getItem('userId');
+      $scope.recipient = $scope.senderId === 'Forrest Labrum' ? 'Chris Heo' : 'Forrest Labrum';
+>>>>>>> Add yelp form directive and setups to get yelp api data
+>>>>>>> Add forrest's changes
       $scope.messageText = '';
 
       //load weather using your lat/lng coordinates
@@ -40,8 +53,9 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
 
         MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, $scope.messageText);
         $scope.messageText = '';
-      }
-    }
+
+      };
+    },
   };
 });
 

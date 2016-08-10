@@ -17,6 +17,27 @@ angular.module('services', [])
       userId: userId
     }
   })
+  .factory('YelpService', ['$rootScope',
+    function YelpServiceFactory ($rootScope) {
+      var searchYelp = function(searchTerm, location) {
+        return $http({
+          method: 'POST',
+          url: '/api/yelp',
+          headers: {'Content-Type': 'application/json'},
+          data: {searchTerm: searchTerm, location:location}
+        })
+        .then(function (resp){
+          contacts.push(resp.data);
+        })
+        .catch(function(resp){
+          console.log("THIS IS AN ERROR" + JSON.stringify(resp.data));
+        });
+      };
+      return {
+        searchYelp:searchYelp,
+      };
+    }
+  ])
   .factory('GroupService', ['$http', '$rootScope',
     function GroupServiceFactory ($http, $rootScope) {
     var searchGroupFriends = [
@@ -38,7 +59,6 @@ angular.module('services', [])
     ];
 
     var results = window.sessionStorage.token;
-
     var findContacts = function(userOne, userTwo) {
 
       return $http({

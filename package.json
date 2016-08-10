@@ -11,7 +11,8 @@
     "chai": "^3.5.0",
     "chai-jquery": "^2.0.0",
     "jsdom": "^8.1.0",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "ng-dialog": "^0.6.2"
   },
   "dependencies": {
     "angular": "^1.5.8",

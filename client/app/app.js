@@ -13,6 +13,7 @@ var app = angular.module('theApp', [
   'contactlistdirective',
   'groupsingledirective',
   'grouplistdirective',
+  'yelpformdirective',
   'services',
   'mainCtrl'
   ])
