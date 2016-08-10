@@ -28,6 +28,14 @@ angular.module('chatlistdirective', ['theApp']).directive('chatlist', function()
         MessageService.getRecentMessages();
       }
 
+      $scope.filterById = function (message) {
+        if (Globals.selections.recipient) {
+          var recipient = Globals.selections.recipient.id;
+
+          return message.recipientId === recipient || message.senderId === recipient;
+        }
+      }
+
       socket.on('get message', function () {
         $scope.$apply();
       })

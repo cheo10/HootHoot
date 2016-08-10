@@ -3,6 +3,8 @@ angular.module('services', [])
     return io.connect();
   })
   .factory('Globals', function () {
+    var userId = +localStorage.getItem('userId');
+    console.log('id: ', userId)
     var selections = {};
 
     var setSelectedRecipient = function (recipient) {
@@ -11,7 +13,8 @@ angular.module('services', [])
 
     return {
       selections: selections,
-      setSelectedRecipient: setSelectedRecipient
+      setSelectedRecipient: setSelectedRecipient,
+      userId: userId
     }
   })
   .factory('GroupService', ['$http', '$rootScope',
@@ -153,23 +156,14 @@ angular.module('services', [])
           'senderId': sender,
           'recipientId': recipient,
           'body': messageText,
-          'recipientType': 'U',
-          'messageCreated': Date.now()
+          'recipientType': 'U'
         }
 
         socket.emit('send message', message);
-        appendMessage(message);
       };
 
-      var appendMessage = function(message) {
-        console.log('appending message from you');
-
+      socket.on('get message', function (message) {
         chats.push(message);
-      };
-
-      socket.on('get message', function (data) {
-        console.log('receiving from server');
-        appendMessage(data);
       });
 
       return {
