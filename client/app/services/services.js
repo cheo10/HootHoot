@@ -17,27 +17,6 @@ angular.module('services', [])
       userId: userId
     }
   })
-  .factory('YelpService', ['$rootScope',
-    function YelpServiceFactory ($rootScope) {
-      var searchYelp = function(searchTerm, location) {
-        return $http({
-          method: 'POST',
-          url: '/api/yelp',
-          headers: {'Content-Type': 'application/json'},
-          data: {searchTerm: searchTerm, location:location}
-        })
-        .then(function (resp){
-          contacts.push(resp.data);
-        })
-        .catch(function(resp){
-          console.log("THIS IS AN ERROR" + JSON.stringify(resp.data));
-        });
-      };
-      return {
-        searchYelp:searchYelp,
-      };
-    }
-  ])
   .factory('GroupService', ['$http', '$rootScope',
     function GroupServiceFactory ($http, $rootScope) {
     var searchGroupFriends = [
@@ -169,9 +148,9 @@ angular.module('services', [])
         .then(function(resp) {
           resp.data.forEach(function(message) {
             chats.push(message);
-          })
+          });
           console.log(chats);
-        })
+        });
       }
 
       var sendMessage = function(sender, recipient, messageText) {
@@ -180,7 +159,7 @@ angular.module('services', [])
           'recipientId': recipient,
           'body': messageText,
           'recipientType': 'U'
-        }
+        };
 
         socket.emit('send message', message);
       };
@@ -189,9 +168,23 @@ angular.module('services', [])
         chats.push(message);
 
       });
-
+      var searchYelp = function(searchTerm, location) {
+        return $http({
+          method: 'POST',
+          url: '/api/yelp',
+          headers: {'Content-Type': 'application/json'},
+          data: {searchTerm: searchTerm, location:location}
+        })
+        .then(function (resp){
+          contacts.push(resp.data);
+        })
+        .catch(function(resp){
+          console.log("THIS IS AN ERROR" + JSON.stringify(resp.data));
+        });
+      };
       return {
         sendMessage: sendMessage,
+        searchYelp:searchYelp,
         getRecentMessages: getRecentMessages,
         chats: chats
       };
