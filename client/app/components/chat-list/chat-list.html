@@ -1,4 +1,4 @@
-<div class="chat-list">
+<div class="chat-list" ng-init="getRecentMessages()">
     <div ng-repeat="chat in chats track by chat.messageCreated" repeat-complete="listDidRender()">
       <chatsingle body="{{chat.body}}" sender="{{chat.senderId}}" date="{{chat.messageCreated}}"></chatsingle>
       <br>

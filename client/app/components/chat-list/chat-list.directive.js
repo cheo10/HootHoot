@@ -24,6 +24,10 @@ angular.module('chatlistdirective', ['theApp']).directive('chatlist', function()
 
       $scope.selections = Globals.selections;
 
+      $scope.getRecentMessages = function () {
+        MessageService.getRecentMessages();
+      }
+
       socket.on('get message', function () {
         $scope.$apply();
       })

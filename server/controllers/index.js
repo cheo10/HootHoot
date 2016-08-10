@@ -63,10 +63,12 @@ module.exports = {
   },
   message: {
     get: function(req, res) {
-      db.Message.findAll()
-      .then(function(messages) {
-        res.json(messages);
-      });
+      var user = req.decoded;
+
+      db.Message.getRecent(user.id)
+        .then(function(messages) {
+          res.json(messages);
+        })
     },
     post: function(req, res) {
       console.log(req.body);

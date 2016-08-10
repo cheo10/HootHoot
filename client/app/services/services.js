@@ -130,9 +130,23 @@ angular.module('services', [])
       };
     }
   ])
-  .factory('MessageService', ['$rootScope', 'currentUser', 'socket',
-    function MessageServiceFactory($rootScope, currentUser, socket, store){
+  .factory('MessageService', ['$http', '$rootScope', 'currentUser', 'socket',
+    function MessageServiceFactory($http, $rootScope, currentUser, socket, store){
       var chats = [];
+
+      var getRecentMessages = function () {
+        return $http({
+          method: 'GET',
+          url: '/message',
+          headers: {'Content-Type': 'application/json'},
+        })
+        .then(function(resp) {
+          resp.data.forEach(function(message) {
+            chats.push(message);
+          })
+          console.log(chats);
+        })
+      }
 
       var sendMessage = function(sender, recipient, messageText) {
         var message = {
@@ -160,6 +174,7 @@ angular.module('services', [])
 
       return {
         sendMessage: sendMessage,
+        getRecentMessages: getRecentMessages,
         chats: chats
       };
     }
