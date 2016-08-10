@@ -4,7 +4,6 @@ var jwt = require('jsonwebtoken');
 module.exports = {
   users: {
     signin: function(req, res) {
-      console.log('signing in ')
       console.log(req.body);
       db.User.findOne({where:{ email: req.body.email }})
       .then(function(user) {
@@ -19,7 +18,7 @@ module.exports = {
                                   'id': user.id ,
                                   'email': user.email} );
           }else{
-            console.log('wrong password')
+            console.log('wrong password');
             res.json('Wrong password');
           }
         }
@@ -31,8 +30,6 @@ module.exports = {
     },
 
     authin: function(req, res) {
-      console.log('authin in ')
-      console.log(req.body , ' req.body.email')
       db.User.findOrCreate({where:{ email: req.body.email }, defaults: {firstname: req.body.firstname, lastname: req.body.lastname}})
       .spread(function(user, created) {
         var myToken = jwt.sign({ user: user.email, id: user.id},
@@ -124,7 +121,7 @@ module.exports = {
     db.Contacts.addContact(user.id, req.body.newContactEmail)
       .then(function(createdContact) {
         res.json(createdContact);
-      })
+      });
   },
   delete: function(req, res) {
     var user = req.decoded;
