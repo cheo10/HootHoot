@@ -54,7 +54,7 @@ angular.module('services', [])
       });
     };
     var sendGroup = function(groupName, groupMembers) {
-      var results = window.localStorage.token;
+      /*var results = window.localStorage.token;
       return $http({
         method: 'POST',
         url: '/groupRoom',
@@ -67,7 +67,7 @@ angular.module('services', [])
       })
       .catch(function(resp){
         console.log("THIS IS AN ERROR" + JSON.stringify(resp.data));
-      });
+      });*/
     };
       return {
         sendGroup: sendGroup,
