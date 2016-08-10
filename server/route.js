@@ -27,4 +27,6 @@ router.get('/contacts', Auth.authorize,controller.contacts.get);
 
 router.post('/contacts', Auth.authorize,controller.contacts.post);
 
+router.delete('/contacts', Auth.authorize, controller.contacts.delete);
+
 module.exports = router;

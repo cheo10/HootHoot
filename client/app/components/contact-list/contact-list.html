@@ -1,16 +1,16 @@
-<div class="contact-list">
+<div class="contact-list" ng-init="getAllContacts()">
   <br>
   <form ng-submit="addContact(newContact)">
     <input type="text" ng-model="newContact" placeholder="Add a contact" />
-    <input type="submit" value="Add" ng-click="addContact(newContact)"/>
+    <input type="submit" value="Add"/>
   </form>
   <hr>
   <input type="text" ng-model="searchBox" placeholder="Search your contacts">
   <br>
   <br>
-  <div class="contacts" ng-init="getAllContacts()" ng-repeat="contact in contacts | filter:searchBox | orderBy: 'isActive'">
-    <contactsingle name="{{contact.name}}" status="{{contact.isActive}}" channel="{{contact.channel}}"></contactsingle>
-    <button ng-click="deleteContact()">Delete</button>
+  <div class="contacts" ng-repeat="contact in contacts | filter:searchBox | orderBy: 'isActive'">
+    <contactsingle name="{{contact.firstname}} {{contact.lastname}}" status="{{contact.isActive}}"></contactsingle>
+    <button ng-click="deleteContact(contact.id)">Delete</button>
   </div>
 
 </div>

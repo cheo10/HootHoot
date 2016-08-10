@@ -6,7 +6,7 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
     scope: {},
 
     controller: function($scope, currentUser, store, MessageService) {//declare and link up currentuser and main factory messageService!!!
-      $scope.senderId = store.get('profile').nickname;
+      $scope.senderId = localStorage.getItem('userId');
       $scope.recipient = $scope.senderId === 'Forrest Labrum' ? 'Chris Heo' : 'Forrest Labrum';
       $scope.messageText = '';
 
