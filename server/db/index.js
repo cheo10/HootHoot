@@ -107,6 +107,10 @@ Contacts.getContacts = function(user) {
     { replacements: { user: user }, type: db.QueryTypes.SELECT });
 }
 
+Contacts.deleteContact = function(userOne, userTwo) {
+  return Contacts.destroy({ where: { userOne: userOne, userTwo: userTwo } });
+}
+
 Contacts.sync();
 
 

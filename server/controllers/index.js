@@ -122,6 +122,14 @@ module.exports = {
       .then(function(createdContact) {
         res.json(createdContact);
       })
+  },
+  delete: function(req, res) {
+    var user = req.decoded;
+
+    db.Contacts.deleteContact(user.id, req.body.contact)
+      .then(function(deletedContact) {
+        res.json(deletedContact);
+      });
   }
 }
 };
