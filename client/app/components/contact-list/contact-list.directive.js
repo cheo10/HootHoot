@@ -5,7 +5,7 @@ angular.module('contactlistdirective', ['theApp']).directive('contactlist', func
     scope: {
 
     },
-    controller: function($rootScope, $scope, ContactService) {
+    controller: function($rootScope, $scope, ContactService, Globals) {
 
       var hardcodeUser = 'nahee';
 
@@ -21,6 +21,10 @@ angular.module('contactlistdirective', ['theApp']).directive('contactlist', func
 
       $scope.deleteContact = function (contact){
         ContactService.deleteContact(contact);
+      };
+
+      $scope.setSelectedRecipient = function (recipient) {
+        Globals.setSelectedRecipient(recipient);
       };
     }
   };

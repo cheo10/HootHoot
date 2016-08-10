@@ -2,6 +2,21 @@ angular.module('services', [])
   .factory('socket', function () {
     return io.connect();
   })
+  .factory('Globals', function () {
+    var userId = +localStorage.getItem('userId');
+    console.log('id: ', userId)
+    var selections = {};
+
+    var setSelectedRecipient = function (recipient) {
+      selections.recipient = recipient;
+    }
+
+    return {
+      selections: selections,
+      setSelectedRecipient: setSelectedRecipient,
+      userId: userId
+    }
+  })
   .factory('GroupService', ['$http', '$rootScope',
     function GroupServiceFactory ($http, $rootScope) {
     var searchGroupFriends = [
@@ -39,7 +54,7 @@ angular.module('services', [])
       });
     };
     var sendGroup = function(groupName, groupMembers) {
-      var results = window.localStorage.token;
+      /*var results = window.localStorage.token;
       return $http({
         method: 'POST',
         url: '/groupRoom',
@@ -52,7 +67,7 @@ angular.module('services', [])
       })
       .catch(function(resp){
         console.log("THIS IS AN ERROR" + JSON.stringify(resp.data));
-      });
+      });*/
     };
       return {
         sendGroup: sendGroup,
@@ -118,36 +133,42 @@ angular.module('services', [])
       };
     }
   ])
-  .factory('MessageService', ['$rootScope', 'currentUser', 'socket',
-    function MessageServiceFactory($rootScope, currentUser, socket, store){
+  .factory('MessageService', ['$http', '$rootScope', 'currentUser', 'socket',
+    function MessageServiceFactory($http, $rootScope, currentUser, socket, store){
       var chats = [];
+
+      var getRecentMessages = function () {
+        return $http({
+          method: 'GET',
+          url: '/message',
+          headers: {'Content-Type': 'application/json'},
+        })
+        .then(function(resp) {
+          resp.data.forEach(function(message) {
+            chats.push(message);
+          })
+          console.log(chats);
+        })
+      }
 
       var sendMessage = function(sender, recipient, messageText) {
         var message = {
           'senderId': sender,
           'recipientId': recipient,
           'body': messageText,
-          'recipientType': 'U',
-          'messageCreated': Date.now()
+          'recipientType': 'U'
         }
 
         socket.emit('send message', message);
-        appendMessage(message);
       };
 
-      var appendMessage = function(message) {
-        console.log('appending message from you');
-
+      socket.on('get message', function (message) {
         chats.push(message);
-      };
-
-      socket.on('get message', function (data) {
-        console.log('receiving from server');
-        appendMessage(data);
       });
 
       return {
         sendMessage: sendMessage,
+        getRecentMessages: getRecentMessages,
         chats: chats
       };
     }

@@ -1,7 +1,7 @@
 var io = require('./server').io;
 var db = require('./db');
+var Wit = require('./wit');
 var connectedUsers = {};
-var socketToUser = {};
 
 var register = function(profile) {
   connectedUsers[profile] = this;
@@ -16,18 +16,31 @@ exports.newConnection =  function (socket) {
   socket.on('registered', register.bind(socket));
 
   socket.on('send message', function (message) {
+    var sender = message.senderId;
     var recipient = message.recipientId;
     var recipientType = message.recipientType;
 
-    if (recipientType === 'G') {
-      io.to(recipient).emit('get message', message);
-    } else if (recipientType === 'U') {
-      if (isConnected(recipient)) {
-        connectedUsers[recipient].emit('get message', message);
-      }
-    }
+    db.Message.addMessage(message)
+      .then(function (result) {
+        message.messageCreated = result.createdAt;
 
-    db.Message.addMessage(message);
+        if (recipientType === 'G') {
+          io.to(recipient).emit('get message', message);
+        } else if (recipientType === 'U') {
+          connectedUsers[sender].emit('get message', message);
+          if (isConnected(recipient)) {
+            connectedUsers[recipient].emit('get message', message);
+          }
+        }
+      })
+
+
+    /*Wit.process(message.body)
+          .then(function (resp) {
+            console.log(resp)
+          })*/
+
+
 
   });
 
