@@ -168,6 +168,7 @@ angular.module('services', [])
         chats.push(message);
 
       });
+
       var searchYelp = function(searchTerm, location) {
         return $http({
           method: 'POST',
@@ -176,7 +177,7 @@ angular.module('services', [])
           data: {searchTerm: searchTerm, location:location}
         })
         .then(function (resp){
-          contacts.push(resp.data);
+          return resp.data;
         })
         .catch(function(resp){
           console.log("THIS IS AN ERROR" + JSON.stringify(resp.data));

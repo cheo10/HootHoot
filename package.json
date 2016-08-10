@@ -12,7 +12,8 @@
     "chai-jquery": "^2.0.0",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
-    "ng-dialog": "^0.6.2"
+    "ng-dialog": "^0.6.2",
+    "yelp": "^1.0.1"
   },
   "dependencies": {
     "angular": "^1.5.8",
@@ -37,6 +38,7 @@
     "passport": "^0.3.2",
     "path": "^0.12.7",
     "sequelize": "^3.23.6",
-    "socket.io": "^1.4.8"
+    "socket.io": "^1.4.8",
+    "yelp": "^1.0.1"
   }
 }

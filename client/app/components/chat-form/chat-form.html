@@ -4,11 +4,22 @@
       <input ng-model="messageText" type="text" placeholder="Type your message" required>
       <input type="submit">
     </div>
+<<<<<<< HEAD
      <div id="weather" style="display:none" ></div>
     <button ng-click="openYelp">Add Yelp</button>
       <div ng-show="yelp">
       <input type="text" ng-model="yelpSearch"></input>
       <input type="text" ng-model="yelpLocation"></input>
       </div>
+=======
+>>>>>>> Add yelp to package json
+  </form>
+  <button ng-click="openYelp()">Add Yelp</button>
+   <form ng-show="yelp" ng-submit="searchYelp()" class="mui-container">
+    <div>
+      <input type="text" ng-model="yelpLocation" placeholder="City, State"></input>
+      <input type="text" ng-model="yelpSearch" placeholder="Search"></input>
+      <button>Submit</button>
+    </div>
   </form>
 </div>
