@@ -32,13 +32,13 @@ User.sync();
 
 var Message = db.define('Message', {
   body: Sequelize.STRING,
-  senderId: Sequelize.STRING,
+  senderId: Sequelize.INTEGER,
   parentMessageId: Sequelize.INTEGER,
   originChannelId: Sequelize.INTEGER,
 });
 
 var MessageRecipient = db.define('MessageRecipient', {
-  recipientId: Sequelize.STRING,
+  recipientId: Sequelize.INTEGER,
   recipientGroupId: Sequelize.INTEGER,
   messageId: Sequelize.INTEGER,
   isRead: Sequelize.BOOLEAN
@@ -47,7 +47,7 @@ var MessageRecipient = db.define('MessageRecipient', {
 Message.addMessage = function(message) {
   return Message.create({body: message.body, senderId: message.senderId})
     .then(function (messageResult) {
-      return MessageRecipient.create({recipientId: message.recipientId, messageId: messageResult.id});
+      return MessageRecipient.create({recipientId: message.recipientId, messageId: messageResult.id, isRead: false })
     });
 }
 
