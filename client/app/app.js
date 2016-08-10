@@ -59,8 +59,8 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
           })
           .then(function (resp) {
             if(resp.data.token) {
-              localStorage.setItem('token', resp.data.token);
-              localStorage.setItem('userId', resp.data.id)
+              sessionStorage.setItem('token', resp.data.token);
+              localStorage.setItem('userId', resp.data.id);
               socket.emit('registered', localStorage.userId);
             } else {
               $location.path('/');
@@ -81,9 +81,9 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     });
 
     //Angular HTTP Interceptor function
-    jwtInterceptorProvider.tokenGetter = ['store', function(store) {
-      return store.get('token');
-    }];
+    // jwtInterceptorProvider.tokenGetter = ['store', function(store) {
+    //   return store.get('token');
+    // }];
 
     //Push interceptor function to $httpProvider's interceptors
     $httpProvider.interceptors.push('jwtInterceptor');
@@ -99,9 +99,12 @@ angular.module('mainCtrl', ['theApp'])
 
   $scope.logout = function() {
     $window.localStorage.removeItem('token');
+    $window.sessionStorage.removeItem('token');
     $window.localStorage.removeItem('profile');
     $window.localStorage.removeItem('username');
     $window.localStorage.removeItem('userId');
+    $window.localStorage.removeItem('recipient');
+    $window.localStorage.removeItem('email');
     $location.path('/');
   };
 })
@@ -110,7 +113,7 @@ app.value('currentUser', Math.floor(Math.random() * 1000000));
 
 app.factory('checker', function($http, $location, $window) {
     var isAuth = function() {
-    return !!$window.localStorage.getItem('token');
+    return !!$window.sessionStorage.getItem('token');
 
   };
 
@@ -126,7 +129,7 @@ app.factory('AttachTokens', function($window) {
   //add to header so server can validate request
   var attach = {
     request: function(object) {
-      var jwt = $window.localStorage.getItem('token');
+      var jwt = $window.sessionStorage.getItem('token');
       if(jwt) {
         object.headers['x-access-token'] = jwt;
       }

@@ -14,8 +14,10 @@ angular.module('loginController', ['theApp'])
     })
     .then(function (resp) {
       if(resp.data.token) {
+        $window.sessionStorage.setItem('token', resp.data.token);
         $window.localStorage.setItem('token', resp.data.token);
         $window.localStorage.setItem('userId', resp.data.id)
+        $window.localStorage.setItem('email', resp.data.email);
         $scope.id = $window.localStorage.getItem('userId');
         socket.emit('registered', $scope.id);
         $location.path('/chat');
