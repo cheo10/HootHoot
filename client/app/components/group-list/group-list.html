@@ -1,11 +1,12 @@
 <div class="group-list">
-  <button ng-click="showGroup()">Create Group</button>
+  <button ng-click="showGroup()">Groups</button>
     <div ng-show="click">
       <input type="text" ng-model="addGroupNames" placeholder="Group Name">
       <br>
       <div>
         {{addGroupNames}}
         {{groupFriends}}
+        <button ng-click="sendGroup()">Create</button>
       </div>
       <input type="text" ng-model="searchContactsBox" placeholder="Search your contacts">
       <br>

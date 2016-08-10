@@ -10,6 +10,9 @@ angular.module('grouplistdirective', ['theApp']).directive('grouplist', function
       $scope.showGroup = function () {
         $scope.click = true;
       };
+      $scope.sendGroup = function () {
+        GroupService.sendGroup($scope.addGroupNames, $scope.groupFriends);
+      };
       $scope.createGroup = function (name) {
         $scope.groupFriends.push(name);
       };

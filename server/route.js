@@ -15,10 +15,6 @@ router.get('/message', Auth.authorize, controller.message.get);
 
 router.post('/message', Auth.authorize, controller.message.post);
 
-router.get('/table', Auth.authorize, controller.table.get);
-
-router.post('/table', Auth.authorize, controller.table.post);
-
 router.get('/groupRoom', Auth.authorize, controller.groupRoom.get);
 
 router.post('/groupRoom', Auth.authorize, controller.groupRoom.post);
