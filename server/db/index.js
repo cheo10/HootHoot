@@ -125,10 +125,10 @@ Contacts.sync();
 
 
 // Declare Relationships between Models
-User.hasMany(Message);
-Message.belongsTo(User);
-//UserGroup.hasMany(User);
-UserGroup.hasMany(GroupRoom);
+// User.hasMany(Message);
+// Message.belongsTo(User);
+// UserGroup.hasMany(User);
+// UserGroup.hasMany(GroupRoom);
 
 exports.Contacts = Contacts;
 exports.GroupRoom = GroupRoom;

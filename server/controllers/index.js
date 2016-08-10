@@ -16,7 +16,8 @@ module.exports = {
                                     'secret',
                                     {expiresIn: 24 * 60 * 60 });
             res.status(200).send({'token': myToken,
-                                  'id': user.id } );
+                                  'id': user.id ,
+                                  'email': user.email} );
           }else{
             console.log('wrong password')
             res.json('Wrong password');

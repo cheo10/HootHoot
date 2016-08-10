@@ -1,6 +1,6 @@
 var io = require('./server').io;
 var db = require('./db');
-var Wit = require('./wit');
+// var Wit = require('./wit');
 var connectedUsers = {};
 
 var register = function(profile) {

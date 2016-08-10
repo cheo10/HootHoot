@@ -37,8 +37,10 @@ angular.module('services', [])
       }
     ];
 
+    var results = window.sessionStorage.token;
+
     var findContacts = function(userOne, userTwo) {
-      var results = window.localStorage.token;
+
       return $http({
         method: 'POST',
         url: '/contacts',
@@ -79,6 +81,7 @@ angular.module('services', [])
   .factory('ContactService', ['$http', '$rootScope',
     function ContactServiceFactory ($http, $rootScope) {
       var contacts = [];
+      var results = window.localStorage.token;
 
       var createContact = function(newContactEmail) {
         return $http({
