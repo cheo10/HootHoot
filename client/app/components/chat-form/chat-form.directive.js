@@ -5,13 +5,13 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
     templateUrl: 'app/components/chat-form/chat-form.html',
     scope: {},
 
-    controller: function($scope, currentUser, store, MessageService) {//declare and link up currentuser and main factory messageService!!!
+    controller: function($scope, currentUser, store, MessageService, Globals) {//declare and link up currentuser and main factory messageService!!!
       $scope.senderId = localStorage.getItem('userId');
-      $scope.recipient = $scope.senderId === 'Forrest Labrum' ? 'Chris Heo' : 'Forrest Labrum';
+      $scope.selections = Globals.selections;
       $scope.messageText = '';
 
       $scope.sendMessage = function() {
-        MessageService.sendMessage($scope.senderId, $scope.recipient, $scope.messageText);
+        MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, $scope.messageText);
         $scope.messageText = '';
       }
     }

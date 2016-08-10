@@ -10,7 +10,7 @@ angular.module('chatlistdirective', ['theApp']).directive('chatlist', function()
       init();
     },
 
-    controller: function($scope, MessageService, socket) {
+    controller: function($scope, MessageService, socket, Globals) {
       $scope.scrollToBottom = function() {
         var uuidLastChat = _.last($scope.chats).uuid;
         $anchorScroll(uuidLastChat);
@@ -21,6 +21,12 @@ angular.module('chatlistdirective', ['theApp']).directive('chatlist', function()
       };
 
       $scope.chats = MessageService.chats;
+
+      $scope.selections = Globals.selections;
+
+      socket.on('get message', function () {
+        $scope.$apply();
+      })
     }
   };
 });
