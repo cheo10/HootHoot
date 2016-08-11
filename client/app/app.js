@@ -80,16 +80,8 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
       $location.path('/');
     });
 
-    //Angular HTTP Interceptor function
-    // jwtInterceptorProvider.tokenGetter = ['store', function(store) {
-    //   return store.get('token');
-    // }];
-
     //Push interceptor function to $httpProvider's interceptors
     $httpProvider.interceptors.push('jwtInterceptor');
-
-    // use the HTML5 History API
-    // $locationProvider.html5Mode(true);
 
     $httpProvider.interceptors.push('AttachTokens');
   }])
