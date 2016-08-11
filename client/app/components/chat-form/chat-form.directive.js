@@ -11,7 +11,6 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
       $scope.messageText = '';
 
       $scope.sendMessage = function() {
-        debugger;
         MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, $scope.messageText);
         $scope.messageText = '';
       }

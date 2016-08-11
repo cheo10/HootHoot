@@ -3,7 +3,7 @@
   <div style="float: left">
     <userpic />
   </div>
-  <div class="bubble">
+  <div class="bubble {{sender==='You'? 'You' : 'notYou'}}">
     {{body}}
   </div>
   <div style="float: right" class="nonBodyText">{{date | date: "h:mma 'on' MM/dd/yyyy"}}</div>

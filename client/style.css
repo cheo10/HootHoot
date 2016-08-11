@@ -37,7 +37,6 @@
 }
 
 .bubble{
-    background-color: #F2F2F2;
     border-radius: 5px;
     box-shadow: 0 0 6px #B2B2B2;
     display: inline-block;
@@ -47,8 +46,16 @@
     width: 80%;
 }
 
+.You{
+  background-color: #b3d9ff;
+}
+
+.notYou{
+  background-color: #F2F2F2;
+}
+
 .bubble::before {
-    background-color: #F2F2F2;
+    /*background-color: #F2F2F2;*/
     display: block;
     height: 16px;
     position: absolute;
@@ -64,4 +71,9 @@
 .userpic {
   width: 50px;
   height: 50px;
+}
+
+.chatList{
+  height: 400px;
+  overflow: scroll;
 }
