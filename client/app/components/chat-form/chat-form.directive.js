@@ -3,22 +3,45 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
     restrict: "E",
     replace: true,
     templateUrl: 'app/components/chat-form/chat-form.html',
+
     controller: function($scope, currentUser, store, MessageService, Globals) {//declare and link up currentuser and main factory messageService!!!
       $scope.senderId = Globals.userId;
       $scope.selections = Globals.selections;
+
       $scope.messageText = '';
 
+      //load weather using your lat/lng coordinates
+      navigator.geolocation.getCurrentPosition(function(position) {
+        $scope.loadWeather(position.coords.latitude+','+position.coords.longitude);
+      });
+
+
+      $scope.loadWeather = function(location, woeid) {
+        $.simpleWeather({
+          location: location,
+          woeid: woeid,
+          unit: 'f',
+          success: function(weather) {
+            html = '<h2 id="temp"><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
+
+            $("#weather").html(html);
+          },
+          error: function(error) {
+            $("#weather").html('<p>'+error+'</p>');
+          }
+        });
+      }
+
       $scope.sendMessage = function() {
+
+        if($scope.messageText.match(/\/weather/)) {
+          $scope.messageText = document.getElementById("temp").innerHTML.split('</i> ')[1];
+        }
+
         MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, $scope.messageText);
         $scope.messageText = '';
-
-      };
-      // $scope.yelp = false;
-      // $scope.openYelp = function () {
-      //   $scope.yelp = true;
-      // };
-      // MessageService.searchYelp($scope.yelpSearch, $scope.yelpLocation);
-    },
+      }
+    }
   };
 });
 
