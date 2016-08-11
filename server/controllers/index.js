@@ -53,7 +53,7 @@ module.exports = {
     },
     post: function(req, res) {
       console.log(req.body);
-      db.User.findOrCreate({where: {email : req.body.email}, defaults: {firstname: req.body.firstname,lastname: req.body.lastname, password: req.body.password}} )
+      db.User.findOrCreate({where: {email : req.body.email}, defaults: {firstname: req.body.firstname,lastname: req.body.lastname, password: req.body.password, isActive: false }} )
       .spread(function(user, created) {
         res.json(user);
       });
