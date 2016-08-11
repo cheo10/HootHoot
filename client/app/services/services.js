@@ -135,8 +135,9 @@ angular.module('services', [])
       };
     }
   ])
-  .factory('MessageService', ['$timeout','$window', '$http', '$rootScope', 'currentUser', 'socket',
-    function MessageServiceFactory($timeout, $window, $http, $rootScope, currentUser, socket, store){
+  .factory('MessageService', ['$window','$timeout','$http', '$rootScope', 'currentUser', 'socket',
+    function MessageServiceFactory($window, $timeout, $http, $rootScope, currentUser, socket, store){
+>>>>>>> Add wiki search command
       var chats = [];
 
       var getRecentMessages = function () {
@@ -153,6 +154,7 @@ angular.module('services', [])
       }
 
       var sendMessage = function(sender, recipient, messageText) {
+
         if(messageText.search(/^\/yelp /) > -1){  // '/yelp tacos around 22101'  or '/yelp pizza around la'
           var queryArr = messageText.replace(/^\/yelp /, '').split('around');
           var foodQuery = queryArr[0].trim(); //tacos or pizza
@@ -161,6 +163,11 @@ angular.module('services', [])
           $window.open('https://www.yelp.com/search?find_desc=' +
             foodQuery +'&find_loc=' + locationQuery, '_blank');
         };
+        if(messageText.search(/^\/wiki /) > -1){  //giphy search
+          var wikiQuery = messageText.replace(/^\/wiki /, '').replace(/ /gi, '_').trim();
+          $window.open('https://en.wikipedia.org/wiki/Special:Search/' + wikiQuery, '_blank');
+        };
+
         var message = {
           'senderId': sender,
           'recipientId': recipient,
