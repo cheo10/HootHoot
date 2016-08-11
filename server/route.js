@@ -1,11 +1,11 @@
 var controller = require('./controllers');
 var router = require('express').Router();
 var Auth = require('./auth/helpers.js');
-
+var helpers = require('./controllers/yelpHelper');
 
 router.post('/', controller.users.signin);
 
-router.post('/auth', controller.users.authin)
+router.post('/auth', controller.users.authin);
 
 router.get('/signup', controller.users.get);
 
@@ -24,5 +24,12 @@ router.get('/contacts', Auth.authorize,controller.contacts.get);
 router.post('/contacts', Auth.authorize,controller.contacts.post);
 
 router.delete('/contacts', Auth.authorize, controller.contacts.delete);
+
+router.post('/api/yelp', function(req,res){
+  var params = req.body;
+  helpers.searchYelp(params.searchTerm, function(data){
+    res.json(data);
+  });
+});
 
 module.exports = router;

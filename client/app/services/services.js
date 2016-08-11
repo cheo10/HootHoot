@@ -38,7 +38,6 @@ angular.module('services', [])
     ];
 
     var results = window.sessionStorage.token;
-
     var findContacts = function(userOne, userTwo) {
 
       return $http({
@@ -136,8 +135,8 @@ angular.module('services', [])
       };
     }
   ])
-  .factory('MessageService', ['$timeout','$http', '$rootScope', 'currentUser', 'socket',
-    function MessageServiceFactory($timeout, $http, $rootScope, currentUser, socket, store){
+  .factory('MessageService', ['$timeout','$window', '$http', '$rootScope', 'currentUser', 'socket',
+    function MessageServiceFactory($timeout, $window, $http, $rootScope, currentUser, socket, store){
       var chats = [];
 
       var getRecentMessages = function () {
@@ -149,18 +148,26 @@ angular.module('services', [])
         .then(function(resp) {
           resp.data.forEach(function(message) {
             chats.push(message);
-          })
+          });
           console.log(chats);
-        })
+        });
       }
 
       var sendMessage = function(sender, recipient, messageText) {
+        if(messageText.search(/^\/yelp /) > -1){  // '/yelp tacos around 22101'  or '/yelp pizza around la'
+          var queryArr = messageText.replace(/^\/yelp /, '').split('around');
+          var foodQuery = queryArr[0].trim(); //tacos or pizza
+          var locationQuery = queryArr[1].trim(); //22101 or la
+          // searchYelp(foodQuery, locationQuery);
+          $window.open('https://www.yelp.com/search?find_desc=' +
+            foodQuery +'&find_loc=' + locationQuery, '_blank');
+        };
         var message = {
           'senderId': sender,
           'recipientId': recipient,
           'body': messageText,
           'recipientType': 'U'
-        }
+        };
 
         socket.emit('send message', message);
       };
@@ -170,8 +177,23 @@ angular.module('services', [])
 
       });
 
+      var searchYelp = function(searchTerm) {
+        return $http({
+          method: 'POST',
+          url: '/api/yelp',
+          headers: {'Content-Type': 'application/json'},
+          data: {searchTerm: searchTerm}
+        })
+        .then(function (resp){
+          return resp.data;
+        })
+        .catch(function(resp){
+          console.log("THIS IS AN ERROR" + JSON.stringify(resp.data));
+        });
+      };
       return {
         sendMessage: sendMessage,
+        searchYelp:searchYelp,
         getRecentMessages: getRecentMessages,
         chats: chats
       };
