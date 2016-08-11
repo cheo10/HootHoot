@@ -5,7 +5,7 @@ var qs = require('querystring');
 var _ = require('lodash');
 var keys = require('../config/keys');
 
-exports.searchYelp = function(set_parameters) {
+exports.searchYelp = function(set_parameters, callback) {
 /* Function for yelp call
  * ------------------------
  * set_parameters: object with params to search
@@ -25,8 +25,8 @@ exports.searchYelp = function(set_parameters) {
 
   /* We set the require parameters here */
   var required_parameters = {
-    oauth_consumer_key : process.env.oauth_consumer_key || "VahMky6elAwbERS2sapTTQ",
-    oauth_token : process.env.oauth_token || "kqnSexVLThHXdcgQfocBVNhwxX03IcZJ",
+    oauth_consumer_key : process.env.oauth_consumer_key || keys.oauth_consumer_key,
+    oauth_token : process.env.oauth_token || keys.oauth_token,
     oauth_nonce : n(),
     oauth_timestamp : n().toString().substr(0,10),
     oauth_signature_method : 'HMAC-SHA1',
@@ -37,8 +37,8 @@ exports.searchYelp = function(set_parameters) {
   var parameters = _.assign(default_parameters, set_parameters, required_parameters);
 
   /* We set our secrets here */
-  var consumerSecret = process.env.consumerSecret || "iC3WTOgyny37x9qjt7nAfWzWr6U";
-  var tokenSecret = process.env.tokenSecret || "kqnSexVLThHXdcgQfocBVNhwxX03IcZJ";
+  var consumerSecret = process.env.consumerSecret ||keys.consumerSecret;
+  var tokenSecret = process.env.tokenSecret || keys.tokenSecret;
 
   /* Then we call Yelp's Oauth 1.0a server, and it returns a signature */
   /* Note: This signature is only good for 300 seconds after the oauth_timestamp */
@@ -55,7 +55,7 @@ exports.searchYelp = function(set_parameters) {
 
   /* Then we use request to send make the API Request */
   request(apiURL, function(error, response, body){
-    return ("This is the response " + response, "this is the body " + body);
+    return callback(error, response, body);
   });
 
 };

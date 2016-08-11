@@ -27,7 +27,7 @@ router.delete('/contacts', Auth.authorize, controller.contacts.delete);
 
 router.post('/api/yelp', function(req,res){
   var params = req.body;
-  helpers.searchYelp(params.searchTerm, params.location, function(data){
+  helpers.searchYelp(params.searchTerm, function(data){
     res.json(data);
   });
 });

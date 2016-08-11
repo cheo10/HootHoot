@@ -135,8 +135,8 @@ angular.module('services', [])
       };
     }
   ])
-  .factory('MessageService', ['$timeout','$http', '$rootScope', 'currentUser', 'socket',
-    function MessageServiceFactory($timeout, $http, $rootScope, currentUser, socket, store){
+  .factory('MessageService', ['$timeout','$window', '$http', '$rootScope', 'currentUser', 'socket',
+    function MessageServiceFactory($timeout, $window, $http, $rootScope, currentUser, socket, store){
       var chats = [];
 
       var getRecentMessages = function () {
@@ -154,6 +154,14 @@ angular.module('services', [])
       }
 
       var sendMessage = function(sender, recipient, messageText) {
+        if(messageText.search(/^\/yelp /) > -1){  // '/yelp tacos around 22101'  or '/yelp pizza around la'
+          var queryArr = messageText.replace(/^\/yelp /, '').split('around');
+          var foodQuery = queryArr[0].trim(); //tacos or pizza
+          var locationQuery = queryArr[1].trim(); //22101 or la
+          // searchYelp(foodQuery, locationQuery);
+          $window.open('https://www.yelp.com/search?find_desc=' +
+            foodQuery +'&find_loc=' + locationQuery, '_blank');
+        };
         var message = {
           'senderId': sender,
           'recipientId': recipient,
@@ -169,12 +177,12 @@ angular.module('services', [])
 
       });
 
-      var searchYelp = function(searchTerm, location) {
+      var searchYelp = function(searchTerm) {
         return $http({
           method: 'POST',
           url: '/api/yelp',
           headers: {'Content-Type': 'application/json'},
-          data: {searchTerm: searchTerm, location:location}
+          data: {searchTerm: searchTerm}
         })
         .then(function (resp){
           return resp.data;
