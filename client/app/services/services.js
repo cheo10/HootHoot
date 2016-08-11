@@ -137,7 +137,6 @@ angular.module('services', [])
   ])
   .factory('MessageService', ['$window','$timeout','$http', '$rootScope', 'currentUser', 'socket',
     function MessageServiceFactory($window, $timeout, $http, $rootScope, currentUser, socket, store){
->>>>>>> Add wiki search command
       var chats = [];
 
       var getRecentMessages = function () {
