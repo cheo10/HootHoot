@@ -5,7 +5,8 @@ angular.module('chatsingledirective', ['theApp']).directive('chatsingle', functi
     scope: {
       sender: '@', //???
       body: '@',
-      date: '@'
+      date: '@',
+      type: '@'
     }
   }
 });
