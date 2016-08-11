@@ -15,7 +15,7 @@
 >>>>>>> Add yelp to package json
   </form>
   <button ng-click="openYelp()">Add Yelp</button>
-   <form ng-show="yelp" ng-submit="searchYelp()" class="mui-container">
+   <form ng-show="yelp" ng-submit="searchYelp(yelpSearch, yelpLocation)" class="mui-container">
     <div>
       <input type="text" ng-model="yelpLocation" placeholder="City, State"></input>
       <input type="text" ng-model="yelpSearch" placeholder="Search"></input>

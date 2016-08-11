@@ -3,9 +3,9 @@ var n = require('nonce')();
 var request = require('request');
 var qs = require('querystring');
 var _ = require('lodash');
+var keys = require('../config/keys');
 
-
-exports.searchYelp = function(set_parameters, callback) {
+exports.searchYelp = function(set_parameters) {
 /* Function for yelp call
  * ------------------------
  * set_parameters: object with params to search
@@ -55,21 +55,7 @@ exports.searchYelp = function(set_parameters, callback) {
 
   /* Then we use request to send make the API Request */
   request(apiURL, function(error, response, body){
-    return callback(error, response, body);
+    return ("This is the response " + response, "this is the body " + body);
   });
 
 };
-// {
-//   "oauth_consumer_key": "VahMky6elAwbERS2sapTTQ",
-//   "consumer_secret": "iC3WTOgyny37x9qjt7nAfWzWr6U",
-//   "oauth_signature_method": "HMAC-SHA1",
-//   "oauth_token": "kqnSexVLThHXdcgQfocBVNhwxX03IcZJ",
-//   "oauth_signature": "0vU63-lLq2tdmL2l9UYFoh_S9Mo",
-//   "oauth_timestamp": 1470874763,
-//   "oauth_nonce": "poop"
-// }
-
-// Consumer Key  VahMky6elAwbERS2sapTTQ
-// Consumer Secret iC3WTOgyny37x9qjt7nAfWzWr6U
-// Token kqnSexVLThHXdcgQfocBVNhwxX03IcZJ
-// Token Secret  0vU63-lLq2tdmL2l9UYFoh_S9Mo
