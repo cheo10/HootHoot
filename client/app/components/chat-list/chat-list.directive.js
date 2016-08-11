@@ -3,22 +3,31 @@ angular.module('chatlistdirective', ['theApp']).directive('chatlist', function()
     restrict: "E",
     replace: true,
     templateUrl: 'app/components/chat-list/chat-list.html',
-
-    link: function(scope, element, attrs, ctrl) {
-      var element = angular.element(element);
-      var init = function() {};
-      init();
+    scope: {
+      list: '=chatlist'
+    },
+    link: function(scope, element) {
+      scope.$watchCollection('list', function() {
+        var $list = element.find('.chatScroll');
+        var scrollHeight = $list.prop('scrollHeight');
+        $list.prop('scrollTop', scrollHeight);
+      });
     },
 
-    controller: function($scope, MessageService, socket, Globals) {
-      $scope.scrollToBottom = function() {
-        var uuidLastChat = _.last($scope.chats).uuid;
-        $anchorScroll(uuidLastChat);
-      };
+    controller: function($timeout, $scope, MessageService, socket, Globals) {
+      // var scrolled = false;
+      // function updateScroll(){
+      //     if(!scrolled){
+      //         var element = document.getElementById("chatScroll");
+      //         element.scrollTop = element.scrollHeight;
+      //     }
+      // }
 
-      $scope.listDidRender = function() {
-        $scope.scrollToBottom();
-      };
+      // $("#chatScroll").on('scroll', function(){
+      //     scrolled=true;
+      // });
+
+
 
       $scope.chats = MessageService.chats;
 

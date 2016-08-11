@@ -136,8 +136,8 @@ angular.module('services', [])
       };
     }
   ])
-  .factory('MessageService', ['$http', '$rootScope', 'currentUser', 'socket',
-    function MessageServiceFactory($http, $rootScope, currentUser, socket, store){
+  .factory('MessageService', ['$timeout','$http', '$rootScope', 'currentUser', 'socket',
+    function MessageServiceFactory($timeout, $http, $rootScope, currentUser, socket, store){
       var chats = [];
 
       var getRecentMessages = function () {
@@ -167,6 +167,7 @@ angular.module('services', [])
 
       socket.on('get message', function (message) {
         chats.push(message);
+
       });
 
       return {

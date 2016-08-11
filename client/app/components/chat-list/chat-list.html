@@ -1,8 +1,8 @@
 <div class="chat-list" ng-init="getRecentMessages()">
-  <div class="mui-appbar mui--appbar-line-height">
-    Who you are chatting with: {{ selections.recipient.firstname }} {{ selections.recipient.lastname }}
+  <div class="mui-appbar mui--appbar-line-height" style="padding: 10px 10px 0px 10px;">
+    {{ selections.recipient.firstname }} {{ selections.recipient.lastname }}
   </div>
-    <div ng-model="selections.recipient" ng-repeat="chat in chats | filter:filterById | orderBy: 'messageCreated'" repeat-complete="listDidRender()">
+    <div class="chatScroll" ng-model="selections.recipient" ng-repeat="chat in chats | filter:filterById | orderBy: 'messageCreated'">
       <chatsingle body="{{chat.body}}" sender="{{ chat.senderId === selections.recipient.id ? selections.recipient.firstname + ' ' + selections.recipient.lastname : 'You'}}" date="{{chat.messageCreated}}"></chatsingle>
       <br>
     </div>
