@@ -5,7 +5,7 @@ angular.module('contactsingledirective', ['theApp']).directive('contactsingle', 
     scope: {
       name: '@',
       channel: '@',
-      status: '@'
+      isactive: '@'
     }
   };
 });

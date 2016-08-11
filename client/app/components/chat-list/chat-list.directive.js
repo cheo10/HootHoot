@@ -48,6 +48,10 @@ angular.module('chatlistdirective', ['theApp']).directive('chatlist', function()
       socket.on('get message', function () {
         $scope.$apply();
       })
+
+      socket.on('get ride', function () {
+        $scope.$apply();
+      })
     }
   };
 });

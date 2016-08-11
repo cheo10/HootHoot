@@ -149,7 +149,6 @@ angular.module('services', [])
           resp.data.forEach(function(message) {
             chats.push(message);
           });
-          console.log(chats);
         });
       }
 
@@ -191,6 +190,11 @@ angular.module('services', [])
           console.log("THIS IS AN ERROR" + JSON.stringify(resp.data));
         });
       };
+
+      socket.on('get ride', function (message) {
+        chats.push(message)
+      })
+
       return {
         sendMessage: sendMessage,
         searchYelp:searchYelp,

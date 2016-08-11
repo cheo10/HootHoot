@@ -11,7 +11,8 @@ var User = db.define('User', {
   },
   password: Sequelize.STRING,
   firstname: Sequelize.STRING,
-  lastname: Sequelize.STRING
+  lastname: Sequelize.STRING,
+  isActive: Sequelize.BOOLEAN
 }, {
   instanceMethods: {
     hashPassword: function() {
@@ -27,6 +28,14 @@ var User = db.define('User', {
 User.beforeCreate(function(user, options) {
   user.password = user.hashPassword();
 });
+
+User.isActive = function(user) {
+  return User.update({ isActive: true }, { where: { id: user } });
+}
+
+User.isNotActive = function(user) {
+  return User.update({ isActive: false }, { where: { id: user } });
+}
 
 User.sync();
 
@@ -111,7 +120,7 @@ Contacts.addContact = function(userOneId, userTwoEmail) {
 }
 
 Contacts.getContacts = function(user) {
-  return db.query(`select u.id, u.email, u.firstname, u.lastname
+  return db.query(`select u.id, u.email, u.firstname, u.lastname, u.isActive
                     from Users u
                     where u.id in (select userTwo from Contacts where userOne=:user)`,
     { replacements: { user: user }, type: db.QueryTypes.SELECT });
