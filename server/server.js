@@ -9,7 +9,7 @@ var socketHandler = require('./socketHandler');
 var bodyParser = require('body-parser');
 
 // Router
-var router = require('../server/route.js');
+var router = require('../server/config/route.js');
 
 var app = express();
 var server = require('http').Server(app);

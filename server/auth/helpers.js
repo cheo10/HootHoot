@@ -18,7 +18,7 @@ module.exports = {
           return next();
          // return res.status(200).send('ok');
         }
-      })
+      });
     }
     else {
       res.status(403).send('No token provided');

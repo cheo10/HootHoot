@@ -3,7 +3,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 var db = new Sequelize(process.env.CLEARDB_DATABASE_URL || 'mysql://hoot:hoot@localhost/hoot');
 
-//define models we need
+//User Model
 var User = db.define('User', {
   email: {
     type: Sequelize.STRING,
@@ -37,8 +37,7 @@ User.isNotActive = function(user) {
   return User.update({ isActive: false }, { where: { id: user } });
 }
 
-User.sync();
-
+//Message Model
 var Message = db.define('Message', {
   body: Sequelize.STRING,
   senderId: Sequelize.INTEGER,
@@ -70,22 +69,11 @@ Message.getRecent = function(user) {
     { replacements: { user: user }, type: db.QueryTypes.SELECT });
 }
 
-Message.sync();
-MessageRecipient.sync();
-
+//GroupRoom Model
 var GroupRoom = db.define('GroupRoom', {
   name: Sequelize.STRING,
   isActive: Sequelize.BOOLEAN
 });
-
-GroupRoom.sync();
-
-var UserGroup = db.define('UserGroup', {
-  userId: Sequelize.INTEGER,
-  groupId: Sequelize.INTEGER
-});
-
-UserGroup.sync();
 
 // create function that receives array of participants in group
 GroupRoom.addGroup = function(participants) {
@@ -95,11 +83,16 @@ GroupRoom.addGroup = function(participants) {
       // take new group id and insert one entry per participant in usergroup
       participants.forEach(function(participant) {
         UserGroup.create({ userId: participant, groupId: group.id });
-      })
-
+      });
       return new Promise(function (resolve, reject) { resolve(group) });
-    })
+    });
 }
+
+//UserGroup Model
+var UserGroup = db.define('UserGroup', {
+  userId: Sequelize.INTEGER,
+  groupId: Sequelize.INTEGER
+});
 
 var Contacts = db.define('Contacts', {
   userOne: Sequelize.INTEGER,
@@ -115,10 +108,11 @@ Contacts.addContact = function(userOneId, userTwoEmail) {
       return Contacts.create({ userOne: userOneId, userTwo: contact.id })
     .then(function (createdContact) {
       return new Promise(function (resolve, reject) { resolve(contact) });
-    })
+    });
   });
 }
 
+//Contacts Model
 Contacts.getContacts = function(user) {
   return db.query(`select u.id, u.email, u.firstname, u.lastname, u.isActive
                     from Users u
@@ -130,8 +124,6 @@ Contacts.deleteContact = function(userOne, userTwo) {
   return Contacts.destroy({ where: { userOne: userOne, userTwo: userTwo } });
 }
 
-Contacts.sync();
-
 
 // Declare Relationships between Models
 // User.hasMany(Message);
@@ -139,10 +131,16 @@ Contacts.sync();
 // UserGroup.hasMany(User);
 // UserGroup.hasMany(GroupRoom);
 
+Contacts.sync();
+GroupRoom.sync();
+Message.sync();
+User.sync();
+UserGroup.sync();
+MessageRecipient.sync();
+
 exports.Contacts = Contacts;
 exports.GroupRoom = GroupRoom;
-exports.UserGroup = UserGroup;
 exports.Message = Message;
+exports.UserGroup = UserGroup;
 exports.User = User;
-
-
+exports.MessageRecipient = MessageRecipient;
