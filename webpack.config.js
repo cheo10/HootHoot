@@ -16,9 +16,15 @@ module.exports = {
   ],
   output: {
     path: __dirname + '/client/compiled/src',
-    filename: 'bundle.js'
+    filename: 'app.bundle.js'
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
     ]
 };
+
