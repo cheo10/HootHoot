@@ -5,7 +5,9 @@
   "author": "Forrest, Chris, Nahee, Jeff",
   "license": "ISC",
   "scripts": {
-    "start": "nodemon server/server.js"
+    "start": "nodemon server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "webpack"
   },
   "devDependencies": {
     "angular": "^1.5.8",
