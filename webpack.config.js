@@ -18,6 +18,14 @@ module.exports = {
     path: __dirname + '/client/compiled/src',
     filename: 'app.bundle.js'
   },
+  module: {
+    loaders: [
+      {
+        test: /\.scss$/,
+        loaders: ["style", "css", "sass"]
+      }
+    ]
+  },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js"),
     new webpack.optimize.UglifyJsPlugin({
