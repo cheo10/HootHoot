@@ -1,7 +1,6 @@
 var Sequelize = require('sequelize');
 var MessageRecipient = require('./messageRecipientModel.js')
-
-var db = new Sequelize(process.env.CLEARDB_DATABASE_URL || 'mysql://hoot:hoot@localhost/hoot');
+var db = require('../config/db.js')
 
 var Message = db.define('Message', {
   body: Sequelize.STRING,
@@ -27,4 +26,5 @@ Message.getRecent = function(user) {
     { replacements: { user: user }, type: db.QueryTypes.SELECT });
 }
 
+Message.sync();
 module.exports = Message;

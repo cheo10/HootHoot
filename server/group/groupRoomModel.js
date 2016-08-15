@@ -1,6 +1,5 @@
 var Sequelize = require('sequelize');
-
-var db = new Sequelize(process.env.CLEARDB_DATABASE_URL || 'mysql://hoot:hoot@localhost/hoot');
+var db = require('../config/db.js')
 
 var GroupRoom = db.define('GroupRoom', {
   name: Sequelize.STRING,
@@ -20,4 +19,5 @@ GroupRoom.addGroup = function(participants) {
     });
 }
 
+GroupRoom.sync();
 module.exports = GroupRoom;

@@ -1,7 +1,6 @@
 var Sequelize = require('sequelize');
 var bcrypt = require('bcrypt-nodejs');
-
-var db = new Sequelize(process.env.CLEARDB_DATABASE_URL || 'mysql://hoot:hoot@localhost/hoot');
+var db = require('../config/db.js')
 
 //User Model
 var User = db.define('User', {
@@ -37,4 +36,5 @@ User.isNotActive = function(user) {
   return User.update({ isActive: false }, { where: { id: user } });
 }
 
+User.sync();
 module.exports = User;

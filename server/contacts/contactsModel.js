@@ -1,7 +1,6 @@
 var Sequelize = require('sequelize');
 var User = require('../user/userModel.js');
-
-var db = new Sequelize(process.env.CLEARDB_DATABASE_URL || 'mysql://hoot:hoot@localhost/hoot');
+var db = require('../config/db.js')
 
 var Contacts = db.define('Contacts', {
   userOne: Sequelize.INTEGER,
@@ -32,4 +31,5 @@ Contacts.deleteContact = function(userOne, userTwo) {
   return Contacts.destroy({ where: { userOne: userOne, userTwo: userTwo } });
 }
 
+Contacts.sync();
 module.exports = Contacts;
