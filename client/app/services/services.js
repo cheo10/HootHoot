@@ -150,7 +150,7 @@ angular.module('services', [])
             chats.push(message);
           });
         });
-      }
+      };
 
       var sendMessage = function(sender, recipient, messageText) {
 
@@ -161,11 +161,11 @@ angular.module('services', [])
           // searchYelp(foodQuery, locationQuery);
           $window.open('https://www.yelp.com/search?find_desc=' +
             foodQuery +'&find_loc=' + locationQuery, '_blank');
-        };
+        }
         if(messageText.search(/^\/wiki /) > -1){  //giphy search
           var wikiQuery = messageText.replace(/^\/wiki /, '').replace(/ /gi, '_').trim();
           $window.open('https://en.wikipedia.org/wiki/Special:Search/' + wikiQuery, '_blank');
-        };
+        }
 
         var message = {
           'senderId': sender,
@@ -193,13 +193,13 @@ angular.module('services', [])
           return resp.data;
         })
         .catch(function(resp){
-          console.log("THIS IS AN ERROR" + JSON.stringify(resp.data));
+          console.log("This is an error from searchYelp" + JSON.stringify(resp.data));
         });
       };
 
       socket.on('get ride', function (message) {
-        chats.push(message)
-      })
+        chats.push(message);
+      });
 
       return {
         sendMessage: sendMessage,
