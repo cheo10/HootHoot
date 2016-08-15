@@ -1,15 +1,20 @@
-.mui-appbar{
-  background-color:#2196F3;
 
+/*Logo*/
+.logo{
+  float: left;
+  padding: 10px 10px 0px 10px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 21px;
+  font-color:#000000;
+}
+
+/*Navigation*/
+.mui-appbar.mui--appbar-line-height{
+  background-color:#FFFFFF;
 }
 
 .nav{
   float: right;
-}
-
-.logo{
-  float: left;
-  padding: 10px 10px 0px 10px;
 }
 
 .login img, .login{
