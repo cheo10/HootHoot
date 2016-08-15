@@ -1,11 +1,10 @@
 var jwt = require('jsonwebtoken');
-
 var secret = 'secret';
 
 module.exports = {
 
+  //token authentication
   authorize: function(req, res, next) {
-    console.log(req.headers['x-access-token'], '#############');
     var token = req.body.token || req.headers['x-access-token'];
     if(token) {
       jwt.verify(token, 'secret', function(err, decoded) {

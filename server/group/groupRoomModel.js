@@ -20,4 +20,4 @@ GroupRoom.addGroup = function(participants) {
     });
 }
 
-module.exports.GroupRoom = GroupRoom;
+module.exports = GroupRoom;

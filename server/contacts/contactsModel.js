@@ -11,7 +11,7 @@ var Contacts = db.define('Contacts', {
 Contacts.addContact = function(userOneId, userTwoEmail) {
   var contact;
 
-  return User.User.findOne({ where: { email: userTwoEmail } })
+  return User.findOne({ where: { email: userTwoEmail } })
     .then(function (newContact) {
       contact = { id: newContact.id, firstname: newContact.firstname, lastname: newContact.lastname };
       return Contacts.create({ userOne: userOneId, userTwo: contact.id })
@@ -21,7 +21,6 @@ Contacts.addContact = function(userOneId, userTwoEmail) {
   });
 }
 
-//Contacts Model
 Contacts.getContacts = function(user) {
   return db.query(`select u.id, u.email, u.firstname, u.lastname, u.isActive
                     from Users u
@@ -33,4 +32,4 @@ Contacts.deleteContact = function(userOne, userTwo) {
   return Contacts.destroy({ where: { userOne: userOne, userTwo: userTwo } });
 }
 
-module.exports.Contacts = Contacts;
+module.exports = Contacts;

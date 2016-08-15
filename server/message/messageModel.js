@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-var bcrypt = require('bcrypt-nodejs');
+var MessageRecipient = require('./messageRecipientModel.js')
 
 var db = new Sequelize(process.env.CLEARDB_DATABASE_URL || 'mysql://hoot:hoot@localhost/hoot');
 
@@ -8,13 +8,6 @@ var Message = db.define('Message', {
   senderId: Sequelize.INTEGER,
   parentMessageId: Sequelize.INTEGER,
   originChannelId: Sequelize.INTEGER,
-});
-
-var MessageRecipient = db.define('MessageRecipient', {
-  recipientId: Sequelize.INTEGER,
-  recipientGroupId: Sequelize.INTEGER,
-  messageId: Sequelize.INTEGER,
-  isRead: Sequelize.BOOLEAN
 });
 
 Message.addMessage = function(message) {
@@ -34,4 +27,4 @@ Message.getRecent = function(user) {
     { replacements: { user: user }, type: db.QueryTypes.SELECT });
 }
 
-module.exports.Message = Message;
+module.exports = Message;

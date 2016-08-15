@@ -7,7 +7,7 @@ var connectedUsers = {};
 var accessToken = process.env.WIT;
 
 var register = function(profile) {
-  User.User.isActive(profile);
+  User.isActive(profile);
 
   connectedUsers[profile] = this;
   this.userId = profile;
@@ -25,7 +25,7 @@ exports.newConnection =  function (socket) {
     var recipient = message.recipientId;
     var recipientType = message.recipientType;
 
-    Message.Message.addMessage(message)
+    Message.addMessage(message)
       .then(function (result) {
         message.messageCreated = result.createdAt;
 
@@ -60,7 +60,7 @@ exports.newConnection =  function (socket) {
   socket.on('create group', function (group) {
     group.push(socket.userId);
     // create group in database
-    UserGroup.GroupRoom.addGroup(group)
+    UserGroup.addGroup(group)
       .then(function(group) {
         // tell each member in group to listen for messages on that group id
         group.forEach(function (participant) {
@@ -72,7 +72,7 @@ exports.newConnection =  function (socket) {
   });
 
   socket.on('disconnect', function() {
-    User.User.isNotActive(socket.userId);
+    User.isNotActive(socket.userId);
     delete connectedUsers[socket.userId];
   })
 };

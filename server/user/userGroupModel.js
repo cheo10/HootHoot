@@ -7,4 +7,4 @@ var UserGroup = db.define('UserGroup', {
   groupId: Sequelize.INTEGER
 });
 
-module.exports.UserGroup = UserGroup;
+module.exports = UserGroup;

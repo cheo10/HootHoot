@@ -5,13 +5,13 @@ module.exports = {
       get: function(req, res) {
         var user = req.decoded;
 
-        Message.Message.getRecent(user.id)
+        Message.getRecent(user.id)
           .then(function(messages) {
             res.json(messages);
           })
       },
       post: function(req, res) {
-        Message.Message.findOrCreate({where: {body: req.body.body,senderId: req.body.senderId, parentMessageId: req.body.parentMessageId, originChannelId: req.body.originChannelId }})
+        Message.findOrCreate({where: {body: req.body.body,senderId: req.body.senderId, parentMessageId: req.body.parentMessageId, originChannelId: req.body.originChannelId }})
         .spread(function(message, created) {
           res.json(message);
         });

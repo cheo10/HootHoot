@@ -37,4 +37,4 @@ User.isNotActive = function(user) {
   return User.update({ isActive: false }, { where: { id: user } });
 }
 
-module.exports.User = User;
+module.exports = User;
