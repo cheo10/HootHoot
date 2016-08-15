@@ -3,9 +3,11 @@
 .logo{
   float: left;
   padding: 10px 10px 0px 10px;
-  font-family: 'Open Sans', sans-serif;
   font-size: 21px;
-  font-color:#000000;
+  color:#000000;
+}
+img.owl-logo {
+  width: 32px;
 }
 
 /*Navigation*/
