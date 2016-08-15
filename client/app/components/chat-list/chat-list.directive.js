@@ -1,4 +1,4 @@
-angular.module('chatlistdirective', ['theApp']).directive('chatlist', function() {
+angular.module('chatlistdirective', ['theApp','luegg.directives']).directive('chatlist', function() {
   return {
     restrict: "E",
     replace: true,
@@ -15,19 +15,6 @@ angular.module('chatlistdirective', ['theApp']).directive('chatlist', function()
     },
 
     controller: function($timeout, $scope, MessageService, socket, Globals) {
-      // var scrolled = false;
-      // function updateScroll(){
-      //     if(!scrolled){
-      //         var element = document.getElementById("chatScroll");
-      //         element.scrollTop = element.scrollHeight;
-      //     }
-      // }
-
-      // $("#chatScroll").on('scroll', function(){
-      //     scrolled=true;
-      // });
-
-
 
       $scope.chats = MessageService.chats;
 
