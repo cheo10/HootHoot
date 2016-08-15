@@ -1,5 +1,4 @@
 var express = require('express');
-var db = require('./db');
 var path = require('path');
 var http = require('http');
 var socketHandler = require('./socketHandler');
@@ -9,14 +8,12 @@ var socketHandler = require('./socketHandler');
 var bodyParser = require('body-parser');
 
 // Router
-var router = require('../server/route.js');
+var router = require('./config/route.js');
 
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-// // Logging and parsing
-// app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
