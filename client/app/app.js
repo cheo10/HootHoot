@@ -41,8 +41,8 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     loginUrl: '/'
     });
 
-    authProvider.on('loginSuccess', ['$location', '$http', 'profilePromise', 'idToken', 'store', 'socket',
-      function($location, $http, profilePromise, idToken, store, socket) {
+    authProvider.on('loginSuccess', ['$location', '$http', 'profilePromise', 'idToken', 'store', 'SocketService',
+      function($location, $http, profilePromise, idToken, store, SocketService) {
 
         console.log("Login Success");
         profilePromise.then(function(profile) {
@@ -61,7 +61,6 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
             if(resp.data.token) {
               sessionStorage.setItem('token', resp.data.token);
               localStorage.setItem('userId', resp.data.id);
-              socket.emit('registered', localStorage.userId);
             } else {
               $location.path('/');
             }
@@ -70,7 +69,7 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
             $location.path('/chat');
           });
 
-          socket.emit('registered', profile.nickname);
+          SocketService.register();
         });
     }]);
 
@@ -87,7 +86,8 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
   }])
 
 angular.module('mainCtrl', ['theApp'])
-.controller('mainCtrl', function($scope,$window,$location) {
+.controller('mainCtrl', function($scope,$window,$location, SocketService) {
+  SocketService.addListeners();
 
   $scope.logout = function() {
     $window.localStorage.removeItem('token');
@@ -131,12 +131,12 @@ app.factory('AttachTokens', function($window) {
   };
   return attach;
 })
-.run(function($rootScope, $location, checker, $window, socket, store) {
+.run(function($rootScope, $location, checker, $window, SocketService, store) {
   var profile = store.get('profile');
   var userid =  profile ? profile.nickname : $window.localStorage.getItem('userId');
 
   if (checker.isAuth()) {
-    socket.emit('registered', userid);
+    SocketService.register();
   }
 
   $rootScope.$on('$routeChangeStart', function (evt, next, current) {

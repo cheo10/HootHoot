@@ -1,6 +1,6 @@
 angular.module('loginController', ['theApp'])
 
-.controller('loginController', ['$scope', '$http', 'auth', '$location','$window', 'socket', function($scope, $http, auth, $location, $window, socket) {
+.controller('loginController', ['$scope', '$http', 'auth', '$location','$window', 'socket', function($scope, $http, auth, $location, $window, SocketService) {
 
   //$scope.auth = auth;
 
@@ -19,7 +19,7 @@ angular.module('loginController', ['theApp'])
         $window.localStorage.setItem('userId', resp.data.id)
         $window.localStorage.setItem('email', resp.data.email);
         $scope.id = $window.localStorage.getItem('userId');
-        socket.emit('registered', $scope.id);
+        SocketService.register();
         $location.path('/chat');
       } else {
         $location.path('/');
