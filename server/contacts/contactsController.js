@@ -1,5 +1,5 @@
-var db = require('../db');
 var jwt = require('jsonwebtoken');
+var Contacts = require('./contactsModel.js')
 
 module.exports = {
 
@@ -7,7 +7,7 @@ module.exports = {
     get: function(req, res) {
       var user = req.decoded;
 
-      db.Contacts.getContacts(user.id)
+      Contacts.Contacts.getContacts(user.id)
       .then(function(contacts) {
         res.json(contacts);
       });
@@ -15,7 +15,7 @@ module.exports = {
     post: function(req, res) {
       var user = req.decoded;
 
-      db.Contacts.addContact(user.id, req.body.newContactEmail)
+      Contacts.Contacts.addContact(user.id, req.body.newContactEmail)
         .then(function(createdContact) {
           res.json(createdContact);
         });
@@ -23,7 +23,7 @@ module.exports = {
     delete: function(req, res) {
       var user = req.decoded;
 
-      db.Contacts.deleteContact(user.id, req.body.contact)
+      Contacts.Contacts.deleteContact(user.id, req.body.contact)
         .then(function(deletedContact) {
           res.json(deletedContact);
         });

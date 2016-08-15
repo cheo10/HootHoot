@@ -1,11 +1,11 @@
-var db = require('../db');
+var User = require('./userModel.js')
 var jwt = require('jsonwebtoken');
 
 module.exports = {
   users: {
     signin: function(req, res) {
       console.log(req.body);
-      db.User.findOne({where:{ email: req.body.email }})
+      User.User.findOne({where:{ email: req.body.email }})
       .then(function(user) {
         if(!user){
           res.json('User not found');
@@ -30,7 +30,7 @@ module.exports = {
     },
 
     authin: function(req, res) {
-      db.User.findOrCreate({where:{ email: req.body.email }, defaults: {firstname: req.body.firstname, lastname: req.body.lastname}})
+      User.User.findOrCreate({where:{ email: req.body.email }, defaults: {firstname: req.body.firstname, lastname: req.body.lastname}})
       .spread(function(user, created) {
         var myToken = jwt.sign({ user: user.email, id: user.id},
                                 'secret',
@@ -46,14 +46,14 @@ module.exports = {
     },
 
     get: function(req, res) {
-      db.User.findAll()
+      User.User.findAll()
       .then(function(users) {
         res.json(users);
       });
     },
     post: function(req, res) {
       console.log(req.body);
-      db.User.findOrCreate({where: {email : req.body.email}, defaults: {firstname: req.body.firstname,lastname: req.body.lastname, password: req.body.password, isActive: false }})
+      User.User.findOrCreate({where: {email : req.body.email}, defaults: {firstname: req.body.firstname,lastname: req.body.lastname, password: req.body.password, isActive: false }})
       .spread(function(user, created) {
         res.json(user);
       });

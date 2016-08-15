@@ -1,5 +1,4 @@
 var express = require('express');
-var db = require('./db');
 var path = require('path');
 var http = require('http');
 var socketHandler = require('./socketHandler');
