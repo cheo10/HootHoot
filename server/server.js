@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var http = require('http');
 var socketHandler = require('./socketHandler');
+var redditController = require('./reddit/redditController.js');
 
 // // Middleware
 // var morgan = require('morgan');
@@ -20,6 +21,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use('/', router);
 app.use(express.static(path.join(__dirname, '/../client')));
+
+app.get('/api/reddit/:subreddit', redditController.reddit);
 
 io.on('connection', socketHandler.newConnection);
 

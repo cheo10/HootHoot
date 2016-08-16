@@ -4,7 +4,7 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
     replace: true,
     templateUrl: 'app/components/chat-form/chat-form.html',
 
-    controller: function($scope, currentUser, store, MessageService, Globals, DataService) {//declare and link up currentuser and main factory messageService!!!
+    controller: function($scope, $http, currentUser, store, MessageService, Globals, DataService) {//declare and link up currentuser and main factory messageService!!!
       $scope.senderId = DataService.getCurrentUserId();
       $scope.selections = Globals.selections;
 
@@ -35,6 +35,30 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
 
         if($scope.messageText.match(/\/weather/)) {
           $scope.messageText = document.getElementById("temp").innerHTML.split('</i> ')[1];
+        }
+
+
+        if($scope.messageText.match(/\/reddit\s\w+/)) {
+          var subreddit = $scope.messageText.match(/\/reddit\s+(\w+)/)[1]
+          console.log(subreddit);
+          var arr = [];
+          return $http({
+              url: '/api/reddit/' + subreddit,
+              method: "GET",
+          }).then(function(res) {
+            for(var i = 0; i < res.data.data.children.length; i++) {
+              var title = res.data.data.children[i].data.title;
+              var url = res.data.data.children[i].data.url;
+              arr.push({title: title, url: url})
+            }
+              var messageText = arr.map(function(each){
+                return each.title + '\n' + each.url;
+              }).join('\n');
+
+
+        MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, messageText);
+
+          })
         }
 
         MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, $scope.messageText);
