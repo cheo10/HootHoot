@@ -62,6 +62,7 @@ h1.login-title {
 }
 .contacts{
   background-color: #e6faff;
+  /*border-style: solid;*/
 }
 
 .nonBodyText{
@@ -108,4 +109,9 @@ h1.login-title {
 [scroll-glue]{
   height: 400px;
   overflow: scroll;
+}
+
+.deleteContact{
+  float: right;
+  margin: auto;
 }
