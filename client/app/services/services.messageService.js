@@ -5,14 +5,14 @@
     .module('services')
     .factory('MessageService', MessageService);
 
-  MessageService.$inject = ['$window', '$http', 'SocketService'];
+  MessageService.$inject = ['SocketService', 'DataService'];
 
-  function MessageService($window, $http, SocketService) {
+  function MessageService(SocketService, DataService) {
     var service = {
       chats: [],
       sendMessage: sendMessage,
-      searchYelp:searchYelp,
-      getRecentMessages: getRecentMessages
+      getRecentMessages: getRecentMessages,
+      addMessageToList: addMessageToList
     };
 
     return service;

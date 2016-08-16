@@ -7,9 +7,10 @@
 
   DataService.$inject = ['$http', '$exceptionHandler'];
 
-  function DataService($http) {
+  function DataService($http, $exceptionHandler) {
     var service = {
       getCurrentUserId: getCurrentUserId,
+      getRecentMessages: getRecentMessages,
       getContacts: getContacts,
       createContact: createContact
     }

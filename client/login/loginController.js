@@ -1,6 +1,6 @@
 angular.module('loginController', ['theApp'])
 
-.controller('loginController', ['$scope', '$http', 'auth', '$location','$window', 'socket', function($scope, $http, auth, $location, $window, SocketService) {
+.controller('loginController', ['$scope', '$http', 'auth', '$location','$window', 'SocketService', function($scope, $http, auth, $location, $window, SocketService) {
 
   //$scope.auth = auth;
 
