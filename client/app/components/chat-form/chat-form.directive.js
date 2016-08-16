@@ -4,7 +4,7 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
     replace: true,
     templateUrl: 'app/components/chat-form/chat-form.html',
 
-    controller: function($scope, $http, currentUser, store, MessageService, Globals, DataService) {//declare and link up currentuser and main factory messageService!!!
+    controller: function($scope, currentUser, store, MessageService, Globals, DataService, CommandService) {//declare and link up currentuser and main factory messageService!!!
       $scope.senderId = DataService.getCurrentUserId();
       $scope.selections = Globals.selections;
 
@@ -14,6 +14,10 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
       navigator.geolocation.getCurrentPosition(function(position) {
         $scope.loadWeather(position.coords.latitude+','+position.coords.longitude);
       });
+
+      $scope.getCommands = function() {
+        CommandService.getCommands();
+      }
 
       $scope.loadWeather = function(location, woeid) {
         $.simpleWeather({

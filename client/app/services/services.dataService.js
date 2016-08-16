@@ -12,7 +12,10 @@
       getCurrentUserId: getCurrentUserId,
       getRecentMessages: getRecentMessages,
       getContacts: getContacts,
-      createContact: createContact
+      createContact: createContact,
+      deleteContact: deleteContact,
+      getCommands: getCommands,
+      createCommand: createCommand
     }
 
     return service;
@@ -37,7 +40,8 @@
       return $http({
         url: '/contacts',
         method: 'DELETE',
-        data: { contact: contactId }
+        data: { contact: contactId },
+        headers: { 'Content-type': 'application/json;charset=utf-8' }
       }).then(requestComplete)
         .catch(errorHandler('deleteContact'));
     }
@@ -46,6 +50,18 @@
       return $http.get('/message')
         .then(requestComplete)
         .catch(errorHandler('getRecentMessages'));
+    }
+
+    function getCommands() {
+      return $http.get('/commands')
+        .then(requestComplete)
+        .catch(errorHandler('getCommands'));
+    }
+
+    function createCommand(command) {
+      return $http.post('/commands', command)
+        .then(requestComplete)
+        .catch(errorHandler('getCommands'));
     }
 
     function requestComplete(response) {
