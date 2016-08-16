@@ -7,7 +7,7 @@
 
   SocketService.$inject = ['$rootScope', 'DataService'];
 
-  function SocketService($rootScope) {
+  function SocketService($rootScope, DataService) {
     var service = {
       addListeners: addListeners,
       sendMessage: sendMessage,
@@ -16,11 +16,9 @@
 
     return service;
 
+    var socket;
 
-
-    function addListeners() {
-      var socket = io.connect();
-
+    function addListeners(socket) {
       socket.on('get message', function(message) {
         $rootScope.$apply(function() {
           $rootScope.$broadcast('get message', message);
@@ -33,6 +31,9 @@
     }
 
     function register() {
+      socket = io.connect();
+
+      addListeners(socket);
       socket.emit('registered', DataService.getCurrentUserId());
     }
   }
