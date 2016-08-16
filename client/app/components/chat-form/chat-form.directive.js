@@ -46,15 +46,10 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
               url: '/api/reddit/' + subreddit,
               method: "GET",
           }).then(function(res) {
-            for(var i = 0; i < res.data.data.children.length; i++) {
-              var title = res.data.data.children[i].data.title;
-              var url = res.data.data.children[i].data.url;
-              arr.push({title: title, url: url})
-            }
-              var messageText = arr.map(function(each){
-                return each.title + '\n' + each.url;
-              }).join('\n');
 
+              var title = res.data.data.children[0].data.title;
+              var url = res.data.data.children[0].data.url;
+              var messageText = title + " " + url;
 
         MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, messageText);
 
