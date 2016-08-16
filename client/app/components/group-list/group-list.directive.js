@@ -7,9 +7,7 @@ angular.module('grouplistdirective', ['theApp']).directive('grouplist', function
       $scope.click = false;
       $scope.groupFriends = [];
       $scope.searchGroupFriends = GroupService.searchGroupFriends;
-      $scope.showGroup = function () {
-        $scope.click = true;
-      };
+
       $scope.sendGroup = function () {
         GroupService.sendGroup($scope.addGroupNames, $scope.groupFriends);
       };

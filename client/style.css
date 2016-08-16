@@ -30,6 +30,7 @@
 
 .contacts{
   background-color: #e6faff;
+  /*border-style: solid;*/
 }
 
 .nonBodyText{
@@ -76,4 +77,9 @@
 [scroll-glue]{
   height: 400px;
   overflow: scroll;
+}
+
+.deleteContact{
+  float: right;
+  margin: auto;
 }
