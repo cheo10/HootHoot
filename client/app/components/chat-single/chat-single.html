@@ -1,8 +1,11 @@
 <div class="chat-single">
-  <userPic uuid="{{senderUuid}}" />
-  <span>Person You're Talking To #{{senderUuid}}</span>
-  <p>
-    {{date | date: "h:mma 'on' MM/dd/yyyy"}} <br>
-    {{content}}
-  </p>
+  <div class="nonBodyText">{{sender}}</div>
+  <div style="float: left">
+    <userpic />
+  </div>
+  <div class="bubble {{sender==='You'? 'You' : 'notYou'}}">
+    <a href="{{body}}" ng-if="type === 'E'">Get a Ride</a>
+    <span ng-if="type !== 'E'">{{ body }}</span>
+  </div>
+  <div style="float: right" class="nonBodyText">{{date | date: "h:mma 'on' MM/dd/yyyy"}}</div>
 </div>

@@ -1,10 +1,10 @@
-angular.module('theApp').directive('userPic' function() {
+angular.module('userpicdirective', ['theApp']).directive('userpic', function() {
   return {
     restrict: "E",
-    template: '< img src= "{{userPicUrl}}" alt="{{uuid}}" class="circle" >',
+    template: '<span class="user-pic"><img src="app/images/personMale.png" alt="{{senderId}}" class="circle userpic"></span>',
 
-    controller: function($scope){
-      $scope.userPicUrl = '../images/person-flat.png';
+    controller: function($scope, store){
+      $scope.userPicUrl = localStorage.getItem('picUrl') || 'app/images/personMale.png';
     }
   };
 });

@@ -1,0 +1,21 @@
+<div class="contact-list" ng-init="getAllContacts()">
+  <br>
+  <form ng-submit="addContact(newContact)">
+    <input type="text" ng-model="newContact" placeholder="Add a contact" />
+    <input type="submit" value="Add"/>
+  </form>
+  <hr>
+  <input type="text" ng-model="searchBox" placeholder="Search your contacts">
+  <br>
+  <br>
+  <div class="contacts" ng-repeat="contact in contacts | filter:searchBox | orderBy: 'isActive'">
+
+    <div>
+    <span><userpic /></span>
+    <span><contactsingle name="{{contact.firstname}} {{contact.lastname}}" isactive="{{+contact.isActive}}" ng-click="setSelectedRecipient(contact)"></contactsingle>
+    <button class="deleteContact" ng-click="deleteContact(contact.id)">Delete</button></span>
+    </div>
+    <br>
+  </div>
+
+</div>

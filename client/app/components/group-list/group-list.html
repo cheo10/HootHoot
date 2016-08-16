@@ -1,0 +1,25 @@
+<div class="group-list" ng-init="getAllGroups()">
+  <br>
+  <form ng-submit="addGroup(newGroup)">
+    <input type="text" ng-model="newGroup" placeholder="Add a group" />
+    <input type="submit" value="Add" />
+  </form>
+  <hr>
+  <input type="text" ng-model="searchBox" placeholder="Search your groups">
+  <br>
+  <br>
+  <div class="groups" ng-repeat="group in groups | filter:searchBox | orderBy: 'isActive'">
+
+    <div>
+    <span><userpic /></span>
+    <span>
+      <groupsingle name="{{group.name}}" isactive="{{+contact.isActive}}" ng-click="setSelectedRecipient(group)"></groupsingle>
+      <button class="deleteGroup" ng-click="deleteGroup(group.id)">Delete</button>
+    </span>
+    </div>
+    <br>
+
+  </div>
+</div>
+
+

@@ -1,34 +1,44 @@
-angular.module('chatlistdirective', ['theApp']).directive('chatlist', function() {
+angular.module('chatlistdirective', ['theApp','luegg.directives']).directive('chatlist', function() {
   return {
     restrict: "E",
     replace: true,
     templateUrl: 'app/components/chat-list/chat-list.html',
-
-    link: function(scope, element, attrs, ctrl) {
-      var element = angular.element(element);
-      var init = function() {};
-      init();
+    scope: {
+      list: '=chatlist'
+    },
+    link: function(scope, element) {
+      scope.$watchCollection('list', function() {
+        var $list = element.find('.chatScroll');
+        var scrollHeight = $list.prop('scrollHeight');
+        $list.prop('scrollTop', scrollHeight);
+      });
     },
 
-    controller: function($scope, MessageService) {
-      $scope.chats = MessageService;
+    controller: function($timeout, $scope, MessageService, socket, Globals) {
 
-      $scope.scrollToBottom = function() {
-        var uuidLastChat = _.last($scope.chats).uuid;
-        $anchorScroll(uuidLastChat);
-      };
+      $scope.chats = MessageService.chats;
 
-      $scope.listDidRender = function() {
-        $scope.scrollToBottom();
-      };
+      $scope.selections = Globals.selections;
 
-      $scope.chats = [{
-        uuid: 123899,
-        content: 'hello first chat!',
-        date: Date(),
-        senderUuid: 1893987
+      $scope.getRecentMessages = function () {
+        MessageService.getRecentMessages();
+      }
 
-      }];
+      $scope.filterById = function (message) {
+        if (Globals.selections.recipient) {
+          var recipient = Globals.selections.recipient.id;
+
+          return message.recipientId === recipient || message.senderId === recipient;
+        }
+      }
+
+      socket.on('get message', function () {
+        $scope.$apply();
+      })
+
+      socket.on('get ride', function () {
+        $scope.$apply();
+      })
     }
   };
 });
