@@ -1,8 +1,9 @@
-var userController = require('../user/userController.js');
+ var userController = require('../user/userController.js');
 var contactsController = require('../contacts/contactsController.js');
 var groupRoomController = require('../group/groupRoomController.js');
 var messageController = require('../message/messageController.js');
 var redditController = require('../reddit/redditController.js');
+var commandController = require('../commands/commandController.js');
 var Auth = require('../auth/helpers.js');
 // var helpers = require('../controllers/yelpHelper');
 var router = require('express').Router();
@@ -14,6 +15,10 @@ router.post('/auth', userController.users.authin);
 router.get('/signup', userController.users.get);
 
 router.post('/signup', userController.users.post);
+
+router.get('/commands', commandController.commands.get);
+
+router.post('/commands', commandController.commands.post);
 
 router.get('/message', Auth.authorize, messageController.message.get);
 
