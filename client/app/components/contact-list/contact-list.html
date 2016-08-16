@@ -1,21 +1,22 @@
 <div class="contact-list" ng-init="getAllContacts()">
-  <br>
-  <form ng-submit="addContact(newContact)">
-    <input type="text" ng-model="newContact" placeholder="Add a contact" />
-    <input type="submit" value="Add"/>
-  </form>
-  <hr>
-  <input type="text" ng-model="searchBox" placeholder="Search your contacts">
-  <br>
-  <br>
-  <div class="contacts" ng-repeat="contact in contacts | filter:searchBox | orderBy: 'isActive'">
 
+<div class="list mui--divider-right" style="width: 50%;display:inline-block;overflow:scroll;">
+  <div class="contacts" ng-repeat="contact in contacts | filter:searchBox | orderBy: 'isActive'">
     <div>
-    <span><userpic /></span>
-    <span><contactsingle name="{{contact.firstname}} {{contact.lastname}}" isactive="{{+contact.isActive}}" ng-click="setSelectedRecipient(contact)"></contactsingle>
-    <button class="deleteContact" ng-click="deleteContact(contact.id)">Delete</button></span>
+      <span><userpic /></span>
+      <span>
+        <contactsingle name="{{contact.firstname}} {{contact.lastname}}" isactive="{{+contact.isActive}}" ng-click="setSelectedRecipient(contact)"></contactsingle>
+        <button class="deleteContact" ng-click="deleteContact(contact.id)">Delete</button>
+      </span>
     </div>
     <br>
   </div>
-
+</div>
+  <form style="width: 50%;float:right;" ng-submit="addContact(newContact)">
+    <input type="text" ng-model="searchBox" placeholder="Search your contacts">
+    <div>
+      <input type="text" ng-model="newContact" placeholder="Add a contact" />
+      <input type="submit" value="Add"/>
+    </div>
+  </form>
 </div>

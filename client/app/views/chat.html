@@ -1,14 +1,21 @@
 <br>
 <div>
-  <div class="mui-container-fluid" id="sideMenu">
-    <contactlist></contactlist>
+  <div class="mui-container-fluid leftHalf">
+    <div class="chatBox">
+      <chatlist></chatlist>
+      <br>
+      <chatform></chatform>
+    </div>
     <hr>
-    <grouplist></grouplist>
+    <div>
+      <contactlist></contactlist>
+    </div>
+    <!-- <grouplist></grouplist> -->
   </div>
 
-  <div class="mui--divider-left mui-container-fluid" id="chatBox">
-    <chatlist></chatlist>
-    <chatform></chatform>
+  <div class="mui-container-fluid rightHalf">
+    <iframe class="rightHalf" src="http://salarystack.herokuapp.com"></iframe>
   </div>
+
 </div>
 

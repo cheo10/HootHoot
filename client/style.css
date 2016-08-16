@@ -9,8 +9,9 @@ body.ng-scope {
   font-size: 21px;
   color:#000000;
 }
-img.owl-logo {
-  width: 32px;
+.navlogo {
+  width: 50px;
+  height: 50px;
 }
 
 /*Navigation*/
@@ -27,29 +28,47 @@ img.owl-logo {
   width:300px;
 }
 
-#sideMenu{
-  width: 20%;
-  height: 100%;
+.leftHalf{
+  width: 45%;
   float: left;
 }
 
-#chatBox{
-  width: 80%;
-  float: left;
+.rightHalf{
+  float: right;
+  height:590px;
+  width: 670px;
 }
 
+[scroll-glue] {
+  overflow: scroll;
+  height: 250px;
+}
+
+.chatBox{
+  height: 65%;
+}
+
+.list{
+  height: 160px;
+  width: 50%;
+  /*display:inline-block;*/
+  overflow:scroll;
+}
 /*Home*/
 h1.home-title{
   text-align: center;
 }
-.mui--text-display3 {
-  font-family: times;
-}
+
 .mui-container.mui--text-center.ng-scope {
   height: 500px;
 }
+
 img.owl-home {
-  width: 137px;
+  width: 175px;
+}
+
+img.owl-list{
+  width: 30px;
 }
 
 /*Login*/
@@ -57,12 +76,10 @@ img.owl-home {
   text-align:center;
 }
 h1.login-title {
-  font-family: sans-serif;
   font-weight: lighter;
 }
 .contacts{
-  background-color: #e6faff;
-  /*border-style: solid;*/
+  background-color: white;
 }
 
 .nonBodyText{
@@ -80,11 +97,11 @@ h1.login-title {
 }
 
 .You{
-  background-color: #b3d9ff;
+  background-color: #e6f9ff;
 }
 
 .notYou{
-  background-color: #F2F2F2;
+  background-color: #e6f9f2;
 }
 
 .bubble::before {
@@ -104,11 +121,6 @@ h1.login-title {
 .userpic {
   width: 50px;
   height: 50px;
-}
-
-[scroll-glue]{
-  height: 400px;
-  overflow: scroll;
 }
 
 .deleteContact{
