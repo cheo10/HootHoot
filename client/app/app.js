@@ -150,23 +150,7 @@ app.factory('AttachTokens', function($window) {
     }
   });
 });
-// .run(function($rootScope, $location, checker, $window, socket, store) {
-//   var profile = store.get('profile');
-//   var userid =  profile ? profile.nickname : $window.localStorage.getItem('userId');
 
-//   if (checker.isAuth()) {
-//     socket.emit('registered', userid);
-//   }
-
-//   $rootScope.$on('$routeChangeStart', function (evt, next, current) {
-//     if($location.path() == '/' || $location.path() == '/signup') {
-//       console.log('This page does not need authentication')
-//     }else if(!checker.isAuth()){
-//             console.log('not authenticated')
-//             $location.path('/');
-//     }
-//   });
-// });
 
 app.run(['auth', function(auth) {
     // This hooks all auth events to check everything as soon as the app starts
