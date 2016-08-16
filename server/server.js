@@ -23,6 +23,14 @@ app.use(express.static(path.join(__dirname, '/../client')));
 
 io.on('connection', socketHandler.newConnection);
 
+app.post('/api/yelp', function(req,res){
+  var params = req.body;
+  helpers.searchYelp(params.searchTerm, function(data){
+    res.json(data);
+  });
+});
+
+
 var port = process.env.PORT || 9000;
 
 server.listen(port, function() {
