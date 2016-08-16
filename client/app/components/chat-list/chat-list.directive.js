@@ -13,16 +13,32 @@ angular.module('chatlistdirective', ['theApp','luegg.directives']).directive('ch
         $list.prop('scrollTop', scrollHeight);
       });
     },
+    controller: function($timeout, $scope, MessageService, Globals, $rootScope) {
+      // var scrolled = false;
+      // function updateScroll(){
+      //     if(!scrolled){
+      //         var element = document.getElementById("chatScroll");
+      //         element.scrollTop = element.scrollHeight;
+      //     }
+      // }
 
-    controller: function($timeout, $scope, MessageService, socket, Globals) {
+      // $("#chatScroll").on('scroll', function(){
+      //     scrolled=true;
+      // });
 
-      $scope.chats = MessageService.chats;
+      $scope.chats = [];
 
       $scope.selections = Globals.selections;
 
       $scope.getRecentMessages = function () {
         MessageService.getRecentMessages();
       }
+
+      $scope.$watch(function() { return MessageService.chats; }, function(val) {
+        $scope.chats = val;
+      }, true);
+
+      $rootScope.$on('get message', function(e, message) { MessageService.addMessageToList(message) });
 
       $scope.filterById = function (message) {
         if (Globals.selections.recipient) {
@@ -31,14 +47,6 @@ angular.module('chatlistdirective', ['theApp','luegg.directives']).directive('ch
           return message.recipientId === recipient || message.senderId === recipient;
         }
       }
-
-      socket.on('get message', function () {
-        $scope.$apply();
-      })
-
-      socket.on('get ride', function () {
-        $scope.$apply();
-      })
     }
   };
 });
