@@ -5,7 +5,7 @@ var messageController = require('../message/messageController.js');
 var redditController = require('../reddit/redditController.js');
 var commandController = require('../commands/commandController.js');
 var Auth = require('../auth/helpers.js');
-// var helpers = require('../controllers/yelpHelper');
+var helpers = require('../controllers/yelpHelper');
 var router = require('express').Router();
 
 router.post('/', userController.users.signin);
