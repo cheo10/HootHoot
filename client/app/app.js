@@ -14,7 +14,8 @@ var app = angular.module('theApp', [
   'groupsingledirective',
   'grouplistdirective',
   'services',
-  'mainCtrl'
+  'mainCtrl',
+  // 'homedirective',
   ])
 
 app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvider', 'jwtInterceptorProvider',
@@ -22,11 +23,15 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
 
     $routeProvider
     .when('/', {
+      templateUrl: 'app/components/home/home.html',
+      // controller: 'homedirective'
+    })
+    .when('/login', {
       templateUrl: 'login/login.html',
       controller: 'loginController'
     })
     .when('/signup', {
-      templateUrl: 'signup/signup.html',
+      templateUrl: 'app/components/signup/signup.html',
       controller: 'signupController'
     })
     .when('/chat', {
@@ -112,7 +117,6 @@ app.factory('checker', function($http, $location, $window) {
   }
 
 })
-
 app.factory('AttachTokens', function($window) {
   //$http interceptor to stop outgoing requests
   //look in local storage and find user's token
@@ -138,14 +142,15 @@ app.factory('AttachTokens', function($window) {
   }
 
   $rootScope.$on('$routeChangeStart', function (evt, next, current) {
-    if($location.path() == '/' || $location.path() == '/signup') {
+    if($location.path() == '/' || $location.path() == '/signup' || $location.path() == '/login') {
       console.log('This page does not need authentication')
     }else if(!checker.isAuth()){
-            console.log('not authenticated')
-            $location.path('/');
+        console.log('not authenticated')
+        $location.path('/');
     }
   });
 });
+
 
 app.run(['auth', function(auth) {
     // This hooks all auth events to check everything as soon as the app starts

@@ -1,15 +1,25 @@
-.mui-appbar{
-  background-color:#2196F3;
+/*General*/
+body.ng-scope {
+  background-color: #f5f5f5;
+}
+/*Logo*/
+.logo{
+  float: left;
+  padding: 10px 10px 0px 10px;
+  font-size: 21px;
+  color:#000000;
+}
+img.owl-logo {
+  width: 32px;
+}
 
+/*Navigation*/
+.mui-appbar.mui--appbar-line-height{
+  background-color:#FFFFFF;
 }
 
 .nav{
   float: right;
-}
-
-.logo{
-  float: left;
-  padding: 10px 10px 0px 10px;
 }
 
 .login img, .login{
@@ -28,6 +38,28 @@
   float: left;
 }
 
+/*Home*/
+h1.home-title{
+  text-align: center;
+}
+.mui--text-display3 {
+  font-family: times;
+}
+.mui-container.mui--text-center.ng-scope {
+  height: 500px;
+}
+img.owl-home {
+  width: 137px;
+}
+
+/*Login*/
+.login.ng-scope {
+  text-align:center;
+}
+h1.login-title {
+  font-family: sans-serif;
+  font-weight: lighter;
+}
 .contacts{
   background-color: #e6faff;
 }

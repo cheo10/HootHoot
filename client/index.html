@@ -12,6 +12,7 @@
     <script src=”app/compiled/src/vendor.bundle.js”></script>
     <!-- Style Sheet -->
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="//cdn.muicss.com/mui-0.6.8/css/mui.min.css" rel="stylesheet" type="text/css" />
     <script src="//cdn.muicss.com/mui-0.6.8/angular/mui-angular.min.js"></script>
     <!-- Auth0's lock widget library -->
@@ -57,10 +58,11 @@
   </head>
   <body ng-controller="mainCtrl">
     <div class="mui-appbar mui--appbar-line-height">
-        <div class="mui--text-display2 logo" style="font-color: white">Hoot</div>
+        <div class="mui-btn"><img src="/app/images/owl.png" class="owl-logo">HOOT</div>
         <div class="mui-container nav">
             <a href="#/" class="mui-btn">Home</a>
             <a href="#/chat" class="mui-btn">Chat</a>
+            <a href="#/login" class="mui-btn">Login</a>
             <button class="mui-btn" ng-click="logout()">Log Out</button>
         </div>
     </div>
