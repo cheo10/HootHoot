@@ -142,7 +142,7 @@ app.factory('AttachTokens', function($window) {
   }
 
   $rootScope.$on('$routeChangeStart', function (evt, next, current) {
-    if($location.path() == '/' || $location.path() == '/signup') {
+    if($location.path() == '/' || $location.path() == '/signup' || $location.path() == '/login') {
       console.log('This page does not need authentication')
     }else if(!checker.isAuth()){
         console.log('not authenticated')
