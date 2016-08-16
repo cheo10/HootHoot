@@ -28,7 +28,12 @@ Contacts.getContacts = function(user) {
 }
 
 Contacts.deleteContact = function(userOne, userTwo) {
-  return Contacts.destroy({ where: { userOne: userOne, userTwo: userTwo } });
+  return Contacts.destroy({ where: { userOne: userOne, userTwo: userTwo } })
+    .then(function(deletedCount) {
+      if (deletedCount) {
+        return userTwo;
+      }
+    });
 }
 
 Contacts.sync();
