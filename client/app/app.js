@@ -117,7 +117,6 @@ app.factory('checker', function($http, $location, $window) {
   }
 
 })
-
 app.factory('AttachTokens', function($window) {
   //$http interceptor to stop outgoing requests
   //look in local storage and find user's token
@@ -134,7 +133,6 @@ app.factory('AttachTokens', function($window) {
   };
   return attach;
 })
-<<<<<<< HEAD
 .run(function($rootScope, $location, checker, $window, SocketService, store) {
   var profile = store.get('profile');
   var userid =  profile ? profile.nickname : $window.localStorage.getItem('userId');
@@ -147,8 +145,8 @@ app.factory('AttachTokens', function($window) {
     if($location.path() == '/' || $location.path() == '/signup') {
       console.log('This page does not need authentication')
     }else if(!checker.isAuth()){
-            console.log('not authenticated')
-            $location.path('/');
+        console.log('not authenticated')
+        $location.path('/');
     }
   });
 });
