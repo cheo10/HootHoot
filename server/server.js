@@ -22,10 +22,7 @@ app.use(bodyParser.urlencoded({
 app.use('/', router);
 app.use(express.static(path.join(__dirname, '/../client')));
 
-app.get('/api/reddit/:subreddit', redditController.reddit);
-
 io.on('connection', socketHandler.newConnection);
-
 
 var port = process.env.PORT || 9000;
 
