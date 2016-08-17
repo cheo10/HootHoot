@@ -14,8 +14,7 @@ var app = angular.module('theApp', [
   'groupsingledirective',
   'grouplistdirective',
   'services',
-  'mainCtrl',
-  // 'homedirective',
+  'mainCtrl'
   ])
 
 app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvider', 'jwtInterceptorProvider',
@@ -103,8 +102,6 @@ angular.module('mainCtrl', ['theApp'])
     $window.location.href = '/';
   };
 })
-
-app.value('currentUser', Math.floor(Math.random() * 1000000));
 
 app.factory('checker', function($http, $location, $window) {
     var isAuth = function() {
