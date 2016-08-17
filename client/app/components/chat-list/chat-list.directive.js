@@ -14,17 +14,6 @@ angular.module('chatlistdirective', ['theApp','luegg.directives']).directive('ch
       });
     },
     controller: function($timeout, $scope, MessageService, Globals, $rootScope) {
-      // var scrolled = false;
-      // function updateScroll(){
-      //     if(!scrolled){
-      //         var element = document.getElementById("chatScroll");
-      //         element.scrollTop = element.scrollHeight;
-      //     }
-      // }
-
-      // $("#chatScroll").on('scroll', function(){
-      //     scrolled=true;
-      // });
 
       $scope.chats = [];
 

@@ -2,6 +2,7 @@ var express = require('express');
 var path = require('path');
 var http = require('http');
 var socketHandler = require('./socketHandler');
+var redditController = require('./reddit/redditController.js');
 
 // // Middleware
 // var morgan = require('morgan');
@@ -22,7 +23,6 @@ app.use('/', router);
 app.use(express.static(path.join(__dirname, '/../client')));
 
 io.on('connection', socketHandler.newConnection);
-
 
 var port = process.env.PORT || 9000;
 
