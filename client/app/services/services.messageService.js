@@ -45,11 +45,6 @@
     };
 
     function addMessageToList(message) {
-      // try {
-      //   JSON.parse(message)
-      // } catch (e) {
-      //   debugger;
-      // }
       while(true) {
         try{
           message.body = JSON.parse(message.body);
@@ -58,7 +53,6 @@
           break;
         }
       }
-
       service.chats.push(message);
     }
   }

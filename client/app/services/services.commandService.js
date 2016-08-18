@@ -53,7 +53,6 @@
 
       function stringToParams(str) {
         return str.split(' ').slice(1).reduce(function(paramObj, userInput, i) {
-          debugger
           var currentParam = command.parameters[i];
 
           if(currentParam[0] === '[') {
