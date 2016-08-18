@@ -7,6 +7,7 @@ var fs = require('fs');
 var formidable = require('formidable'),
 http = require('http'),
 util = require('util');
+var request = require('request');
 
 // // Middleware
 // var morgan = require('morgan');
@@ -40,7 +41,14 @@ app.post('/upload', function (req, res) {
           if(err) {
             console.log(err);
           }else {
-            fs.writeFile(__dirname + '/../client/uploads/' + Math.random().toString() + '.png', data);
+            var random = Math.random();
+            var frontEndLocation = '/uploads/' + random.toString() + '.png';
+            var location = __dirname + '/../client/uploads/' + random.toString() + '.png';
+            fs.writeFile(location, data);
+
+            var obj = JSON.stringify({url: frontEndLocation});
+
+            res.status(200).json(obj);
           }
       })
     });
