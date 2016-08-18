@@ -31,7 +31,7 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
       controller: 'loginController'
     })
     .when('/signup', {
-      templateUrl: 'app/components/signup/signup.html',
+      templateUrl: 'signup/signup.html',
       controller: 'signupController'
     })
     .when('/chat', {
