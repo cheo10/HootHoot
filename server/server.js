@@ -30,30 +30,35 @@ app.use(express.static(path.join(__dirname, '/../client')));
 var path = require('path'),
     fs = require('fs');
 
-app.post('/upload', function (req, res) {
-  if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
-    // parse a file upload
-    var form = new formidable.IncomingForm();
+app.post('/upload/:fileType', function (req, res) {
+  // parse a file upload
+  var form = new formidable.IncomingForm();
 
-    form.parse(req, function(err, fields, files) {
+  form.parse(req, function(err, fields, files) {
 
-      fs.readFile(files.displayImage.path, function(err,data) {
-          if(err) {
-            console.log(err);
-          }else {
-            var random = Math.random();
-            var frontEndLocation = '/uploads/' + random.toString() + '.png';
-            var location = __dirname + '/../client/uploads/' + random.toString() + '.png';
-            fs.writeFile(location, data);
+    fs.readFile(files.displayImage.path, function(err,data) {
+      if(err) {
+        console.log(err);
+      }else {
+        var random = Math.random();
+        var frontEndLocation = '/uploads/' + random.toString() + '.' + req.params.fileType;
+        var location = __dirname + '/../client/uploads/' + random.toString() + '.' + req.params.fileType;
+        fs.writeFile(location, data);
 
-            var obj = JSON.stringify({url: frontEndLocation});
+        var type = req.params.fileType;
+        var property = ['mp3'].indexOf(type) >= 0 ? 'audio' :
+                       ['mp4'].indexOf(type) >= 0 ? 'video' :
+                       ['png', 'jpg'].indexOf(type) >= 0 ? 'url' :
+                       undefined
 
-            res.status(200).json(obj);
-          }
-      })
-    });
-    return;
-  };
+        var obj = {};
+        obj[property] = frontEndLocation;
+
+        res.status(200).json(JSON.stringify(obj));
+      }
+    })
+  });
+  return;
 });
 
 // fs.readFile, fs.writeFile
