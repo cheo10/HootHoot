@@ -42,7 +42,7 @@ body.ng-scope {
 
 [scroll-glue] {
   overflow-y: scroll;
-  height: 440px;
+  height: 480px;
 }
 
 .chatBox{
@@ -120,14 +120,4 @@ h1.login-title {
 .deleteContact{
   float: right;
   margin: auto;
-}
-
-.commands input{
-  width:500px;
-}
-
-[uib-typeahead-popup].dropdown-menu {
-  display:block;
-  top: auto !important;
-  bottom: 0px;
 }
