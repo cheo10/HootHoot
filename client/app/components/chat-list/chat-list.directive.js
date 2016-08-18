@@ -27,7 +27,11 @@ angular.module('chatlistdirective', ['theApp','luegg.directives']).directive('ch
         $scope.chats = val;
       }, true);
 
-      $rootScope.$on('get message', function(e, message) { MessageService.addMessageToList(message) });
+      $rootScope.$on('get message',
+        function(e, message) {
+          message.body = MessageService.processText(message.body);
+          MessageService.addMessageToList(message)
+        });
 
       $scope.filterById = function (message) {
         if (Globals.selections.recipient) {
