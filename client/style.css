@@ -29,31 +29,27 @@ body.ng-scope {
 }
 
 .leftHalf{
-  width: 45%;
+  width: 40%;
+  height: 100%;
   float: left;
 }
 
 .rightHalf{
   float: right;
   height:590px;
-  width: 670px;
+  width: 750px;
 }
 
 [scroll-glue] {
-  overflow: scroll;
-  height: 250px;
+  overflow-y: scroll;
+  height: 480px;
 }
 
 .chatBox{
-  height: 65%;
+  height: 100%;
 }
 
-.list{
-  height: 160px;
-  width: 50%;
-  /*display:inline-block;*/
-  overflow:scroll;
-}
+
 /*Home*/
 h1.home-title{
   text-align: center;
@@ -78,9 +74,7 @@ img.owl-list{
 h1.login-title {
   font-weight: lighter;
 }
-.contacts{
-  background-color: white;
-}
+
 
 .nonBodyText{
   color: grey;

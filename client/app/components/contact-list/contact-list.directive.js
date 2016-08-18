@@ -1,4 +1,4 @@
-angular.module('contactlistdirective', ['theApp']).directive('contactlist', function() {
+angular.module('contactlistdirective', ['theApp', 'ui.bootstrap']).directive('contactlist', function() {
   return {
     restrict: "E",
     templateUrl: 'app/components/contact-list/contact-list.html',
