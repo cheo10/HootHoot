@@ -8,6 +8,7 @@ var Command = db.define('Command', {
   },
   description: Sequelize.STRING,
   parameters: Sequelize.STRING,
+  includeLocation: Sequelize.BOOLEAN,
   postUrl: Sequelize.STRING
 });
 

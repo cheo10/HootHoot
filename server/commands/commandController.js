@@ -1,11 +1,9 @@
 var Commands = require('./commandModel.js');
-var storedCommands = {};
+var storedCommands = [];
 
 Commands.findAll({ raw: true })
   .then(function(commands) {
-    commands.forEach(function(command) {
-      storedCommands[command.name] = command;
-    })
+    storedCommands = storedCommands.concat(commands);
   });
 
 module.exports = {
@@ -15,9 +13,9 @@ module.exports = {
     },
     post: function(req, res) {
       Commands.findOrCreate({where: {name: req.body.name},
-        defaults: {description: req.body.description, parameters: req.body.parameters, postUrl: req.body.postUrl} })
+        defaults: {description: req.body.description, parameters: req.body.parameters, includeLocation: req.body.includeLocation, postUrl: req.body.postUrl} })
         .spread(function(command, created) {
-          storedCommands[command.name] = command;
+          storedCommands.push(command);
           res.json(command);
         });
     }
