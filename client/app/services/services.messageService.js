@@ -5,9 +5,9 @@
     .module('services')
     .factory('MessageService', MessageService);
 
-  MessageService.$inject = ['SocketService', 'DataService'];
+  MessageService.$inject = ['SocketService', 'DataService', 'CommandService'];
 
-  function MessageService(SocketService, DataService) {
+  function MessageService(SocketService, DataService, CommandService) {
     var service = {
       chats: [],
       sendMessage: sendMessage,
@@ -34,7 +34,14 @@
         'recipientType': 'U'
       };
 
-      SocketService.sendMessage(message);
+      if(message.body[0] === '/') {
+        CommandService.dispatchCommand(message)
+          .then(function(processed) {
+            SocketService.sendMessage(processed);
+          })
+      } else {
+        SocketService.sendMessage(message);
+      }
     };
 
     function addMessageToList(message) {

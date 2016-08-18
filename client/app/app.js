@@ -8,11 +8,10 @@ var app = angular.module('theApp', [
   'chatformdirective',
   'chatsingledirective',
   'chatlistdirective',
+  'commandController',
   'userpicdirective',
   'contactsingledirective',
   'contactlistdirective',
-  'groupsingledirective',
-  'grouplistdirective',
   'services',
   'mainCtrl'
   ])
@@ -37,6 +36,10 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
       templateUrl: 'app/views/chat.html',
       controller: 'signupController',
       // authenticate: true
+    })
+    .when('/commands', {
+      templateUrl: 'app/components/commands/commands.html',
+      controller: 'commandController'
     })
 
     authProvider.init({

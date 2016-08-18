@@ -1,9 +1,8 @@
-<div class="chat-form" >
+<div class="chat-form" ng-init="getCommands()">
   <form class="form-inline" ng-submit="sendMessage()" class="mui-container">
     <div class="form-group">
-      <input style="width:400px;" class="form-control" ng-model="messageText" type="text" placeholder="Send a hoot!" required>
+      <input style="width:70%" ng-model="messageText" type="text" placeholder="Send a hoot!" uib-typeahead="command.name for command in matchCommand($viewValue)" typeahead-on-select="onSelect($item)" typeahead-select-on-exact="true" required>
       <span><button style="" type="submit" class="btn btn-default">+</button></span>
     </div>
-     <div id="weather" style="display:none" ></div>
   </form>
 </div>

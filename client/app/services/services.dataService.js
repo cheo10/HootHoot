@@ -12,7 +12,12 @@
       getCurrentUserId: getCurrentUserId,
       getRecentMessages: getRecentMessages,
       getContacts: getContacts,
-      createContact: createContact
+      createContact: createContact,
+      deleteContact: deleteContact,
+      getCommands: getCommands,
+      createCommand: createCommand,
+      dispatchCommand: dispatchCommand,
+      getLocation: getLocation
     }
 
     return service;
@@ -37,7 +42,8 @@
       return $http({
         url: '/contacts',
         method: 'DELETE',
-        data: { contact: contactId }
+        data: { contact: contactId },
+        headers: { 'Content-type': 'application/json;charset=utf-8' }
       }).then(requestComplete)
         .catch(errorHandler('deleteContact'));
     }
@@ -48,13 +54,39 @@
         .catch(errorHandler('getRecentMessages'));
     }
 
+    function getCommands() {
+      return $http.get('/commands')
+        .then(requestComplete)
+        .catch(errorHandler('getCommands'));
+    }
+
+    function createCommand(command) {
+      return $http.post('/commands', command)
+        .then(requestComplete)
+        .catch(errorHandler('getCommands'));
+    }
+
+    function dispatchCommand(postUrl, params) {
+      return $http.post(postUrl, params)
+        .then(requestComplete)
+        .catch(errorHandler('dispatchCommand'));
+    }
+
+    function getLocation(cb) {
+      navigator.geolocation.getCurrentPosition(gotPosition);
+
+      function gotPosition(position) {
+        cb(position.coords);
+      }
+    }
+
     function requestComplete(response) {
       return response.data;
     }
 
     function errorHandler(requestName){
       return function(e) {
-        $exceptionHandler('An error has occured in ' + requestName + '.\nHTTP error: ' + e + ' (' + e + ')');
+        $exceptionHandler('An error has occured in ' + requestName + '.\nHTTP error: ' + JSON.stringify(e));
       }
     }
   }
