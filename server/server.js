@@ -3,6 +3,11 @@ var path = require('path');
 var http = require('http');
 var socketHandler = require('./socketHandler');
 var redditController = require('./reddit/redditController.js');
+var fs = require('fs');
+var formidable = require('formidable'),
+http = require('http'),
+util = require('util');
+var request = require('request');
 
 // // Middleware
 // var morgan = require('morgan');
@@ -21,6 +26,42 @@ app.use(bodyParser.urlencoded({
 }));
 app.use('/', router);
 app.use(express.static(path.join(__dirname, '/../client')));
+
+var path = require('path'),
+    fs = require('fs');
+
+app.post('/upload/:fileType', function (req, res) {
+  // parse a file upload
+  var form = new formidable.IncomingForm();
+
+  form.parse(req, function(err, fields, files) {
+
+    fs.readFile(files.displayImage.path, function(err,data) {
+      if(err) {
+        console.log(err);
+      }else {
+        var random = Math.random();
+        var frontEndLocation = '/uploads/' + random.toString() + '.' + req.params.fileType;
+        var location = __dirname + '/../client/uploads/' + random.toString() + '.' + req.params.fileType;
+        fs.writeFile(location, data);
+
+        var type = req.params.fileType;
+        var property = ['mp3'].indexOf(type) >= 0 ? 'audio' :
+                       ['mp4'].indexOf(type) >= 0 ? 'video' :
+                       ['png', 'jpg'].indexOf(type) >= 0 ? 'url' :
+                       undefined
+
+        var obj = {};
+        obj[property] = frontEndLocation;
+
+        res.status(200).json(JSON.stringify(obj));
+      }
+    })
+  });
+  return;
+});
+
+// fs.readFile, fs.writeFile
 
 io.on('connection', socketHandler.newConnection);
 
