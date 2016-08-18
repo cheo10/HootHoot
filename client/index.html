@@ -2,7 +2,6 @@
 
 <html ng-app="theApp">
   <head>
-
     <meta name="keywords" content="MEAN, node, express, angular, mySQL, Hoot, chat, heroku">
     <meta name="description" content="A chatting client for all chatting clients">
     <meta name="author" content="Chris Heo, Forrest Labrum, Jeff Lam, Nahee Kwak">
@@ -10,8 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Style Sheet -->
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="css/queries.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet">
     <link href="//cdn.muicss.com/mui-0.6.8/css/mui.min.css" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="//cdn.muicss.com/mui-0.6.8/angular/mui-angular.min.js"></script>
@@ -62,6 +64,7 @@
   </head>
   <body ng-controller="mainCtrl">
     <div class="mui-appbar mui--appbar-line-height">
+    <div class="mui-btn"><img src="/app/images/oneOwl.png" class="owl-logo">HOOT</div>
         <div class="mui-container nav">
             <a href="#/" class="mui-btn">Home</a>
             <a href="#/chat" class="mui-btn">Chat</a>
