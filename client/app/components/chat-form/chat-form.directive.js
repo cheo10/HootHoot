@@ -29,7 +29,6 @@
       $scope.onSelect = onSelect;
       $scope.matchCommand = matchCommand;
       $scope.sendMessage = sendMessage;
-      $scope.getMedia = getMedia;
 
       function getCommands() {
         CommandService.getCommands();
@@ -52,25 +51,6 @@
         })
 
         return results;
-      }
-
-      function getMedia() {
-        var fd = new FormData(document.querySelector(".foorm"));
-        var fileType = document.querySelector('[type="file"]').files[0].type.slice(-3);
-        $.ajax({
-          url: "/upload/" + fileType,
-          type: "POST",
-          data: fd,
-          processData: false,
-          contentType: false,
-          success: function(data) {
-            console.log(data);
-            MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, data);
-          },
-          error: function(err) {
-            console.log(err);
-          }
-        })
       }
 
       function sendMessage() {
