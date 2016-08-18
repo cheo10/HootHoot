@@ -44,24 +44,6 @@
           return results;
         }
 
-        if($scope.messageText.match(/\/reddit\s\w+/)) {
-          var subreddit = $scope.messageText.match(/\/reddit\s+(\w+)/)[1]
-          console.log(subreddit);
-          var arr = [];
-          return $http({
-              url: '/api/reddit/' + subreddit,
-              method: "GET",
-          }).then(function(res) {
-
-              var title = res.data.data.children[0].data.title;
-              var url = res.data.data.children[0].data.url;
-              var messageText = title + " " + url;
-
-        MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, messageText);
-
-          })
-        }
-
         $scope.commands.forEach(function(command) {
           if(viewValue === command.name.substr(0, viewValue.length)) {
             results.push(command);

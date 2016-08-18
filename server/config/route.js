@@ -34,7 +34,7 @@ router.post('/contacts', Auth.authorize,contactsController.contacts.post);
 
 router.delete('/contacts', Auth.authorize, contactsController.contacts.delete);
 
-router.get('/api/reddit/:subreddit', redditController.reddit);
+router.post('/api/reddit', redditController.reddit);
 
 router.post('/api/yelp', function(req,res){
   var params = req.body;
