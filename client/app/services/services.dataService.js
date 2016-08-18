@@ -15,7 +15,9 @@
       createContact: createContact,
       deleteContact: deleteContact,
       getCommands: getCommands,
-      createCommand: createCommand
+      createCommand: createCommand,
+      dispatchCommand: dispatchCommand,
+      getLocation: getLocation
     }
 
     return service;
@@ -64,13 +66,27 @@
         .catch(errorHandler('getCommands'));
     }
 
+    function dispatchCommand(postUrl, params) {
+      return $http.post(postUrl, params)
+        .then(requestComplete)
+        .catch(errorHandler('dispatchCommand'));
+    }
+
+    function getLocation(cb) {
+      navigator.geolocation.getCurrentPosition(gotPosition);
+
+      function gotPosition(position) {
+        cb(position.coords);
+      }
+    }
+
     function requestComplete(response) {
       return response.data;
     }
 
     function errorHandler(requestName){
       return function(e) {
-        $exceptionHandler('An error has occured in ' + requestName + '.\nHTTP error: ' + e + ' (' + e + ')');
+        $exceptionHandler('An error has occured in ' + requestName + '.\nHTTP error: ' + JSON.stringify(e));
       }
     }
   }
