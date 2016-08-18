@@ -3,6 +3,10 @@ var path = require('path');
 var http = require('http');
 var socketHandler = require('./socketHandler');
 var redditController = require('./reddit/redditController.js');
+var fs = require('fs');
+var formidable = require('formidable'),
+http = require('http'),
+util = require('util');
 
 // // Middleware
 // var morgan = require('morgan');
@@ -21,6 +25,30 @@ app.use(bodyParser.urlencoded({
 }));
 app.use('/', router);
 app.use(express.static(path.join(__dirname, '/../client')));
+
+var path = require('path'),
+    fs = require('fs');
+
+app.post('/upload', function (req, res) {
+  if (req.url == '/upload' && req.method.toLowerCase() == 'post') {
+    // parse a file upload
+    var form = new formidable.IncomingForm();
+
+    form.parse(req, function(err, fields, files) {
+
+      fs.readFile(files.displayImage.path, function(err,data) {
+          if(err) {
+            console.log(err);
+          }else {
+            fs.writeFile(__dirname + '/../client/uploads/' + Math.random().toString() + '.png', data);
+          }
+      })
+    });
+    return;
+  };
+});
+
+// fs.readFile, fs.writeFile
 
 io.on('connection', socketHandler.newConnection);
 
