@@ -6,7 +6,10 @@ angular.module('chatsingledirective', ['theApp']).directive('chatsingle', functi
       sender: '@', //???
       body: '@',
       date: '@',
-      type: '@'
+      type: '@',
+      url: '@',
+      video: '@',
+      audio: '@'
     }
   }
 });

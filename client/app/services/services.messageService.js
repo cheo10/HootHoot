@@ -30,7 +30,7 @@
       var message = {
         'senderId': sender,
         'recipientId': recipient,
-        'body': messageText,
+        'body': JSON.stringify(messageText),
         'recipientType': 'U'
       };
 
@@ -45,6 +45,14 @@
     };
 
     function addMessageToList(message) {
+      while(true) {
+        try{
+          message.body = JSON.parse(message.body);
+        }
+        catch(e) {
+          break;
+        }
+      }
       service.chats.push(message);
     }
   }
