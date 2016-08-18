@@ -1,46 +1,48 @@
-angular.module('chatformdirective', ['theApp']).directive('chatform', function () {
-  return {
-    restrict: "E",
-    replace: true,
-    templateUrl: 'app/components/chat-form/chat-form.html',
+(function() {
+  'use strict';
 
-    controller: function($scope, currentUser, store, MessageService, Globals, DataService, CommandService) {//declare and link up currentuser and main factory messageService!!!
+  angular
+    .module('chatformdirective', ['theApp', 'ui.bootstrap'])
+    .directive('chatform', chatform);
+
+  function chatform() {
+    var directive = {
+      restrict: "E",
+      replace: true,
+      templateUrl: 'app/components/chat-form/chat-form.html',
+      controller: chatformController
+    };
+
+    return directive;
+  }
+
+  chatformController.$inject = ['$scope', 'MessageService', 'Globals', 'DataService', 'CommandService'];
+
+  function chatformController($scope, MessageService, Globals, DataService, CommandService) {
       $scope.senderId = DataService.getCurrentUserId();
       $scope.selections = Globals.selections;
+      $scope.commands = CommandService.commands;
 
       $scope.messageText = '';
 
-      //load weather using your lat/lng coordinates
-      navigator.geolocation.getCurrentPosition(function(position) {
-        $scope.loadWeather(position.coords.latitude+','+position.coords.longitude);
-      });
+      $scope.getCommands = getCommands;
+      $scope.onSelect = onSelect;
+      $scope.matchCommand = matchCommand;
+      $scope.sendMessage = sendMessage;
 
-      $scope.getCommands = function() {
+      function getCommands() {
         CommandService.getCommands();
       }
 
-      $scope.loadWeather = function(location, woeid) {
-        $.simpleWeather({
-          location: location,
-          woeid: woeid,
-          unit: 'f',
-          success: function(weather) {
-            html = '<h2 id="temp"><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
-
-            $("#weather").html(html);
-          },
-          error: function(error) {
-            $("#weather").html('<p>'+error+'</p>');
-          }
-        });
+      function onSelect(item) {
+        $scope.selections.command = item;
       }
 
-      $scope.sendMessage = function() {
-
-        if($scope.messageText.match(/\/weather/)) {
-          $scope.messageText = document.getElementById("temp").innerHTML.split('</i> ')[1];
+      function matchCommand(viewValue) {
+        var results = [];
+        if(viewValue[0] !== '/') {
+          return results;
         }
-
 
         if($scope.messageText.match(/\/reddit\s\w+/)) {
           var subreddit = $scope.messageText.match(/\/reddit\s+(\w+)/)[1]
@@ -60,10 +62,18 @@ angular.module('chatformdirective', ['theApp']).directive('chatform', function (
           })
         }
 
+        $scope.commands.forEach(function(command) {
+          if(viewValue === command.name.substr(0, viewValue.length)) {
+            results.push(command);
+          }
+        })
+
+        return results;
+      }
+
+      function sendMessage() {
         MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, $scope.messageText);
         $scope.messageText = '';
       }
     }
-  };
-});
-
+})();
