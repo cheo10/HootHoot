@@ -12,8 +12,6 @@ var app = angular.module('theApp', [
   'userpicdirective',
   'contactsingledirective',
   'contactlistdirective',
-  'groupsingledirective',
-  'grouplistdirective',
   'services',
   'mainCtrl'
   ])
