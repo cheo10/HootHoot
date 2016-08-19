@@ -13,7 +13,8 @@ var app = angular.module('theApp', [
   'contactsingledirective',
   'contactlistdirective',
   'services',
-  'mainCtrl'
+  'mainCtrl',
+  'chat'
   ])
 
 app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvider', 'jwtInterceptorProvider',
@@ -34,7 +35,7 @@ app.config(['$routeProvider', 'authProvider', '$httpProvider', '$locationProvide
     })
     .when('/chat', {
       templateUrl: 'app/views/chat.html',
-      controller: 'signupController',
+      controller: 'chatController',
       // authenticate: true
     })
     .when('/commands', {
