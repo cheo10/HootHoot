@@ -5,15 +5,18 @@
     .module('services')
     .factory('MessageService', MessageService);
 
-  MessageService.$inject = ['SocketService', 'DataService', 'CommandService'];
+  MessageService.$inject = ['SocketService', 'DataService', 'CommandService', 'Globals'];
 
-  function MessageService(SocketService, DataService, CommandService) {
+  function MessageService(SocketService, DataService, CommandService, Globals) {
     var service = {
       chats: [],
       sendMessage: sendMessage,
       getRecentMessages: getRecentMessages,
-      addMessageToList: addMessageToList
+      addMessageToList: addMessageToList,
+      processText: processText
     };
+
+    var gotRecentMessages = false;
 
     return service;
 
@@ -23,6 +26,7 @@
 
       function consumeMessages(messages) {
         messages.forEach(addMessageToList);
+        gotRecentMessages = true;
       }
     }
 
@@ -30,7 +34,7 @@
       var message = {
         'senderId': sender,
         'recipientId': recipient,
-        'body': JSON.stringify(messageText),
+        'body': messageText,
         'recipientType': 'U'
       };
 
@@ -44,15 +48,19 @@
       }
     };
 
-    function addMessageToList(message) {
-      while(true) {
-        try{
-          message.body = JSON.parse(message.body);
-        }
-        catch(e) {
-          break;
-        }
+    function processText(text) {
+      var frame = text.match(/^\[:frame:\](.*)\[:frame:\]$/);
+
+      if(frame) {
+        if(gotRecentMessages) { Globals.selections.frame = frame[1] };
+        return 'Let\'s look at ' + frame[1];
       }
+
+      return text;
+    }
+
+    function addMessageToList(message) {
+      message.body = processText(message.body);
       service.chats.push(message);
     }
   }
