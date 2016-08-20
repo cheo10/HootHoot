@@ -37,7 +37,6 @@
         console.log(Globals.selections.frame);
         return 'Let\'s look at ' + text.substring(10,text.length - 10);
       }
-
       return text;
     }
     function sendMessage(sender, recipient, messageText) {

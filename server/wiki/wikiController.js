@@ -3,4 +3,3 @@ function wiki(req,res){
 }
 
 module.exports = wiki;
-
