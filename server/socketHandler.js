@@ -1,4 +1,4 @@
-var io = require('./server').io;
+var server = require('./server');
 var GroupRoom = require('./group/groupRoomModel.js');
 var User = require('./user/userModel.js');
 var Message = require('./message/messageModel.js')
@@ -11,6 +11,9 @@ var register = function(profile) {
 
   connectedUsers[profile] = this;
   this.userId = profile;
+
+  // should be refactored to only target contacts
+  server.io.sockets.emit('online', profile);
 }
 
 var isConnected = function(userId) {
@@ -30,7 +33,7 @@ exports.newConnection =  function (socket) {
         message.messageCreated = result.createdAt;
 
         if (recipientType === 'G') {
-          io.to(recipient).emit('get message', message);
+          server.io.to(recipient).emit('get message', message);
         } else if (recipientType === 'U') {
           connectedUsers[sender].emit('get message', message);
           if (isConnected(recipient)) {
@@ -73,6 +76,9 @@ exports.newConnection =  function (socket) {
 
   socket.on('disconnect', function() {
     User.isNotActive(socket.userId);
+    // should be refactored to only target contacts
+    server.io.sockets.emit('offline', socket.userId);
+
     delete connectedUsers[socket.userId];
   })
 };

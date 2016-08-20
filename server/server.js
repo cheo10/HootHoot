@@ -71,7 +71,5 @@ server.listen(port, function() {
   console.log('server up and running on port ' + port);
 });
 
-module.exports = {
-  app: app,
-  io: io
-}
+exports.io = io;
+exports.app = app;
