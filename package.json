@@ -51,6 +51,7 @@
     "sass-loader": "^4.0.0",
     "sequelize": "^3.23.6",
     "socket.io": "^1.4.8",
+    "socket.io-client": "^1.4.8",
     "webpack": "^1.13.1",
     "yelp": "^1.0.1"
   },
