@@ -1,7 +1,8 @@
 var server = require('./server');
 var GroupRoom = require('./group/groupRoomModel.js');
 var User = require('./user/userModel.js');
-var Message = require('./message/messageModel.js')
+var Message = require('./message/messageModel.js');
+var MessageRecipient = require('./message/messageRecipientModel.js')
 var request = require('request');
 var connectedUsers = {};
 var accessToken = process.env.WIT;
@@ -73,6 +74,10 @@ exports.newConnection =  function (socket) {
         })
       });
   });
+
+  socket.on('mark read', function(list) {
+    MessageRecipient.markRead(list);
+  })
 
   socket.on('disconnect', function() {
     User.isNotActive(socket.userId);
