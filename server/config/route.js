@@ -48,4 +48,3 @@ router.post('/api/yelp', function(req,res){
 });
 
 module.exports = router;
-Contact GitHub API Training Shop Blog About
