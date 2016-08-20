@@ -13,7 +13,8 @@
       sendMessage: sendMessage,
       getRecentMessages: getRecentMessages,
       addMessageToList: addMessageToList,
-      processText: processText
+      processText: processText,
+      markAllRead: markAllRead
     };
 
     var gotRecentMessages = false;
@@ -28,6 +29,19 @@
         messages.forEach(addMessageToList);
         gotRecentMessages = true;
       }
+    }
+
+    function markAllRead(senderId) {
+      var toUpdate = [];
+
+      service.chats.map(function(chat) {
+        if(chat.senderId === senderId && !chat.isRead) {
+          chat.isRead = 1;
+          toUpdate.push(chat.id);
+        }
+      })
+
+      SocketService.markRead(toUpdate)
     }
 
     function sendMessage(sender, recipient, messageText) {

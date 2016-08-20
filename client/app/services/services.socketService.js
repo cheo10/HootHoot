@@ -11,6 +11,7 @@
     var service = {
       addListeners: addListeners,
       sendMessage: sendMessage,
+      markRead: markRead,
       register: register
     }
 
@@ -36,6 +37,10 @@
 
     function sendMessage(message) {
       socket.emit('send message', message);
+    }
+
+    function markRead(list) {
+      socket.emit('mark read', list);
     }
 
     function register() {
