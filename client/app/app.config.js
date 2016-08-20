@@ -5,9 +5,9 @@
     .module('app.config', ['theApp', 'auth0', 'angular-storage', 'angular-jwt', 'ngRoute'])
     .config(myAppConfig);
 
-  myAppConfig.$inject = ['$routeProvider', 'authProvider', '$httpProvider', '$locationProvider', 'jwtInterceptorProvider', 'AttachTokens'];
+  myAppConfig.$inject = ['$routeProvider', 'authProvider', '$httpProvider', '$locationProvider', 'jwtInterceptorProvider'];
 
-  function myAppConfig ($routeProvider, authProvider, $httpProvider, $locationProvider, jwtInterceptorProvider, AttachTokens) {
+  function myAppConfig ($routeProvider, authProvider, $httpProvider, $locationProvider, jwtInterceptorProvider) {
 
     $routeProvider
     .when('/', {
