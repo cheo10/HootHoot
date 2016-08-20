@@ -8,7 +8,9 @@ var app = angular.module('theApp', [
   'commandController',
   'userpicdirective',
   'services',
-  'chat'
+  'mainCtrl',
+  'chat',
+  'ngSanitize'
   ])
 
 app.factory('AttachTokens', function($window) {
