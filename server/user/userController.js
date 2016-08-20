@@ -44,6 +44,10 @@ module.exports = {
         res.status(400).send('Error', err);
       });
     },
+    destroy: function(req, res) {
+      User.destroy({where:{ id: req.params.id }});
+      res.status(204).json({})
+    },
 
     get: function(req, res) {
       User.findAll()

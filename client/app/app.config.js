@@ -22,6 +22,10 @@
       templateUrl: 'signup/signup.html',
       controller: 'signupController'
     })
+    .when('/profile', {
+      templateUrl: 'profile/profile.html',
+      controller: 'profileController'
+    })
     .when('/chat', {
       templateUrl: 'app/views/chat.html',
       controller: 'chatController',

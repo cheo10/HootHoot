@@ -21,6 +21,7 @@
           password: password
         }
       });
+      window.location.href = "/#/login"
       console.log('sent post req from signup controller');
     };
   }
