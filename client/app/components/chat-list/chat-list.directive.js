@@ -38,6 +38,7 @@
       MessageService.getRecentMessages();
     }
 
+
     function filterById(message) {
       if (Globals.selections.recipient) {
         var recipient = Globals.selections.recipient.id;
