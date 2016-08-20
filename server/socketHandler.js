@@ -1,5 +1,5 @@
 var io = require('./server').io;
-var UserGroup = require('./user/userGroupModel.js');
+var GroupRoom = require('./group/groupRoomModel.js');
 var User = require('./user/userModel.js');
 var Message = require('./message/messageModel.js')
 var request = require('request');
@@ -60,12 +60,12 @@ exports.newConnection =  function (socket) {
   socket.on('create group', function (group) {
     group.push(socket.userId);
     // create group in database
-    UserGroup.addGroup(group)
-      .then(function(group) {
+    GroupRoom.addGroup(group)
+      .then(function(groupId) {
         // tell each member in group to listen for messages on that group id
         group.forEach(function (participant) {
           if(isConnected(participant)){
-            connectedUsers[participant].emit('join group', group);
+            connectedUsers[participant].emit('join group', groupId);
           }
         })
       });
