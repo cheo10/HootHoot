@@ -8,7 +8,6 @@ var app = angular.module('theApp', [
   'commandController',
   'userpicdirective',
   'services',
-  'mainCtrl',
   'chat',
   'ngSanitize'
   ])
