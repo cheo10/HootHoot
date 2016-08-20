@@ -49,14 +49,50 @@
     };
 
     function processText(text) {
-      var frame = text.match(/^\[:frame:\](.*)\[:frame:\]$/);
+      var escapeMap = {
+        "<": "&lt;",
+        ">": "&gt;"
+      };
 
-      if(frame) {
-        if(gotRecentMessages) { Globals.selections.frame = frame[1] };
-        return 'Let\'s look at ' + frame[1];
+      var tags = {
+        '[:link:]': {
+          open: '<a href="$val">',
+          close: '</a>'
+        },
+        '[:img:]': {
+          open: '<img src="',
+          close: '">'
+        },
+        '[:frame:]': {
+          open: 'Let\'s look at ',
+          action: function(str) {
+            if(gotRecentMessages) { Globals.selections.frame = str };
+          }
+        }
       }
 
-      return text;
+      return text.replace(/[<>]/g, escape)
+        .replace(/(\[:.*:\])(.*)(\1)/g, interpretMarkup);
+
+      function escape(s) {
+        return escapeMap[s];
+      }
+
+      function interpretMarkup(s, foundTag, content) {
+        var tag = tags[foundTag];
+
+        if(!tag) {
+          return foundTag + content + foundTag;
+        }
+
+        if(tag.action) {
+          tag.action(content);
+        }
+
+        var processed = tag.close ? tag.open + content + tag.close : tag.open + content;
+
+        return processed.replace('$val', content);
+      }
     }
 
     function addMessageToList(message) {

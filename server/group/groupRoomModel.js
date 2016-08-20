@@ -1,5 +1,6 @@
 var Sequelize = require('sequelize');
-var db = require('../config/db.js')
+var db = require('../config/db.js');
+var UserGroup = require('../user/userGroupModel')
 
 var GroupRoom = db.define('GroupRoom', {
   name: Sequelize.STRING,
@@ -15,7 +16,8 @@ GroupRoom.addGroup = function(participants) {
       participants.forEach(function(participant) {
         UserGroup.create({ userId: participant, groupId: group.id });
       });
-      return new Promise(function (resolve, reject) { resolve(group) });
+
+      return group;
     });
 }
 
