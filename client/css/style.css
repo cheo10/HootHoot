@@ -359,3 +359,22 @@ h1.login-title {
   float: right;
   margin: auto;
 }
+
+.unread {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #b30000;
+  color: white;
+  min-width: 1em;
+  border-radius: 50%;
+  vertical-align: middle;
+}
+
+.unread:before {
+  content:'';
+  float: right;
+  width: auto;
+  padding-bottom: 100%;
+}
+
