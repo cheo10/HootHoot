@@ -1,3 +1,4 @@
+
  var userController = require('../user/userController.js');
 var contactsController = require('../contacts/contactsController.js');
 var groupRoomController = require('../group/groupRoomController.js');
@@ -8,11 +9,8 @@ var wikiController = require('../wiki/wikiController.js');
 var Auth = require('../auth/helpers.js');
 var helpers = require('../controllers/yelpHelper');
 var router = require('express').Router();
-var wikiController = require('../wiki/wikiController.js');
 
 router.post('/', userController.users.signin);
-
-router.post('/api/wiki', wikiController);
 
 router.post('/auth', userController.users.authin);
 
@@ -50,3 +48,4 @@ router.post('/api/yelp', function(req,res){
 });
 
 module.exports = router;
+Contact GitHub API Training Shop Blog About

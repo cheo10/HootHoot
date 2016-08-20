@@ -38,7 +38,6 @@
     }
 
     function dispatchCommand(message) {
-      console.log("HI")
       var command = Globals.selections.command;
       var params = stringToParams(message.body);
 
