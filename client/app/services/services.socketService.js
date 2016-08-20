@@ -5,9 +5,9 @@
     .module('services')
     .factory('SocketService', SocketService);
 
-  SocketService.$inject = ['$rootScope', 'DataService'];
+  SocketService.$inject = ['$rootScope', 'DataService', 'ContactService'];
 
-  function SocketService($rootScope, DataService) {
+  function SocketService($rootScope, DataService, ContactService) {
     var service = {
       addListeners: addListeners,
       sendMessage: sendMessage,
@@ -23,6 +23,14 @@
         $rootScope.$apply(function() {
           $rootScope.$broadcast('get message', message);
         });
+      });
+
+      socket.on('online', function(contactId) {
+        ContactService.contactStatusChange(contactId, 1);
+      });
+
+      socket.on('offline', function(contactId) {
+        ContactService.contactStatusChange(contactId, 0);
       });
     }
 

@@ -12,7 +12,8 @@
       contacts: [],
       createContact: createContact,
       getAllContacts: getAllContacts,
-      deleteContact: deleteContact
+      deleteContact: deleteContact,
+      contactStatusChange: contactStatusChange
     };
 
     return service;
@@ -38,6 +39,16 @@
 
     function addContactToList(contact) {
       service.contacts.push(contact)
+    }
+
+    function contactStatusChange(contactId, status) {
+      service.contacts.map(findAndChangeContact);
+
+      function findAndChangeContact(contact) {
+        if(contact.id === contactId) {
+          contact.isActive = status;
+        }
+      }
     }
 
     function removeContactFromList(contactId) {
