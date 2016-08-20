@@ -1,11 +1,20 @@
-angular.module('contactsingledirective', ['theApp']).directive('contactsingle', function(ContactService) {
-  return {
-    restrict: "E",
-    templateUrl: 'app/components/contact-single/contact-single.html',
-    scope: {
-      name: '@',
-      channel: '@',
-      isactive: '@'
+(function() {
+  'use strict';
+
+  angular
+    .module('contactsingledirective', ['theApp'])
+    .directive('contactsingle', contactsingle);
+
+  function contactsingle(ContactService) {
+    var directive = {
+      restrict: "E",
+      templateUrl: 'app/components/contact-single/contact-single.html',
+      scope: {
+        name: '@',
+        channel: '@',
+        isactive: '@'
+      }
     }
-  };
-});
+  return directive;
+  }
+})();

@@ -40,6 +40,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="app/views/chatController.js" type="text/javascript"></script>
     <script src="login/loginController.js" type="text/javascript"></script>
+    <script src="logout/logoutController.js" type="text/javascript"></script>
     <script src="signup/signupController.js" type="text/javascript"></script>
     <script src="app/components/chat-form/chat-form.directive.js" type="text/javascript"></script>
     <script src="app/components/chat-list/chat-list.directive.js" type="text/javascript"></script>
@@ -57,11 +58,15 @@
     <script src="app/services/services.contactService.js" type="text/javascript"></script>
     <script src="app/services/services.socketService.js" type="text/javascript"></script>
     <script src="app/app.js"></script>
+    <script src="app/app.config.js"></script>
+    <script src="app/app.chatBox.js"></script>
+    <script src="app/app.run.js"></script>
+    <script src="app/app.contacts.js"></script>
     <script src="lib/scrollglue.js"></script>
     <script src="lib/ui-bootstrap-tpls-2.0.2.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   </head>
-  <body ng-controller="mainCtrl">
+  <body ng-controller="logoutController">
     <div class="mui-appbar mui--appbar-line-height">
     <div class="mui-btn"><img src="/app/images/oneOwl.png" class="owl-logo">HOOT</div>
         <div class="mui-container nav">

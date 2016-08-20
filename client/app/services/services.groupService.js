@@ -1,22 +1,5 @@
 .factory('GroupService', ['$http', '$rootScope',
     function GroupServiceFactory ($http, $rootScope) {
-    var searchGroupFriends = [
-      {
-        name: "Abby Diggity",
-        isActive: true,
-        channel: "Facebook"
-      },
-      {
-        name: "Forrest Labrum",
-        isActive: false,
-        channel: "Skype"
-      },
-      {
-        name: "Jeff Lam",
-        isActive: true,
-        channel: "Gchat"
-      }
-    ];
 
     var results = window.sessionStorage.token;
     var findContacts = function(userOne, userTwo) {
