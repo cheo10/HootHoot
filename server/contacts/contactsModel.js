@@ -27,7 +27,8 @@ Contacts.getContacts = function(user) {
                     (select COUNT(mr.isRead) as unreadCount, m.senderId
                     from MessageRecipients mr
                     join Messages m on mr.messageId=m.id
-                    where recipientId=:user and mr.isRead=0) temp
+                    where recipientId=:user and mr.isRead=0
+                    group by m.senderId) temp
                   on temp.senderId=u.id
                   where u.id in (select userTwo from Contacts where userOne=:user)`,
     { replacements: { user: user }, type: db.QueryTypes.SELECT });
