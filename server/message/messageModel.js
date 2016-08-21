@@ -17,7 +17,7 @@ Message.addMessage = function(message) {
 }
 
 Message.getRecent = function(user) {
-  return db.query(`select m.senderId, mr.recipientId, m.body, "U" recipientType, m.createdAt messageCreated
+  return db.query(`select m.id, m.senderId, mr.recipientId, m.body, "U" recipientType, m.createdAt messageCreated
     from MessageRecipients mr
     join Messages m on m.id=mr.messageId
     where m.senderId=:user or mr.recipientId=:user

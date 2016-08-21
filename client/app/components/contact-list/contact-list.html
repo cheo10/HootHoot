@@ -11,7 +11,7 @@
         <li style="width:300px;" role="menuitem" ng-repeat="contact in contacts | filter:searchBox | orderBy: 'isActive'" ng-click="setSelectedRecipient(contact)">
           <a>
             <span><userpic /></span>
-            <contactsingle name="{{contact.firstname}} {{contact.lastname}}" isactive="{{+contact.isActive}}"></contactsingle>
+            <contactsingle name="{{contact.firstname}} {{contact.lastname}}" isactive="{{+contact.isActive}}" unread="{{contact.unreadCount}}"></contactsingle>
             <button type="button" class="deleteContact btn btn-danger" ng-click="deleteContact(contact.id)">Delete</button>
           </a>
         </li>

@@ -12,7 +12,8 @@
       scope: {
         name: '@',
         channel: '@',
-        isactive: '@'
+        isactive: '@',
+        unread: '@'
       }
     }
   return directive;

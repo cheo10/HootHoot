@@ -13,9 +13,9 @@
     };
     return directive;
   }
-   contactlistController.$inject = ['$rootScope', '$scope', 'ContactService', 'Globals'];
+   contactlistController.$inject = ['$rootScope', '$scope', 'ContactService', 'Globals', 'MessageService'];
 
-   function contactlistController($rootScope, $scope, ContactService, Globals) {
+   function contactlistController($rootScope, $scope, ContactService, Globals, MessageService) {
       $scope.contacts = ContactService.contacts;
       $scope.addContact = addContact;
       $scope.getAllContacts = getAllContacts;
@@ -36,6 +36,20 @@
 
       function setSelectedRecipient(recipient) {
         Globals.setSelectedRecipient(recipient);
+        markRead(recipient);
+      }
+
+      function markRead(recipient) {
+        if(recipient.unreadCount > 0) {
+          setTimeout(markReadIfFocused, 3000)
+        }
+
+        function markReadIfFocused() {
+          if(recipient === Globals.selections.recipient) {
+            recipient.unreadCount = 0;
+            MessageService.markAllRead(recipient.id)
+          }
+        }
       }
    }
 })();

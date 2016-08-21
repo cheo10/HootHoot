@@ -21,9 +21,15 @@ Contacts.addContact = function(userOneId, userTwoEmail) {
 }
 
 Contacts.getContacts = function(user) {
-  return db.query(`select u.id, u.email, u.firstname, u.lastname, u.isActive
-                    from Users u
-                    where u.id in (select userTwo from Contacts where userOne=:user)`,
+  return db.query(`select u.id, u.email, u.firstname, u.lastname, u.isActive, coalesce(temp.unreadCount, 0) unreadCount
+                  from Users u
+                  left join
+                    (select COUNT(mr.isRead) as unreadCount, m.senderId
+                    from MessageRecipients mr
+                    join Messages m on mr.messageId=m.id
+                    where recipientId=:user and mr.isRead=0) temp
+                  on temp.senderId=u.id
+                  where u.id in (select userTwo from Contacts where userOne=:user)`,
     { replacements: { user: user }, type: db.QueryTypes.SELECT });
 }
 

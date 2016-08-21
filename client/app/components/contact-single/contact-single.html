@@ -3,4 +3,5 @@
     <circle cx="5" cy="5" r="5" stroke="{{ isactive === '1' ? 'none' : 'grey'}}" stroke-width="2" fill="{{ isactive === '1' ? 'green' : 'none' }}" />
   </svg>
   {{name}}
+  <div class="unread" ng-if="unread > 0">{{unread > 9 ? '9+' : unread}}</div>
 </span>

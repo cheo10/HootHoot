@@ -9,5 +9,9 @@ var MessageRecipient = db.define('MessageRecipient', {
   isRead: Sequelize.BOOLEAN
 });
 
+MessageRecipient.markRead = function(list) {
+  return MessageRecipient.update({ isRead: true }, { where: { messageId: list } });
+}
+
 MessageRecipient.sync();
 module.exports = MessageRecipient;
