@@ -70,22 +70,18 @@
   </head>
   <body ng-controller="logoutController">
     <div class="mui-appbar mui--appbar-line-height navbar-static-top">
-
-                 <div  class="collapse navbar-collapse"  ng-class="{'in':!navCollapsed}" >
-
-                      <div class="mui-btn" style="float:left; position:absolute; top: 7px"><img src="/app/images/oneOwl.png" class="owl-logo">HOOT</div>
-
-                        <li uib-dropdown style="position:absolute; right: 40px">
-                            <a href="#" uib-dropdown-toggle>Your Account<b class="caret"></b></a>
-                            <ul uib-dropdown-menu role="menu" aria-labelledby="split-button">
-                                <li role="menuitem"><a href="#/chat">Chat</a></li>
-                                <li role="menuitem"><a href="#/profile">Profile</a></li>
-                                <li role="menuitem" ng-click="logout()"><a href="#/">Log Out</a></li>
-                            </ul>
-                        </li>
-                        <span>
-
-                 </div>
+        <div class="collapse navbar-collapse"  ng-class="{'in':!navCollapsed}" >
+            <div class="mui-btn" style="float:left; position:absolute; top: 7px"><img src="/app/images/oneOwl.png" class="owl-logo">HOOT</div>
+                <li uib-dropdown style="position:absolute; right: 40px">
+                    <a href="#" uib-dropdown-toggle>Your Account<b class="caret"></b></a>
+                    <ul uib-dropdown-menu role="menu" aria-labelledby="split-button">
+                        <li role="menuitem"><a href="#/chat">Chat</a></li>
+                        <li role="menuitem"><a href="#/profile">Profile</a></li>
+                        <li role="menuitem" ng-click="logout()"><a href="#/">Log Out</a></li>
+                    </ul>
+                </li>
+            </div>
+        </div>
     </div>
     <div ng-view> </div>
   </body>

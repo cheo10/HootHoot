@@ -88,6 +88,5 @@
         $scope.messageText = '';
       }
 
-
     }
 })();
