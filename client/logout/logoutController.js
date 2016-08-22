@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.logout', ['theApp'])
+    .module('app.logout', ['theApp', 'ui.bootstrap'])
     .controller('logoutController', logoutController);
 
   logoutController.$inject = ['$scope', '$window', '$location' , 'SocketService'];
@@ -12,14 +12,8 @@
     $scope.logout = logout;
 
     function logout() {
-      $window.localStorage.removeItem('token');
-      $window.sessionStorage.removeItem('token');
-      $window.localStorage.removeItem('profile');
-      $window.localStorage.removeItem('username');
-      $window.localStorage.removeItem('userId');
-      $window.localStorage.removeItem('recipient');
-      $window.localStorage.removeItem('email');
-      $window.location.href = '/';
+      $window.localStorage.clear();
+      $window.sessionStorage.clear();
     }
   }
 })();

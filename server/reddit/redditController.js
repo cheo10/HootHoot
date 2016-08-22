@@ -6,7 +6,7 @@ function reddit(req,res){
     var title = redditJson.data.children[0].data.title;
     var url = redditJson.data.children[0].data.url;
 
-    res.json({ text: title + ' ' + url });
+    res.json({ text: title + ' ' + '[:link:]' + url + '[:link:]' });
   })
 }
 

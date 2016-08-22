@@ -18,6 +18,8 @@ router.get('/signup', userController.users.get);
 
 router.post('/signup', userController.users.post);
 
+router.delete('/destroy/:id', userController.users.destroy);
+
 router.get('/commands', commandController.commands.get);
 
 router.post('/commands', commandController.commands.post);

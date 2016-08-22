@@ -75,7 +75,15 @@
         },
         '[:img:]': {
           open: '<img src="',
-          close: '">'
+          close: '" height = "50%"; width="50%">'
+        },
+        '[:video:]': {
+          open: '<video controls="controls" src="',
+          close: '"height = "300px"></video>'
+        },
+        '[:audio:]': {
+          open: '<audio controls="controls" src="',
+          close: '"></audio>'
         },
         '[:frame:]': {
           open: 'Let\'s look at ',

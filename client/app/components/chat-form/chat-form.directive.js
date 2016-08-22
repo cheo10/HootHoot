@@ -22,6 +22,7 @@
       $scope.senderId = DataService.getCurrentUserId();
       $scope.selections = Globals.selections;
       $scope.commands = CommandService.commands;
+      $scope.startTalking = startTalking;
 
       $scope.messageText = '';
 
@@ -30,6 +31,8 @@
       $scope.matchCommand = matchCommand;
       $scope.sendMessage = sendMessage;
       $scope.getMedia = getMedia;
+      $scope.isChrome = webkitSpeechRecognition !== undefined;
+
 
       function getCommands() {
         CommandService.getCommands();
@@ -64,8 +67,18 @@
           processData: false,
           contentType: false,
           success: function(data) {
-            console.log(data);
-            MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, data);
+            var result = JSON.parse(data);
+            if(result.resource_type === 'image') {
+              result.secure_url = '[:img:]' + result.secure_url + '[:img:]'
+            }
+            if(result.format === 'mp4' || result.format === 'AVI') {
+              result.secure_url = '[:video:]' + result.secure_url + '[:video:]'
+            }
+            if(result.format === 'mp3' || result.format === 'WAV') {
+              result.secure_url = '[:audio:]' + result.secure_url + '[:audio:]'
+            }
+
+            MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, result.secure_url);
           },
           error: function(err) {
             console.log(err);
@@ -73,9 +86,19 @@
         })
       }
 
+      function startTalking() {
+        var recognition = new webkitSpeechRecognition();
+        recognition.onresult = function(event) {
+          $scope.messageText = event.results[0][0].transcript;
+          $scope.$apply();
+        }
+        recognition.start();
+      }
+
       function sendMessage() {
         MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, $scope.messageText);
         $scope.messageText = '';
       }
+
     }
 })();
