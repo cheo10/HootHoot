@@ -22,6 +22,7 @@
       $scope.senderId = DataService.getCurrentUserId();
       $scope.selections = Globals.selections;
       $scope.commands = CommandService.commands;
+      $scope.startTalking = startTalking;
 
       $scope.messageText = '';
 
@@ -73,9 +74,20 @@
         })
       }
 
+      function startTalking() {
+        var recognition = new webkitSpeechRecognition();
+        recognition.onresult = function(event) {
+          $scope.messageText = event.results[0][0].transcript;
+          $scope.$apply();
+        }
+        recognition.start();
+      }
+
       function sendMessage() {
         MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, $scope.messageText);
         $scope.messageText = '';
       }
+
+
     }
 })();

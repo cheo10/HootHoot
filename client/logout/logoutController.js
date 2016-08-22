@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('app.logout', ['theApp'])
+    .module('app.logout', ['theApp', 'ui.bootstrap'])
     .controller('logoutController', logoutController);
 
   logoutController.$inject = ['$scope', '$window', '$location' , 'SocketService'];
@@ -14,7 +14,6 @@
     function logout() {
       $window.localStorage.clear();
       $window.sessionStorage.clear();
-      $window.location.href="/"
     }
   }
 })();
