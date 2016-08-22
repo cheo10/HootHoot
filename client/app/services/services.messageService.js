@@ -75,7 +75,7 @@
         },
         '[:img:]': {
           open: '<img src="',
-          close: '" height = "250px">'
+          close: '" height = "50%"; width="50%">'
         },
         '[:video:]': {
           open: '<video controls="controls" src="',

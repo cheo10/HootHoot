@@ -3,6 +3,7 @@ var path = require('path');
 var http = require('http');
 var socketHandler = require('./socketHandler');
 var redditController = require('./reddit/redditController.js');
+var key = require('./config/keys.js');
 var fs = require('fs');
 var cloudinary = require('cloudinary');
 var formidable = require('formidable'),
@@ -32,17 +33,16 @@ var path = require('path'),
     fs = require('fs');
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME || key.cloud_name,
+    api_key: process.env.CLOUDINARY_API_KEY || key.api_key,
+    api_secret: process.env.CLOUDINARY_API_SECRET || key.api_secret
 })
 
 app.post('/upload/:fileType', function(req, res) {
-    console.log(process.env)
+
     var form = new formidable.IncomingForm();
 
     form.parse(req, function(err, fields, files) {
-      console.log(req.params.fileType, "$$$$$$")
         if (req.params.fileType == 'jpg' || req.params.fileType == 'png') {
           console.log('i am inside the if statement')
 
