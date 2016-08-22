@@ -32,6 +32,7 @@
       $scope.sendMessage = sendMessage;
       $scope.getMedia = getMedia;
 
+
       function getCommands() {
         CommandService.getCommands();
       }
@@ -69,8 +70,11 @@
             if(result.resource_type === 'image') {
               result.secure_url = '[:img:]' + result.secure_url + '[:img:]'
             }
-            if(result.resource_type === 'video') {
+            if(result.format === 'mp4' || result.format === 'AVI') {
               result.secure_url = '[:video:]' + result.secure_url + '[:video:]'
+            }
+            if(result.format === 'mp3' || result.format === 'WAV') {
+              result.secure_url = '[:audio:]' + result.secure_url + '[:audio:]'
             }
 
             MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, result.secure_url);

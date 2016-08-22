@@ -32,10 +32,13 @@ var path = require('path'),
     fs = require('fs');
 
 cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
 app.post('/upload/:fileType', function(req, res) {
-
+    console.log(process.env)
     var form = new formidable.IncomingForm();
 
     form.parse(req, function(err, fields, files) {
@@ -57,9 +60,6 @@ app.post('/upload/:fileType', function(req, res) {
         }
     })
 })
-
-
-// fs.readFile, fs.writeFile
 
 io.on('connection', socketHandler.newConnection);
 
