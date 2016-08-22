@@ -77,6 +77,10 @@
           open: '<img src="',
           close: '">'
         },
+        '[:video:]': {
+          open: '<video src="',
+          close: '">'
+        },
         '[:frame:]': {
           open: 'Let\'s look at ',
           action: function(str) {

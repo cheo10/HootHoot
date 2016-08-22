@@ -65,8 +65,15 @@
           processData: false,
           contentType: false,
           success: function(data) {
-            console.log(data);
-            MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, data);
+            var result = JSON.parse(data);
+            if(result.resource_type === 'image') {
+              result.secure_url = '[:img:]' + result.secure_url + '[:img:]'
+            }
+            if(result.resource_type === 'video') {
+              result.secure_url = '[:video:]' + result.secure_url + '[:video:]'
+            }
+
+            MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, result.secure_url);
           },
           error: function(err) {
             console.log(err);
