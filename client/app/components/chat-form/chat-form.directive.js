@@ -31,6 +31,7 @@
       $scope.matchCommand = matchCommand;
       $scope.sendMessage = sendMessage;
       $scope.getMedia = getMedia;
+      $scope.isChrome = webkitSpeechRecognition !== undefined;
 
 
       function getCommands() {
