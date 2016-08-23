@@ -51,13 +51,22 @@
         'body': messageText,
         'recipientType': 'U'
       };
-
       if(message.body[0] === '/') {
         CommandService.dispatchCommand(message)
           .then(function(processed) {
             SocketService.sendMessage(processed);
           })
-      } else {
+      }
+      if(message.body.indexOf('/embed') >= 0) {
+        message.body = message.body.split('http').join('[:iframe:]http') + '[:iframe:]'
+        SocketService.sendMessage(message);
+      }
+      if(message.body.indexOf('youtube.com/watch') >= 0) {
+        message.body = message.body.split('/watch?v=').join('/embed/');
+        message.body = message.body.split('http').join('[:iframe:]http') + '[:iframe:]'
+        SocketService.sendMessage(message);
+      }
+       else {
         SocketService.sendMessage(message);
       }
     };
@@ -90,6 +99,10 @@
           action: function(str) {
             if(gotRecentMessages) { Globals.selections.frame = str };
           }
+        },
+        '[:iframe:]': {
+          open: '<iframe width="640" height="360" src="',
+          close: '" frameborder="0" allowfullscreen></iframe>'
         }
       }
 
@@ -119,6 +132,7 @@
 
     function addMessageToList(message) {
       message.body = processText(message.body);
+      // debugger;
       service.chats.push(message);
     }
   }
