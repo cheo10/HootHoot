@@ -45,15 +45,15 @@ img.owl-logo {
 
 [scroll-glue] {
   overflow: scroll;
-  height: 250px;
+  height: 400px;
 }
 
 .chatBox{
-  height: 65%;
+  height: 90%;
 }
 
 .list{
-  height: 160px;
+  height: 90%;
   width: 50%;
   /*display:inline-block;*/
   overflow:scroll;
