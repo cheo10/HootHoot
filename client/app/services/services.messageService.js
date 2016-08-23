@@ -56,6 +56,7 @@
         CommandService.dispatchCommand(message)
           .then(function(processed) {
             SocketService.sendMessage(processed);
+            return;
           })
       }
       //embed youtube links
