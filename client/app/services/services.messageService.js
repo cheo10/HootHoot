@@ -51,19 +51,26 @@
         'body': messageText,
         'recipientType': 'U'
       };
+
       if(message.body[0] === '/') {
         CommandService.dispatchCommand(message)
           .then(function(processed) {
             SocketService.sendMessage(processed);
           })
       }
+      //embed youtube links
       if(message.body.indexOf('/embed') >= 0) {
         message.body = message.body.split('http').join('[:iframe:]http') + '[:iframe:]'
         SocketService.sendMessage(message);
       }
+      //youtube links
       if(message.body.indexOf('youtube.com/watch') >= 0) {
-        message.body = message.body.split('/watch?v=').join('/embed/');
-        message.body = message.body.split('http').join('[:iframe:]http') + '[:iframe:]'
+        message.body = message.body.replace("/watch?v=", "/embed/").split('http').join('[:iframe:]http') + '[:iframe:]';
+        SocketService.sendMessage(message);
+      }
+      //vimeo links
+      if(message.body.indexOf('vimeo.') >= 0) {
+        message.body = message.body.replace('vimeo.com', 'player.vimeo.com/video').split('http').join('[:iframe:]http') + '[:iframe:]';
         SocketService.sendMessage(message);
       }
        else {
@@ -132,7 +139,6 @@
 
     function addMessageToList(message) {
       message.body = processText(message.body);
-      // debugger;
       service.chats.push(message);
     }
   }
