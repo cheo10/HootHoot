@@ -6,14 +6,21 @@
   "license": "ISC",
   "scripts": {
     "start": "nodemon server/server.js && npm run bundle",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start karma.config.js",
     "bundle": "webpack"
   },
   "devDependencies": {
     "angular": "^1.5.8",
+    "angular-mocks": "^1.5.8",
+    "angular-ui-router": "^0.3.1",
     "chai": "^3.5.0",
     "chai-jquery": "^2.0.0",
+    "jasmine-core": "^2.4.1",
     "jsdom": "^8.1.0",
+    "karma": "^1.2.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.0.2",
+    "karma-spec-reporter": "0.0.26",
     "lodash": "^4.14.2",
     "mocha": "^2.4.5",
     "ng-dialog": "^0.6.2",
