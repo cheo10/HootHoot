@@ -69,8 +69,25 @@
         CommandService.dispatchCommand(message)
           .then(function(processed) {
             SocketService.sendMessage(processed);
+            return;
           })
-      } else {
+      }
+      //embed youtube links
+      if(message.body.indexOf('/embed') >= 0) {
+        message.body = message.body.split('http').join('[:iframe:]http') + '[:iframe:]'
+        SocketService.sendMessage(message);
+      }
+      //youtube links
+      if(message.body.indexOf('youtube.com/watch') >= 0) {
+        message.body = message.body.replace("/watch?v=", "/embed/").split('http').join('[:iframe:]http') + '[:iframe:]';
+        SocketService.sendMessage(message);
+      }
+      //vimeo links
+      if(message.body.indexOf('vimeo.') >= 0) {
+        message.body = message.body.replace('vimeo.com', 'player.vimeo.com/video').split('http').join('[:iframe:]http') + '[:iframe:]';
+        SocketService.sendMessage(message);
+      }
+       else {
         SocketService.sendMessage(message);
       }
     };
@@ -107,6 +124,10 @@
               }
             };
           }
+        },
+        '[:iframe:]': {
+          open: '<iframe width="640" height="360" src="',
+          close: '" frameborder="0" allowfullscreen></iframe>'
         }
       }
 
