@@ -77,7 +77,13 @@ exports.newConnection =  function (socket) {
 
   socket.on('mark read', function(list) {
     MessageRecipient.markRead(list);
-  })
+  });
+
+  socket.on('typing status', function(recipient, state) {
+    if(isConnected(recipient)) {
+      connectedUsers[recipient].emit('typing', socket.userId, state);
+    }
+  });
 
   socket.on('disconnect', function() {
     User.isNotActive(socket.userId);

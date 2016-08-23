@@ -12,7 +12,8 @@
       addListeners: addListeners,
       sendMessage: sendMessage,
       markRead: markRead,
-      register: register
+      register: register,
+      updateTyping: updateTyping
     }
 
     return service;
@@ -33,6 +34,13 @@
       socket.on('offline', function(contactId) {
         ContactService.contactStatusChange(contactId, 0);
       });
+
+      socket.on('typing', function(senderId, state) {
+        $rootScope.$apply(function() {
+          ContactService.typingStatus(senderId, state);
+          $rootScope.$broadcast('typingStatus', senderId, state);
+        });
+      });
     }
 
     function sendMessage(message) {
@@ -41,6 +49,10 @@
 
     function markRead(list) {
       socket.emit('mark read', list);
+    }
+
+    function updateTyping(recipient, state) {
+      socket.emit('typing status', recipient, state);
     }
 
     function register() {

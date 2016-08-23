@@ -13,7 +13,8 @@
       createContact: createContact,
       getAllContacts: getAllContacts,
       deleteContact: deleteContact,
-      contactStatusChange: contactStatusChange
+      contactStatusChange: contactStatusChange,
+      typingStatus: typingStatus
     };
 
     return service;
@@ -41,12 +42,18 @@
       service.contacts.push(contact)
     }
 
-    function contactStatusChange(contactId, status) {
-      service.contacts.map(findAndChangeContact);
+    function typingStatus(contactId, state) {
+      service.contacts.map(findAndChangeContact(contactId, 'typing', state));
+    }
 
-      function findAndChangeContact(contact) {
-        if(contact.id === contactId) {
-          contact.isActive = status;
+    function contactStatusChange(contactId, status) {
+      service.contacts.map(findAndChangeContact(contactId, 'isActive', status));
+    }
+
+    function findAndChangeContact(targetContactId, prop, newState) {
+      return function(contact) {
+        if(contact.id === targetContactId) {
+          contact[prop] = newState;
         }
       }
     }

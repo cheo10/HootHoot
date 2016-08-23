@@ -16,9 +16,9 @@
     return directive;
   }
 
-  chatformController.$inject = ['$scope', 'MessageService', 'Globals', 'DataService', 'CommandService'];
+  chatformController.$inject = ['$scope', 'MessageService', 'Globals', 'DataService', 'CommandService', '$timeout'];
 
-  function chatformController($scope, MessageService, Globals, DataService, CommandService) {
+  function chatformController($scope, MessageService, Globals, DataService, CommandService, $timeout) {
       $scope.senderId = DataService.getCurrentUserId();
       $scope.selections = Globals.selections;
       $scope.commands = CommandService.commands;
@@ -32,7 +32,8 @@
       $scope.sendMessage = sendMessage;
       $scope.getMedia = getMedia;
       $scope.isChrome = webkitSpeechRecognition !== undefined;
-
+      $scope.typingState = MessageService.typingState();
+      $scope.startTyping = startTyping;
 
       function getCommands() {
         CommandService.getCommands();
@@ -95,7 +96,34 @@
         recognition.start();
       }
 
+      function stoppedTyping(recipient) {
+        $scope.typingState(recipient, 'ENDED')
+      }
+
+      var typingTimeout; // for purposes of cancelling typing timeout if user continues typing
+
+      // sends a notification to recipient if user begins to type
+      // sets 5 second timeout before sending an update that user has stopped typing
+      function startTyping() {
+        // if we're currently focused on someone...
+        if($scope.selections.recipient) {
+          // set the recipient when they started typing
+          var recipient = $scope.selections.recipient.id;
+          // should cancel the last timeout if user continues typing
+          $timeout.cancel(typingTimeout);
+
+          // change typing state to started, alert other user if this is a new state
+          $scope.typingState(recipient, 'STARTED');
+
+          // schedules a 5 second timeout before sending the 'ENDED' state to other user
+          typingTimeout = $timeout(function() { stoppedTyping(recipient) }, 5000);
+        }
+      }
+
       function sendMessage() {
+        $timeout.cancel(typingTimeout);
+        stoppedTyping($scope.selections.recipient.id);
+
         MessageService.sendMessage($scope.senderId, $scope.selections.recipient.id, $scope.messageText);
         $scope.messageText = '';
       }
