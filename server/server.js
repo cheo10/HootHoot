@@ -22,6 +22,15 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+
+// Allow all headers
+app.all('*', function(req, res, next) { 
+  res.header('Access-Control-Allow-Origin', '*'); 
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE'); 
+  res.header('Access-Control-Allow-Headers', 'Content-Type'); 
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
