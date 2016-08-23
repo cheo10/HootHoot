@@ -1,7 +1,8 @@
 <div class="chat-form" ng-init="getCommands()">
   <form class="form-inline" ng-submit="sendMessage()" class="mui-container">
+    <span ng-if="selections.recipient.typing === 'STARTED'">{{ selections.recipient.firstname }} is typing...</span>
     <div class="form-group">
-      <input style="width:70%" ng-model="messageText" type="text" placeholder="Send a hoot!" uib-typeahead="command.name for command in matchCommand($viewValue)" typeahead-on-select="onSelect($item)" typeahead-select-on-exact="true" required>
+      <input style="width:70%" ng-model="messageText" type="text" placeholder="Send a hoot!" uib-typeahead="command.name for command in matchCommand($viewValue)" typeahead-on-select="onSelect($item)" typeahead-select-on-exact="true" ng-keypress="startTyping()" required>
       <img ng-if="isChrome" ng-click="startTalking()" src="//i.imgur.com/cHidSVu.gif" style="width:35px; height:35px"/>
       <span><button style="" type="submit" class="btn btn-default">+</button></span>
     </div>

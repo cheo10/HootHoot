@@ -14,7 +14,8 @@
       getRecentMessages: getRecentMessages,
       addMessageToList: addMessageToList,
       processText: processText,
-      markAllRead: markAllRead
+      markAllRead: markAllRead,
+      typingState: typingState
     };
 
     var gotRecentMessages = false;
@@ -44,6 +45,18 @@
       SocketService.markRead(toUpdate)
     }
 
+    // returns with a closure to the typing state, only updates other user if new state
+    function typingState() {
+      var lastState;
+
+      return function(recipientId, state) {
+        if(state !== lastState) {
+          lastState = state;
+          SocketService.updateTyping(recipientId, state);
+        }
+      }
+    }
+
     function sendMessage(sender, recipient, messageText) {
       var message = {
         'senderId': sender,
@@ -62,7 +75,7 @@
       }
     };
 
-    function processText(text) {
+    function processText(text, recipient) {
       var escapeMap = {
         "<": "&lt;",
         ">": "&gt;"
@@ -87,8 +100,12 @@
         },
         '[:frame:]': {
           open: 'Let\'s look at ',
-          action: function(str) {
-            if(gotRecentMessages) { Globals.selections.frame = str };
+          action: function(str, recipient) {
+            if(gotRecentMessages && Globals.selections.recipient) {
+              if(recipient === Globals.selections.recipient.id) {
+                Globals.selections.frame = str;
+              }
+            };
           }
         }
       }
@@ -108,7 +125,7 @@
         }
 
         if(tag.action) {
-          tag.action(content);
+          tag.action(content, recipient);
         }
 
         var processed = tag.close ? tag.open + content + tag.close : tag.open + content;
@@ -118,7 +135,7 @@
     }
 
     function addMessageToList(message) {
-      message.body = processText(message.body);
+      message.body = processText(message.body, message.recipientId);
       service.chats.push(message);
     }
   }
