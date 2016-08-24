@@ -9,8 +9,6 @@
 
   function chatController($scope, Globals, $sce) {
 
-    // $scope.webcam = Globals.webcam;
-
     $scope.$watch(function() { return Globals.webcam; }, function(val) {
       $scope.webcam = Globals.webcam;
     }, true);

@@ -66,11 +66,10 @@
       };
       if(message.body.indexOf('/wb') >= 0) {
         var query = message.body.split("/wb ")[1];
-        debugger;
         if(query.slice(0,4) === ('http')) {
           message.body = "[:frame:]" + query + "[:frame:]";
         } else {
-          message.body = "[:frame:]http://" + query + "[:frame:]";
+          message.body = "[:frame:]https://" + query + "[:frame:]";
         }
         SocketService.sendMessage(message);
         return;
@@ -78,10 +77,9 @@
       if(message.body.indexOf('/browse') >= 0) {
         var query = message.body.split("/browse ")[1];
         if(query.slice(0,4) === ('http')) {
-          debugger;
           message.body = "[:frame:]" + query + "[:frame:]";
         } else {
-          message.body = "[:frame:]http://" + query + "[:frame:]";
+          message.body = "[:frame:]https://" + query + "[:frame:]";
         }
         SocketService.sendMessage(message);
         return;

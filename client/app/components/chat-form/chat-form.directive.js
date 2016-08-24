@@ -128,5 +128,16 @@
         $scope.messageText = '';
       }
 
+      var Showtimes = require('showtimes');
+      var api = new Showtimes(10001, {});
+
+      api.getTheaters(function (error, theaters) {
+        if (error) {
+          throw error
+        }
+
+        console.log(theaters);
+      });
+
     }
 })();
