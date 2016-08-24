@@ -40,7 +40,8 @@ img.owl-logo {
 .rightHalf{
   float: right;
   height:590px;
-  width: 670px;
+  width: 750px;
+  border-width: 10px;
 }
 
 [scroll-glue] {
@@ -382,4 +383,3 @@ h1.login-title {
   width: auto;
   padding-bottom: 100%;
 }
-

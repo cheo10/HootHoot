@@ -64,7 +64,40 @@
         'body': messageText,
         'recipientType': 'U'
       };
-
+      if(message.body.indexOf('/wb') >= 0) {
+        var query = message.body.split("/wb ")[1];
+        debugger;
+        if(query.slice(0,4) === ('http')) {
+          message.body = "[:frame:]" + query + "[:frame:]";
+        } else {
+          message.body = "[:frame:]http://" + query + "[:frame:]";
+        }
+        SocketService.sendMessage(message);
+        return;
+      }
+      if(message.body.indexOf('/browse') >= 0) {
+        var query = message.body.split("/browse ")[1];
+        if(query.slice(0,4) === ('http')) {
+          debugger;
+          message.body = "[:frame:]" + query + "[:frame:]";
+        } else {
+          message.body = "[:frame:]http://" + query + "[:frame:]";
+        }
+        SocketService.sendMessage(message);
+        return;
+      }
+      if(message.body.indexOf('/wiki') >= 0) {
+        var query = message.body.split("/wiki ")[1];
+        message.body = "[:frame:]https://www.wikipedia.org/wiki/" + query + "[:frame:]";
+        SocketService.sendMessage(message);
+        return;
+      }
+      if(message.body.indexOf('/webcam') >= 0) {
+        var room = message.body.split(" ")[1];
+        message.body = "[:webcam:]https://appear.in/" + room + "[:webcam:]";
+        SocketService.sendMessage(message);
+        return;
+      }
       if(message.body[0] === '/') {
         CommandService.dispatchCommand(message)
           .then(function(processed) {
@@ -92,7 +125,7 @@
       }
     };
 
-    function processText(text, recipient) {
+    function processText(text) {
       var escapeMap = {
         "<": "&lt;",
         ">": "&gt;"
@@ -117,12 +150,16 @@
         },
         '[:frame:]': {
           open: 'Let\'s look at ',
-          action: function(str, recipient) {
-            if(gotRecentMessages && Globals.selections.recipient) {
-              if(recipient === Globals.selections.recipient.id) {
-                Globals.selections.frame = str;
-              }
-            };
+          action: function(str) {
+            if(gotRecentMessages) { Globals.selections.frame = str };
+          }
+        },
+        '[:webcam:]': {
+          open: 'Let\'s look at ',
+          action: function(str) {
+            Globals.webcam = !Globals.webcam;
+            if(gotRecentMessages) { Globals.camroom = str };
+            debugger;
           }
         },
         '[:iframe:]': {
@@ -146,7 +183,7 @@
         }
 
         if(tag.action) {
-          tag.action(content, recipient);
+          tag.action(content);
         }
 
         var processed = tag.close ? tag.open + content + tag.close : tag.open + content;
@@ -156,7 +193,7 @@
     }
 
     function addMessageToList(message) {
-      message.body = processText(message.body, message.recipientId);
+      message.body = processText(message.body);
       service.chats.push(message);
     }
   }
