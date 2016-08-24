@@ -45,15 +45,15 @@ img.owl-logo {
 
 [scroll-glue] {
   overflow: scroll;
-  height: 250px;
+  height: 385px;
 }
 
 .chatBox{
-  height: 65%;
+  height: 90%;
 }
 
 .list{
-  height: 160px;
+  height: 90%;
   width: 50%;
   /*display:inline-block;*/
   overflow:scroll;
@@ -81,6 +81,11 @@ img.owl-home {
 img.owl-list{
   width: 30px;
 }
+
+.team h2{
+  font-size: 20px;
+}
+
 html { font-size: 100%; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
 -ms-text-size-adjust: 100%; /* 2 */ }

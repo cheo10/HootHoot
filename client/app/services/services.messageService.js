@@ -10,12 +10,12 @@
   function MessageService(SocketService, DataService, CommandService, Globals) {
     var service = {
       chats: [],
-      sendMessage: sendMessage,
-      getRecentMessages: getRecentMessages,
       addMessageToList: addMessageToList,
-      processText: processText,
+      getRecentMessages: getRecentMessages,
       markAllRead: markAllRead,
-      typingState: typingState
+      processText: processText,
+      typingState: typingState,
+      sendMessage: sendMessage
     };
 
     var gotRecentMessages = false;
