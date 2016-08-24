@@ -8,7 +8,9 @@
   function Globals() {
     var service = {
       selections: {},
-      setSelectedRecipient: setSelectedRecipient
+      setSelectedRecipient: setSelectedRecipient,
+      webcam: false,
+      camroom: ""
     }
 
     return service;

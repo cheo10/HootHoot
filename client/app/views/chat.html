@@ -9,9 +9,9 @@
         <chatform ></chatform>
       </div>
     </div>
-    <!-- <grouplist></grouplist> -->
   </div>
   <div class="rightHalf">
-    <iframe class="rightHalf" ng-src="{{ frame }}" ng-if="frame" sandbox="allow-scripts"></iframe>
+    <iframe  ng-if="webcam" ng-src="{{ camroom }}" width="240" height="440" frameborder="0" align="right" style="padding-right:1cm" ></iframe>
+    <iframe class="" ng-src="{{ frame }}" ng-if="frame" sandbox="allow-same-origin allow-scripts" align="left" width="475" height="500" frameborder="0"></iframe>
   </div>
 </div>
