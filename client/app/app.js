@@ -11,6 +11,7 @@
       var attach = {
         request: function(object) {
           var jwt = $window.sessionStorage.getItem('token');
+          console.log("THIS FUNCTIONS GETTTTING RUN" + jwt);
           if(jwt) {
             object.headers['x-access-token'] = jwt;
           }
