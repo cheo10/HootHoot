@@ -157,7 +157,6 @@
           action: function(str) {
             Globals.webcam = !Globals.webcam;
             if(gotRecentMessages) { Globals.camroom = str };
-            debugger;
           }
         },
         '[:iframe:]': {
@@ -165,7 +164,6 @@
           close: '" frameborder="0" allowfullscreen></iframe>'
         }
       }
-
       return text.replace(/[<>]/g, escape)
         .replace(/(\[:.*:\])(.*)(\1)/g, interpretMarkup);
 
