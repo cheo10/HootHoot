@@ -64,15 +64,40 @@
         'body': messageText,
         'recipientType': 'U'
       };
-
-      if(message.body.indexOf('/webcam') >= 0) {
-        var room = message.body.split(" ")[1];
-        message.body = "[:webcam:]https://appear.in/" + room + "[:webcam:]";
+      if(message.body.indexOf('/wb') >= 0) {
+        var query = message.body.split("/wb ")[1];
         debugger;
+        if(query.slice(0,4) === ('http')) {
+          message.body = "[:frame:]" + query + "[:frame:]";
+        } else {
+          message.body = "[:frame:]http://" + query + "[:frame:]";
+        }
         SocketService.sendMessage(message);
         return;
       }
-
+      if(message.body.indexOf('/browse') >= 0) {
+        var query = message.body.split("/browse ")[1];
+        if(query.slice(0,4) === ('http')) {
+          debugger;
+          message.body = "[:frame:]" + query + "[:frame:]";
+        } else {
+          message.body = "[:frame:]http://" + query + "[:frame:]";
+        }
+        SocketService.sendMessage(message);
+        return;
+      }
+      if(message.body.indexOf('/wiki') >= 0) {
+        var query = message.body.split("/wiki ")[1];
+        message.body = "[:frame:]https://www.wikipedia.org/wiki/" + query + "[:frame:]";
+        SocketService.sendMessage(message);
+        return;
+      }
+      if(message.body.indexOf('/webcam') >= 0) {
+        var room = message.body.split(" ")[1];
+        message.body = "[:webcam:]https://appear.in/" + room + "[:webcam:]";
+        SocketService.sendMessage(message);
+        return;
+      }
       if(message.body[0] === '/') {
         CommandService.dispatchCommand(message)
           .then(function(processed) {
