@@ -44,7 +44,6 @@
       if(command.includeLocation) {
         getLocation(params);
       }
-
       return DataService.dispatchCommand(command.postUrl, params)
         .then(function(response) {
           message.body = response.text;

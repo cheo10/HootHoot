@@ -64,6 +64,9 @@
         'body': messageText,
         'recipientType': 'U'
       };
+
+      var flag = false;
+
       if(message.body.indexOf('/wb') >= 0) {
         var query = message.body.split("/wb ")[1];
         if(query.slice(0,4) === ('http')) {
@@ -71,56 +74,43 @@
         } else {
           message.body = "[:frame:]https://" + query + "[:frame:]";
         }
-        SocketService.sendMessage(message);
-        return;
       }
-      if(message.body.indexOf('/browse') >= 0) {
+      else if(message.body.indexOf('/browse') >= 0) {
         var query = message.body.split("/browse ")[1];
         if(query.slice(0,4) === ('http')) {
           message.body = "[:frame:]" + query + "[:frame:]";
         } else {
           message.body = "[:frame:]https://" + query + "[:frame:]";
         }
-        SocketService.sendMessage(message);
-        return;
       }
-      if(message.body.indexOf('/wiki') >= 0) {
-        var query = message.body.split("/wiki ")[1];
-        message.body = "[:frame:]https://www.wikipedia.org/wiki/" + query + "[:frame:]";
-        SocketService.sendMessage(message);
-        return;
-      }
-      if(message.body.indexOf('/webcam') >= 0) {
+      else if(message.body.indexOf('/webcam') >= 0) {
         var room = message.body.split(" ")[1];
         message.body = "[:webcam:]https://appear.in/" + room + "[:webcam:]";
-        SocketService.sendMessage(message);
-        return;
       }
-      if(message.body[0] === '/') {
+      //embed youtube links
+      else if(message.body.indexOf('/embed') >= 0) {
+        message.body = message.body.split('http').join('[:iframe:]http') + '[:iframe:]'
+      }
+      //youtube links
+      else if(message.body.indexOf('youtube.com/watch') >= 0) {
+        message.body = message.body.replace("/watch?v=", "/embed/").split('http').join('[:iframe:]http') + '[:iframe:]';
+      }
+      //vimeo links
+      else if(message.body.indexOf('vimeo.') >= 0) {
+        message.body = message.body.replace('vimeo.com', 'player.vimeo.com/video').split('http').join('[:iframe:]http') + '[:iframe:]';
+      }
+      else if(message.body[0] === '/' ) {
+        flag = true;
         CommandService.dispatchCommand(message)
           .then(function(processed) {
             SocketService.sendMessage(processed);
-            return;
           })
       }
-      //embed youtube links
-      if(message.body.indexOf('/embed') >= 0) {
-        message.body = message.body.split('http').join('[:iframe:]http') + '[:iframe:]'
+
+      if(!flag){
         SocketService.sendMessage(message);
       }
-      //youtube links
-      if(message.body.indexOf('youtube.com/watch') >= 0) {
-        message.body = message.body.replace("/watch?v=", "/embed/").split('http').join('[:iframe:]http') + '[:iframe:]';
-        SocketService.sendMessage(message);
-      }
-      //vimeo links
-      if(message.body.indexOf('vimeo.') >= 0) {
-        message.body = message.body.replace('vimeo.com', 'player.vimeo.com/video').split('http').join('[:iframe:]http') + '[:iframe:]';
-        SocketService.sendMessage(message);
-      }
-       else {
-        SocketService.sendMessage(message);
-      }
+
     };
 
     function processText(text) {
