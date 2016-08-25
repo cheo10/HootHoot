@@ -44,7 +44,6 @@
       if(command.includeLocation) {
         getLocation(params);
       }
-
       return DataService.dispatchCommand(command.postUrl, params)
         .then(function(response) {
           message.body = response.text;
@@ -54,7 +53,6 @@
       function stringToParams(str) {
         return str.split(' ').slice(1).reduce(function(paramObj, userInput, i) {
           var currentParam = command.parameters[i];
-
           if(currentParam[0] === '[') {
             var paramName = currentParam.substr(1, currentParam.length-2);
 
