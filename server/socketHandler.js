@@ -55,10 +55,20 @@ exports.newConnection =  function (socket) {
 
               loc = `https://m.uber.com/ul?client_id=xvr7xvjsRimtJsq6Xl_MJ4vJK-lwZsK1&action=setPickup&pickup=my_location&dropoff=${encodeURI(loc)}`
 
-              connectedUsers[sender].emit('get ride', { body: loc, recipientId: message.recipientId, recipientType: 'E' })
+              message.body = '[:uber:]' + loc + '[:uber:]';
+
+              if (recipientType === 'G') {
+                server.io.to(recipient).emit('get message', message);
+              } else if (recipientType === 'U') {
+                connectedUsers[sender].emit('get message', message);
+                if (isConnected(recipient)) {
+                  connectedUsers[recipient].emit('get message', message);
+                }
+              }
             }
-          });
-  });
+          }
+        );
+      });
   });
 
   socket.on('create group', function (group) {
