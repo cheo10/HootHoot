@@ -21,7 +21,7 @@
       $scope.getAllContacts = getAllContacts;
       $scope.deleteContact = deleteContact;
       $scope.setSelectedRecipient = setSelectedRecipient;
-
+      // $scope.tooggle = true;
       function addContact(newContactEmail) {
         ContactService.createContact(newContactEmail);
       }

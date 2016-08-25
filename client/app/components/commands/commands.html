@@ -1,18 +1,18 @@
 <div class="commands">
   <h1>Create a New Command</h1>
   <form ng-submit="createCommand(command)">
-    <input ng-model="command.name" placeholder="Command Name (/[name])" >
+    <input style="width:400px" ng-model="command.name" placeholder="Command Name (/[name])" >
     <br>
-    <input ng-model="command.parameters" placeholder="Parameters (comma separated)">
+    <input style="width:400px" ng-model="command.parameters" placeholder="Parameters (comma separated)">
     <br>
     <label>
       <input type="checkbox" ng-model="command.includeLocation">
       Include Location
     </label>
     <br>
-    <input ng-model="command.description" placeholder="Description">
+    <input style="width:400px" ng-model="command.description" placeholder="Description">
     <br>
-    <input ng-model="command.postUrl" placeholder="Post URL">
+    <input style="width:400px" ng-model="command.postUrl" placeholder="Post URL">
     <input type="submit">
   </form>
 </div>
