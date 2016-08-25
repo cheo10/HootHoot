@@ -33,31 +33,49 @@ img.owl-logo {
 }
 
 .leftHalf{
-  width: 45%;
+  /*width: 45%;*/
   float: left;
 }
 
 .rightHalf{
-  float: right;
+  /*float: right;
   height:590px;
-  width: 750px;
-  border-width: 10px;
+  width: 750px;*/
+  /*border-width: 10px;*/
 }
 
 [scroll-glue] {
   overflow: scroll;
-  height: 385px;
+  height: 400px;
 }
 
 .chatBox{
-  height: 90%;
+  /*height: 90%;*/
+  top: 10px;
+  padding-left:20px;
+  bottom: 10px;
+  height:100%;
+
+}
+
+
+.frameLeft{
+  float:right;
+}
+
+.container-fluid{
+  /*display: flex;*/
+}
+
+.close{
+  display:none;
 }
 
 .list{
-  height: 90%;
+  /*height: 90%;
   width: 50%;
-  /*display:inline-block;*/
-  overflow:scroll;
+*/  /*display:inline-block;*/
+  /*overflow:scroll;*/
 }
 
 /*Home*/
@@ -331,7 +349,7 @@ h1.login-title {
     padding: 10px 18px;
     position: relative;
     vertical-align: top;
-    width: 80%;
+    /*width: 80%;*/
 }
 
 .You{

@@ -8,9 +8,9 @@
   chatController.$inject = ['$scope', 'Globals', '$sce'];
 
   function chatController($scope, Globals, $sce) {
-
     $scope.$watch(function() { return Globals.webcam; }, function(val) {
       $scope.webcam = Globals.webcam;
+      console.log('getting here');
     }, true);
 
     $scope.$watch(function() { return Globals.camroom; }, function(val) {

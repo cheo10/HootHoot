@@ -1,15 +1,22 @@
-<div class="profile" ng-init="getInfo() ">
+<div class="profile" ng-init="getInfo()" style="width:300px;margin:auto">
   <h1 class="profile-title"> Profile </h1>
+  <userpic ></userpic>
   <form>
-    <div class="mui-textfield">
-      <p> First Name: </p> {{firstname}}
+    <div class="" >
+      <p> First Name: </p> <strong>{{firstname}}</strong>
     <br>
-    <div>
-      <p> Last Name: </p> {{lastname}}
     <br>
-      <p> Email: </p> {{email}}
+      <p> Last Name: </p> <strong>{{lastname}}</strong>
     <br>
-      <p> Member Since: </p> {{membersince}}
+    <br>
+      <p> Email: </p> <strong>{{email}}</strong>
+    <br>
+    <br>
+      <a href="#/commands">Make your own commands!</a>
+    <br>
+    <br>
+      <p> Member Since: </p> <strong>{{membersince}}</strong>
+    <br>
     <br>
       <button ng-click="deleteAccount()"> Delete Account </button>
     </div>

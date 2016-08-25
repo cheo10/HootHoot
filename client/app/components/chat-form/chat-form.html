@@ -1,4 +1,5 @@
 <div class="chat-form" ng-init="getCommands()">
+  <div>
   <form class="form-inline" ng-submit="sendMessage()" style="width:100%">
     <span ng-if="selections.recipient.typing === 'STARTED'">{{ selections.recipient.firstname }} is typing...</span>
     <div class="form-group">
@@ -14,4 +15,5 @@
       <!-- <input type="submit"> -->
     </div>
   </form>
+  </div>
 </div>
