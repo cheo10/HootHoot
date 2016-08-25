@@ -152,6 +152,10 @@
         '[:iframe:]': {
           open: '<iframe width="640" height="360" src="',
           close: '" frameborder="0" allowfullscreen></iframe>'
+        },
+        '[:uber:]': {
+          open: '<a href="$val">',
+          close: '</a>'
         }
       }
       return text.replace(/[<>]/g, escape)
@@ -172,7 +176,7 @@
           tag.action(content);
         }
 
-        var processed = tag.close ? tag.open + content + tag.close : tag.open + content;
+        var processed = tag.close ? foundTag === '[:uber:]' ? tag.open + 'Get a Ride' + tag.close : tag.open + content + tag.close : tag.open + content;
 
         return processed.replace('$val', content);
       }
